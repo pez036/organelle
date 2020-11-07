@@ -5,7 +5,7 @@ import './App.css';
 //test method, delete this later
 const handleTest = () => {
   axios.get('http://localhost:5000/users')
-          .then(res => console.log(res.data.map(user => user.username)))
+          .then(res => console.log(res.data))
           .catch(err => console.log('Err'+err))
 }
 
