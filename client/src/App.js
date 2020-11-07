@@ -2,9 +2,10 @@ import logo from './party_parrot.gif';
 import axios from 'axios';
 import './App.css';
 
+const usersRoute = process.env.NODE_ENV === "production"?'http://localhost:8080/users':'http://localhost:5000/users';
 //test method, delete this later
 const handleTest = () => {
-  axios.get('http://localhost:5000/users')
+  axios.get(usersRoute)
           .then(res => console.log(res.data))
           .catch(err => console.log('Err'+err))
 }
