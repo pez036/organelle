@@ -19,8 +19,14 @@ export default function Register() {
 
     try {
       const newUser = { email, password, passwordCheck, displayName };
-      await Axios.post("http://localhost:8080/users/register", newUser);
-      const loginRes = await Axios.post("http://localhost:8080/users/login", {
+      const registerURL = process.env.NODE_ENV === "production"?
+        "http://organelle.pzny.xyz/users/register":
+        "http://localhost:8080/users/register";
+      const loginURL = process.env.NODE_ENV === "production"?
+        "http://organelle.pzny.xyz/users/login":
+        "http://localhost:8080/users/login";
+      await Axios.post(registerURL, newUser);
+      const loginRes = await Axios.post(loginURL, {
         email,
         password,
       });
