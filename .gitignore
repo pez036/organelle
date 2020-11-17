@@ -4,3 +4,4 @@
 .env
 /server/.env
 .DS_Store
+/.vscode
