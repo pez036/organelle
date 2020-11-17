@@ -10,13 +10,15 @@ app.use(cors());
 app.use(express.json());
 
 const uri = process.env.ORGANELLE_URI;
-mongoose.connect(uri, {useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true});
-const connection = mongoose.connection;
-connection.once('open', () => {
-    console.log('db connected');
-})
+mongoose.connect(uri, {useNewUrlParser: true,
+    useCreateIndex: true, useUnifiedTopology: true},
+    (err) => {
+        if (err) throw err;
+        console.log('db connected');
+    }
+);
 
-const usersRouter = require('./routes/users');
+const usersRouter = require('./routes/usersRouter');
 
 app.use('/users', usersRouter);
 
