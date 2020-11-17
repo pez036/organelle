@@ -20,7 +20,6 @@ export default function Login() {
         "http://organelle.pzny.xyz/users/login":
         "http://localhost:8080/users/login";
       const loginRes = await Axios.post(loginURL, loginUser);
-      console.log(process.env.NODE_ENV);
       setUserData({
         token: loginRes.data.token,
         user: loginRes.data.user,
