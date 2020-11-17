@@ -1,0 +1,1 @@
+There's a error whenever you click on the buttons in the nav bar, you can find it in the brower console. Not sure what causes it, but the app works fine.
