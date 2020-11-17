@@ -25,11 +25,11 @@ export default function App() {
         token = "";
       }
 
-      const tokenRes = await Axios.post(
-        "http://localhost:8080/users/tokenIsValid",
-        null,
-        {header: {"x-auth-token": token}}
-      );
+      const tivURL = process.env.NODE_ENV === "production" ?
+        "http://organelle.pzny.xyz/users/tokenIsValid":
+        "http://localhost:8080/users/tokenIsValid";
+
+      const tokenRes = await Axios.post(tivURL, null, {header: {"x-auth-token": token}});
 
       if (tokenRes.data) {
         const userRes = await Axios.get("http://localhost:8080/users",
