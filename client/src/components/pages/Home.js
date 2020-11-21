@@ -8,7 +8,7 @@ return (
         <Welcome />
         <section class="features">
 
-                <h2 class="secondary-header">Feature #1</h2>
+                <h2>Feature #1</h2>
                 <div class="f1grid">
                     <img height="280" width="300" src={img} alt="feature 1"/>
                     <p>Itaque est enim. Qui quia asperiores expedita consequatur. Fugit officiis culpa rerum nihil ea. Repellat nihil sequi perferendis impedit accusamus aperiam et labore. Sequi fugit dolores provident sed voluptas voluptas quas ex illo.
