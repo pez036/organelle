@@ -48,8 +48,8 @@ export default function App() {
     <>
       <BrowserRouter>
         <UserContext.Provider value={{userData, setUserData}}>
-          <Header />
-          <div className="container">
+          {/* <Header /> */}
+          {/* <div className="container"> */}
             <Switch>
               <Route exact path='/' component={Home} />
               <Route path='/login' component={Login} />
@@ -57,7 +57,7 @@ export default function App() {
               <Route path='/todo' component={Todo} />
               <Route path='/calendar' component={Calendar} />
             </Switch>
-          </div>
+          {/* </div> */}
         </ UserContext.Provider>
       </BrowserRouter>
     </>

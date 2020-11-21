@@ -1,0 +1,81 @@
+@font-face {
+    font-family: "Tex";
+    src: url(../../fonts/Texturina/static/Texturina-Thin-opsz=48.ttf);
+}
+@font-face {
+    font-family: "Arc";
+    src: url(../../fonts/Architects_Daughter/ArchitectsDaughter-Regular.ttf);
+}
+@font-face {
+    font-family: "Barlow";
+    src: url(../../fonts/Barlow_Semi_Condensed/BarlowSemiCondensed-SemiBoldItalic.ttf);
+}
+@font-face {
+    font-family: "SSP";
+    src: url(../../fonts/Source_Sans_Pro/SourceSansPro-SemiBoldItalic.ttf);
+}
+.auth-options{
+    padding: 3% 0;
+}
+.auth-options button {
+    padding: 0 1rem;
+    background-color: #ffffff;
+    color: #000000;
+    font-size: 1.1rem;
+    margin: 0px 3px;
+}
+.auth-options button:hover {
+    background-color: black;
+    color: white;
+}
+
+footer{
+    min-height: 3 vh;
+    text-align: right;
+    padding: 10px 20px 10px;
+}
+.fullscreen {
+    width: 100vw;
+    min-height: 100vh;
+    margin-top: 0;
+    /* background-color: antiquewhite; */
+    background: url("../../images/bg2.svg");
+    background-size: cover;
+    padding: 5% 7%;
+
+}
+h1 {
+    color:white;
+    font-family: Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-size: 650%;
+    margin: 0 0 30px 0;
+}
+h3 {
+    color:white;
+    font-family: Tex;
+}
+
+svg { position:fixed; top:0; left:0; height:100%; width:100% }
+
+.story{
+    background-color: black;
+    color: white;
+    padding: 2% 10% 3%;
+}
+.story h2{
+    text-align: center;
+}
+.features{
+    padding: 5%;
+}
+.f1grid{
+    margin-bottom: 30px;
+}
+.f1grid, .f2grid{
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+
+}
+p{
+    line-height: 2;
+}
