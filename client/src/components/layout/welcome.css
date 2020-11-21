@@ -18,10 +18,12 @@
     padding: 3% 0;
 }
 .auth-options button {
+    height: 30px;
     padding: 0 1rem;
     background-color: #ffffff;
     color: #000000;
     font-size: 1.1rem;
+
     margin: 0px 3px;
 }
 .auth-options button:hover {
@@ -66,7 +68,7 @@ svg { position:fixed; top:0; left:0; height:100%; width:100% }
     text-align: center;
 }
 .features{
-    padding: 5%;
+    padding: 0 5% 5% 5%;
 }
 .f1grid{
     margin-bottom: 30px;
