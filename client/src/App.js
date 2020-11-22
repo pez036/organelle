@@ -7,6 +7,7 @@ import Calendar from "./components/pages/Calendar";
 import Login from "./components/auth/Login";
 import Register from "./components/auth/Register";
 import UserContext from  "./context/UserContext";
+import PrivateRoute from "./auth/PrivateRoute";
 import Axios from "axios";
 import "./style.css";
 
@@ -54,8 +55,8 @@ export default function App() {
               <Route exact path='/' component={Home} />
               <Route path='/login' component={Login} />
               <Route path='/register' component={Register} />
-              <Route path='/todo' component={Todo} />
-              <Route path='/calendar' component={Calendar} />
+              <PrivateRoute path='/todo' component={Todo} />
+              <PrivateRoute path='/calendar' component={Calendar} />
             </Switch>
           </div>
         </ UserContext.Provider>

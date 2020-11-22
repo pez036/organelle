@@ -11,7 +11,7 @@ export default function AuthOptions() {
     return (
         <nav className="routes">
             {
-                !userData.user ? (history.push('/login')) : (
+                !userData.user ? (<></>) : (
                     <>
                         <button onClick={reidrectCalendar}> Calendar </button>
                         <button onClick={redirectTodo}> Todo </button>
