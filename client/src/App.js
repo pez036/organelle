@@ -8,7 +8,7 @@ import Login from "./components/auth/Login";
 import Register from "./components/auth/Register";
 import UserContext from  "./context/UserContext";
 import Axios from "axios";
-import "./style.css";
+// import "./style.css";
 
 export default function App() {
 

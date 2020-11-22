@@ -14,15 +14,29 @@
     font-family: "SSP";
     src: url(../../fonts/Source_Sans_Pro/SourceSansPro-SemiBoldItalic.ttf);
 }
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+ul,
+ol,
+li {
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+
 .auth-options{
     padding: 3% 0;
 }
 .auth-options button {
     height: 30px;
+    width: 80px;
     padding: 0 1rem;
     background-color: #ffffff;
     color: #000000;
-    font-size: 1.1rem;
+    font-size: 1.6rem;
 
     margin: 0px 3px;
 }
@@ -36,7 +50,7 @@ footer{
     text-align: right;
     padding: 10px 20px 10px;
 }
-.fullscreen {
+.welcome {
     width: 100vw;
     min-height: 100vh;
     margin-top: 0;

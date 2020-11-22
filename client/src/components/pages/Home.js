@@ -1,15 +1,16 @@
 import React from 'react';
 import Welcome from "../layout/Welcome";
 import img from "../../images/bg.png";
+import "./home.css";
 
 export default function Home() {
 return (
     <div>
         <Welcome />
-        <section class="features">
+        <section className="features">
 
                 <h2>Feature #1</h2>
-                <div class="f1grid">
+                <div className="f1grid">
                     <img height="280" width="300" src={img} alt="feature 1"/>
                     <p>Itaque est enim. Qui quia asperiores expedita consequatur. Fugit officiis culpa rerum nihil ea. Repellat nihil sequi perferendis impedit accusamus aperiam et labore. Sequi fugit dolores provident sed voluptas voluptas quas ex illo.
 
@@ -20,7 +21,7 @@ return (
                 </div>
                 <hr/>
                 <h2>Feature #2</h2>
-                <div class="f2grid">
+                <div className="f2grid">
                     <img height="270" width="300" src={img} alt="feature 2"/>
                     <p>Itaque est enim. Qui quia asperiores expedita consequatur. Fugit officiis culpa rerum nihil ea. Repellat nihil sequi perferendis impedit accusamus aperiam et labore. Sequi fugit dolores provident sed voluptas voluptas quas ex illo.
 
@@ -32,7 +33,7 @@ return (
 
 
         </section>
-        <section class="story">
+        <section className="story">
             <h2>Our Story</h2>
             <p>
                 Error consequatur omnis nulla dolorem odio facere molestias omnis qui. Voluptas et natus vitae totam quia nisi et eos quis. Est consequatur voluptate laudantium aut ut ipsum et. Culpa ullam totam aut voluptatum illo libero. Ab beatae laudantium. Velit doloremque qui.
@@ -42,7 +43,7 @@ Aut nihil voluptatibus eius ratione. Modi nulla non. Nihil ducimus in. Sed repel
 Ea ea nam nemo. Odio est nihil deserunt sit dolores eligendi itaque. Rerum consequuntur voluptas officiis. Ad iure eveniet inventore tempora.
             </p>
         </section>
-        <section class="experience">
+        <section className="experience">
 
         </section>
         <footer>
