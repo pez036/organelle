@@ -1,0 +1,63 @@
+/*@font-face {
+    font-family: "Tex";
+    src: url(../../fonts/Texturina/static/Texturina-Thin-opsz=48.ttf);
+}
+@font-face {
+    font-family: "Arc";
+    src: url(../../fonts/Architects_Daughter/ArchitectsDaughter-Regular.ttf);
+}
+@font-face {
+    font-family: "Barlow";
+    src: url(../../fonts/Barlow_Semi_Condensed/BarlowSemiCondensed-SemiBoldItalic.ttf);
+}
+@font-face {
+    font-family: "SSP";
+    src: url(../../fonts/Source_Sans_Pro/SourceSansPro-SemiBoldItalic.ttf);
+}
+
+.layout-header {
+	padding-top: 1em;
+	padding-bottom: 1em;
+	background-color: #fff;
+}
+
+.navbar-default {
+	background-color: #006a96;
+	border: none;
+	border-radius: 0;
+}
+.navbar-default .navbar-nav > li > a {
+    color: #fff;
+}
+.navbar-default .navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:focus {
+	background-color: #004663;
+	color: #fff;
+}
+.navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus {
+    background-color: #004663;
+    color: #fff;
+}
+.navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:focus, .navbar-default .navbar-nav > .open > a:hover {
+    color: #fff;
+    background-color: #004663;
+}
+.dropdown-menu {
+    background-color: #004663;
+}
+.dropdown-menu > li > a {
+    color: #fff;
+}
+.navbar-default .navbar-toggle {
+    border-color: #fff;
+}
+.navbar-default .navbar-toggle .icon-bar {
+    background-color: #fff;
+}
+.navbar-default .navbar-toggle:hover, .navbar-default .navbar-toggle:focus {
+	background-color: #004663;
+}*/
+
+.top-right {
+  margin-top: 3.7em;
+  padding-left: 11em;
+}
