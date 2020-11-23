@@ -1,5 +1,6 @@
 //import Axios from 'axios';
 import React, {Component} from 'react';
+import Button from 'react-bootstrap/Button';
 import BootstrapSwitchButton from 'bootstrap-switch-button-react'
 import NaviBar from '../layout/NaviBar';
 import "./Profile.css"
@@ -34,7 +35,7 @@ class Profile extends Component{
                             this.setState({email: e.target.value})}}
                         />
                         <br/>
-                        <button className="btn btn-light">change</button>
+                        <Button viriant="light">change</Button>
                         <p>Notification Setting: {notificationSetting} </p>
                         <BootstrapSwitchButton
                             checked={notificationSetting}
