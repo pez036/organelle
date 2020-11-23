@@ -21,3 +21,8 @@
   text-align: left;
   font-size: 14px;
 }
+
+.logout-button {
+  text-align: center;
+  padding-top: 370%;
+}
