@@ -29,7 +29,7 @@ class Profile extends Component{
                 <div className = "profile-form">
                     <h4 className = "profile-title">Profile and Settings</h4>
                     <div className="profile-body">
-                        <p>your email: {email}</p>
+                        <p>Welcome, {email}</p>
                         <p>Change your email</p>
                         <input type="email" onChange={(e)=>{
                             this.setState({email: e.target.value})}}
