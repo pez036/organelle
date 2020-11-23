@@ -7,7 +7,6 @@ import Row from 'react-bootstrap/Row';
 import "../../layout/todoList.css";
 import Button from "react-bootstrap/Button";
 import Badge from "react-bootstrap/Badge";
-import 'bootstrap/dist/css/bootstrap.min.css';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import Dropdown from 'react-bootstrap/Dropdown';

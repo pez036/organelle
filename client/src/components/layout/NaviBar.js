@@ -4,7 +4,8 @@ import {useHistory} from 'react-router-dom';
 import {useContext} from 'react';
 import UserContext from "../../context/UserContext";
 import Button from 'react-bootstrap/Button';
-import 'bootstrap/dist/css/bootstrap.min.css';
+// import 'bootstrap/dist/css/bootstrap.min.css';
+
 
 export default function NaviBar() {
     const {userData, setUserData} = useContext(UserContext);
@@ -19,6 +20,7 @@ export default function NaviBar() {
     };
 return (
     <div className = "navibar-default">
+
         <ul>
         <li><a href="/calendar" className ="navibar-side">Calendar</a></li>
         <li><a href="/todo" className ="navibar-side">Todo</a></li>

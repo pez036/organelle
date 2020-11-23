@@ -14,17 +14,17 @@
     font-family: "SSP";
     src: url(../../fonts/Source_Sans_Pro/SourceSansPro-SemiBoldItalic.ttf);
 }
-h2,
-h3,
-h4,
-h5,
-h6,
-p,
-ul,
-ol,
-li {
-  margin-top: 1em;
-  margin-bottom: 1em;
+
+.features{
+    margin-top: 50px;
+}
+.homePage h3{
+    font-size: 250%;
+
+}
+.homePage h2, .homePage h3{
+    margin-top: 1em;
+    margin-bottom: 1em;
 }
 
 .auth-options{
@@ -45,7 +45,7 @@ li {
     color: white;
 }
 
-footer{
+.homePage footer{
     min-height: 3 vh;
     text-align: right;
     padding: 10px 20px 10px;
@@ -60,18 +60,18 @@ footer{
     padding: 8% 7%;
 
 }
-h1 {
+.welcome h1 {
     color:white;
     font-family: Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-    font-size: 650%;
+    font-size: 1000%;
     margin: 0 0 30px 0;
 }
-h3 {
+.welcome h3 {
     color:white;
     font-family: Tex;
 }
 
-svg { position:fixed; top:0; left:0; height:100%; width:100% }
+.welcome svg { position:fixed; top:0; left:0; height:100%; width:100% }
 
 .story{
     background-color: black;
@@ -92,6 +92,6 @@ svg { position:fixed; top:0; left:0; height:100%; width:100% }
     grid-template-columns: 1fr 2fr;
 
 }
-p{
+.homePage p{
     line-height: 2;
 }

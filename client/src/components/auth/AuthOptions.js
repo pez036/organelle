@@ -21,7 +21,7 @@ export default function AuthOptions() {
                 userData.user ? (<button onClick={redirectLogout}> Log out</button>) : (
                     <>
                         <button className="btn" onClick={redirectRegister}> Register </button>
-                        <button className="btn" onClick={redirectLogin}> LogIn </button>
+                        <button className="btn" onClick={redirectLogin}> Log In </button>
                     </>
                 )
             }

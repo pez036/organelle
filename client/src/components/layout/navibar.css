@@ -24,5 +24,12 @@
 
 .logout-button {
   text-align: center;
-  padding-top: 370%;
+  /* padding-top: 370%; */
+  position: fixed;
+  bottom: 0;
+  width: 10%;
+
+}
+.logout-button Button{
+  width: 100%;
 }

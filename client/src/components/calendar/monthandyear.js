@@ -12,7 +12,6 @@ import Button from 'react-bootstrap/Button';
 import '../calendar/cssFiles/monthandyear.css';
 import Popover from 'react-bootstrap/Popover';
 import ButtonToolbar from 'react-bootstrap/ButtonToolbar';
-import 'bootstrap/dist/css/bootstrap.min.css';
 
 import moment from 'moment';
 import days from '../calendar/days';

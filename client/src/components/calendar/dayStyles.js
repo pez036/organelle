@@ -1,6 +1,5 @@
 import React from 'react';
 import moment from 'moment';
-import 'bootstrap/dist/css/bootstrap.min.css';
 
 function isSelected(day,value){
   return value.isSame(day,"day");

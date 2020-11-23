@@ -9,8 +9,8 @@ export default function Header() {
       <Link to="/">
         <h1 className="title">Organelle</h1>
       </Link>
-      <Routes />
-      <AuthOptions />
+      {/* <Routes />
+      <AuthOptions /> */}
     </header>
   );
 }

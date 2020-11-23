@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import MonthandYear from '../calendar/monthandyear';
 import NavBar from '../layout/NaviBar';
 import "../layout/calendar.css";
-import 'bootstrap/dist/css/bootstrap.min.css';
 import moment from 'moment';
 import Button from 'react-bootstrap/Button';
 import days from '../calendar/days';

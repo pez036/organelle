@@ -5,7 +5,7 @@ import "./home.css";
 
 export default function Home() {
 return (
-    <div>
+    <div className="homePage">
         <Welcome />
         <section className="features">
 

@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import Header from './components/layout/Header';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import Home from "./components/pages/Home";
 import Todo from "./components/pages/Todo";
 import Calendar from "./components/pages/Calendar";
