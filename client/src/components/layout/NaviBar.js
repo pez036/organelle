@@ -7,10 +7,10 @@ export default function NaviBar() {
 return (
     <div className = "navibar-default">
         <ul>
-        <a href="#" className ="navibar-side">Home</a>
-        <a href="#" className ="navibar-side">Todo</a>
-        <a href="#" className ="navibar-side">Canvas</a>
-        <a href="#" className ="navibar-side">Settings</a>
+        <li><a href="/calendar" className ="navibar-side">Calendar</a></li>
+        <li><a href="/todo" className ="navibar-side">Todo</a></li>
+        <li><a href="https://canvas.ucsd.edu" className ="navibar-side">Canvas</a></li>
+        <li><a href="/profile" className ="navibar-side">Profile</a></li>
         </ul>
     </div>
 );
