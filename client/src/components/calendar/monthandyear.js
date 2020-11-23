@@ -8,12 +8,11 @@ import React, { useState, useEffect } from 'react';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import ButtonToolbar from 'react-bootstrap/ButtonToolbar';
-import { Button, Modal } from 'react-bootstrap';
-
+import Button from 'react-bootstrap/Button';
 import '../calendar/cssFiles/monthandyear.css';
-
-
+import Popover from 'react-bootstrap/Popover';
+import ButtonToolbar from 'react-bootstrap/ButtonToolbar';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 import moment from 'moment';
 import days from '../calendar/days';
@@ -23,17 +22,6 @@ export default function MonthandYear() {
 
 /*needs to be fixed - might take up a lot of data*/
 const [myValue, setmyValue] = useState(moment());
-
-const [show, setShow] = useState(false);
-const handleClose = () => setShow(false);
-const handleShow = () => setShow(true);
-
-const [myShow, setmyShow] = useState(false);
-const handlemyClose = () => setmyShow(false);
-const handlemyShow = () => setmyShow(true);
-
-
-const onChangeHandler = (event) => {console.log(event.target.files[0]);}
 
 useEffect(() => {
   days(myValue);
@@ -47,13 +35,9 @@ function currYear(){
   return myValue.format("YYYY");
 }
 
-
 return (
 
     <div>
-
-
-
       <Container>
       <Row>
       <Col xl={2}>
@@ -65,79 +49,19 @@ return (
         <Col xl={5}>
         <h1 class="text-dark" align ="center">
         <div>
-        {currMonthName()}     {currYear()}</div>
+        {currMonthName()} </div>
+        <div>   </div>
+        <div> {currYear()}</div>
         </h1>
         </Col>
         <Col xl={5}>
           <ButtonToolbar>
-          <Button variant="dark" size="lg" onClick={handleShow}>Export Calendar File</Button>
-          <Button variant="dark" size="lg" onClick={handlemyShow}>
-              Import Calendar File
-          </Button>
-          <div>
-            <Modal
-                 show={myShow}
-                 onHide={handlemyClose}
-                 backdrop="static"
-                 keyboard={false}
-                 animation={false}
-                 >
-
-            <Modal.Header closeButton>
-                <Modal.Title>
-                  Import Calendar
-                  </Modal.Title>
-                  </Modal.Header>
-                  <Modal.Body>
-              Import your calendar to your documents folder.
-            </Modal.Body>
-            <Modal.Footer>
-              <Button variant="secondary" onClick={handlemyClose} size="lg">
-                Cancel
-              </Button>
-              <Button variant="primary" size="md">
-                  <input type="file" name ="file" onChange={onChangeHandler}/>
-              </Button>
-            </Modal.Footer>
-          </Modal>
-
-          </div>
-
-          <div>
-          <Modal
-                 show={show}
-                 onHide={handleClose}
-                 backdrop="static"
-                 keyboard={false}
-                 animation={false}
-          >
-
-          <Modal.Header closeButton>
-              <Modal.Title>
-              Export Calendar
-              </Modal.Title>
-          </Modal.Header>
-            <Modal.Body>
-              Save your calendar to your documents folder.
-            </Modal.Body>
-            <Modal.Footer>
-              <Button variant="secondary" onClick={handleClose}>
-                Cancel
-              </Button>
-              <Button variant="primary">
-                Export
-              </Button>
-            </Modal.Footer>
-          </Modal>
-          </div>
+          <Button variant="dark" size="lg">Export Calendar File</Button>
+          <Button variant="dark" size="lg">Import Calendar File</Button>
           </ButtonToolbar>
-
         </Col>
       </Row>
       </Container>
-
-
-
     </div>
 );
 

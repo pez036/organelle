@@ -91,7 +91,7 @@
 }
 
 .calendar .day div.selected {
-  background-color: #1E1E1E;
+  background-color: black;
   color: var(--white);
   font-weight: bold;
   width: 100%;
