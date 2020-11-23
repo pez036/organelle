@@ -7,7 +7,7 @@ import moment from 'moment';
 import Button from 'react-bootstrap/Button';
 import days from '../calendar/days';
 import dayStyles from '../calendar/dayStyles';
-import EventCalendar from '../pages/EventCalendar';
+import EventCalendar from './EventCalendar';
 
 
 export default function Calendar() {
