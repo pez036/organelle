@@ -103,4 +103,5 @@ p{
     font-weight: 345;
     width: 60%;
     height:100%;
+    min-width: 850px;
 }
