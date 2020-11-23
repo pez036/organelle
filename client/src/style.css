@@ -26,7 +26,7 @@ input[type="submit"] {
   cursor: pointer;
 }
 
-h1,
+/* h1, */
 h2,
 h3,
 h4,
@@ -39,6 +39,7 @@ li {
   margin-top: 1em;
   margin-bottom: 1em;
 }
+
 
 /* general */
 

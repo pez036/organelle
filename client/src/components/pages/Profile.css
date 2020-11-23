@@ -1,0 +1,30 @@
+.profile-form{
+    font-size: 1.6rem;
+    padding-top: 37px;
+}
+.profile-title{
+    padding-top: 10px;
+    background-color: #323230;
+    color: #FFFFFF;
+    border-width: 0px;
+    padding: 20px;
+    margin: 0px;
+    text-align: left;
+    font-size:16pt;
+    font-weight: 345;
+    width: 60%;
+}
+
+.profile-body{
+    padding-top: 10px;
+    background-color: #666464;
+    color: #FFFFFF;
+    border-width: 0px;
+    padding: 20px;
+    margin: 0px;
+    text-align: left;
+    font-size:12pt;
+    font-weight: 345;
+    width: 60%;
+    height:100%;
+}

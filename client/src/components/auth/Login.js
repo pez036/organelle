@@ -3,6 +3,8 @@ import { useHistory } from "react-router-dom";
 import UserContext from "../../context/UserContext";
 import Axios from "axios";
 import ErrorNotice from "../misc/ErrorNotice";
+import Welcome from "../layout/Welcome";
+import "./auth.css";
 
 export default function Login() {
   const [email, setEmail] = useState();
@@ -11,6 +13,8 @@ export default function Login() {
 
   const { setUserData } = useContext(UserContext);
   const history = useHistory();
+
+  const redirectBack = () => history.push('/');
 
   const submit = async (e) => {
     e.preventDefault();
@@ -31,28 +35,33 @@ export default function Login() {
     }
   };
   return (
-    <div className="page">
-      <h2>Log in</h2>
-      {error && (
-        <ErrorNotice message={error} clearError={() => setError(undefined)} />
-      )}
-      <form className="form" onSubmit={submit}>
-        <label htmlFor="login-email">Email</label>
-        <input
-          id="login-email"
-          type="email"
-          onChange={(e) => setEmail(e.target.value)}
-        />
+    <div className="login-page">
+      <Welcome />
+      <div className="login-bar">
+        <h2>Log in</h2>
+        {error && (
+          <ErrorNotice message={error} clearError={() => setError(undefined)} />
+        )}
+        <form className="form" onSubmit={submit}>
+          <label htmlFor="login-email">Email</label>
+          <input
+            id="login-email"
+            type="email"
+            onChange={(e) => setEmail(e.target.value)}
+          />
 
-        <label htmlFor="login-password">Password</label>
-        <input
-          id="login-password"
-          type="password"
-          onChange={(e) => setPassword(e.target.value)}
-        />
+          <label htmlFor="login-password">Password</label>
+          <input
+            id="login-password"
+            type="password"
+            onChange={(e) => setPassword(e.target.value)}
+          />
 
-        <input type="submit" value="Log in" />
-      </form>
+          <input type="submit" value="Log in" />
+          <button onClick={redirectBack}>Go Back</button>
+
+        </form>
+      </div>
     </div>
   );
 }

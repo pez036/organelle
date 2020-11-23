@@ -4,12 +4,13 @@ import Header from './components/layout/Header';
 import Home from "./components/pages/Home";
 import Todo from "./components/pages/Todo";
 import Calendar from "./components/pages/Calendar";
+import Profile from "./components/pages/Profile";
 import Login from "./components/auth/Login";
 import Register from "./components/auth/Register";
 import UserContext from  "./context/UserContext";
 import PrivateRoute from "./auth/PrivateRoute";
 import Axios from "axios";
-import "./style.css";
+// import "./style.css";
 
 export default function App() {
 
@@ -49,16 +50,18 @@ export default function App() {
     <>
       <BrowserRouter>
         <UserContext.Provider value={{userData, setUserData}}>
-          <Header />
-          <div className="container">
+          {/* <Header /> */}
+          {/* <div className="container"> */}
             <Switch>
               <Route exact path='/' component={Home} />
               <Route path='/login' component={Login} />
               <Route path='/register' component={Register} />
-              <PrivateRoute path='/todo' component={Todo} />
-              <PrivateRoute path='/calendar' component={Calendar} />
+              {/* below should be privateroute*/}
+              <Route path='/todo' component={Todo} />
+              <Route path='/calendar' component={Calendar} />
+              <Route path='/profile' component={Profile} />
             </Switch>
-          </div>
+          {/* </div> */}
         </ UserContext.Provider>
       </BrowserRouter>
     </>
