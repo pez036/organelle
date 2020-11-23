@@ -57,7 +57,50 @@
 	background-color: #004663;
 }*/
 
-.top-right {
-  margin-top: 3.7em;
-  padding-left: 11em;
+.top-left {
+    padding-left: 10%;
+    padding-top: 37px;
+  }
+
+.event{
+    margin-left: 500px;
+    padding-left: 300px;
+}
+
+.listgroupEvent {
+    min-width: 800px;
+    width: 60%;
+    line-height: 2.5rem;
+    height: 40px;
+    font-size: 16px;
+}
+p{
+    font-size:12px;
+}
+
+.EventListHeader{
+    padding-top: 10px;
+    background-color: #323230;
+    color: #FFFFFF;
+    border-width: 0px;
+    padding: 20px;
+    margin: 0px;
+    text-align: left;
+    font-size:16pt;
+    font-weight: 345;
+    width: 60%;
+}
+
+.EventList{
+    padding-top: 10px;
+    background-color: #565656;
+    color: #FFFFFF;
+    border-width: 0px;
+    padding: 20px;
+    margin: 0px;
+    text-align: left;
+    font-size:12pt;
+    font-weight: 345;
+    width: 60%;
+    height:100%;
 }
