@@ -1,4 +1,3 @@
-import { Link } from "react-router-dom";
 import "./navibar.css";
 import {useHistory} from 'react-router-dom';
 import {useContext} from 'react';
@@ -8,7 +7,7 @@ import Button from 'react-bootstrap/Button';
 
 
 export default function NaviBar() {
-    const {userData, setUserData} = useContext(UserContext);
+    const {setUserData} = useContext(UserContext);
     const history = useHistory();
     const handelLogout = () => {
         setUserData({
@@ -18,18 +17,25 @@ export default function NaviBar() {
         localStorage.setItem('auth-token', "");
         history.push("/");
     };
-return (
-    <div className = "navibar-default">
-
-        <ul>
-        <li><a href="/calendar" className ="navibar-side">Calendar</a></li>
-        <li><a href="/todo" className ="navibar-side">Todo</a></li>
-        <li><a href="https://canvas.ucsd.edu" className ="navibar-side">Canvas</a></li>
-        <li><a href="/profile" className ="navibar-side">Profile</a></li>
-        </ul>
+  return (
+    <nav className = "navibar-default navbar-dark bg-dark">
+      <h3>Welcome <script type="text/javascript">
+        document.write(displayName)
+      </script>!</h3>
+      <ul className ="navbar-nav">
+        <li className ="nav-item navibar-side">
+          <a href="/calendar" className ="nav-link">Calendar</a>
+          <div class="dropdown-divider"></div>
+          <a href="/todo" className ="nav-link">Todo</a>
+          <div class="dropdown-divider"></div>
+          <a href="https://canvas.ucsd.edu" className ="nav-link">Canvas</a>
+          <div class="dropdown-divider"></div>
+          <a href="/profile" className ="nav-link">Profile</a>
+        </li>
         <div className="logout-button">
             <Button variant="outline-danger" onClick={handelLogout}>Logout</Button>
         </div>
-    </div>
-);
+      </ul>
+    </nav>
+  );
 }

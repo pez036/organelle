@@ -5,8 +5,24 @@ import Axios from "axios";
 import ErrorNotice from "../misc/ErrorNotice";
 import Welcome from "../layout/Welcome";
 import "./auth.css";
+import Modal from "react-bootstrap/Modal";
+import Form from "react-bootstrap/Form";
+import Button from "react-bootstrap/Button";
 
 export default function Login() {
+
+  const [show, setShow] = useState(false);
+  function handleClose() {
+      return setShow(false);
+  }
+  function handleShow() {
+      return setShow(true);
+  }
+  function newEventSubmit(){
+      /*Todo*/
+      return setShow(false);
+  }
+
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const [error, setError] = useState();
@@ -59,9 +75,29 @@ export default function Login() {
 
           <input type="submit" value="Log in" />
           <button onClick={redirectBack}>Go Back</button>
-
+          <button onClick={handleShow}>Reset Password</button>
         </form>
       </div>
+      <Modal show={show} onHide={handleClose} backdrop="static" keyboard={false} animation={false}>
+        <Modal.Header closeButton>
+          <Modal.Title>Forget Password?</Modal.Title>
+        </Modal.Header>
+
+        <Modal.Body>
+
+          <Form>
+            <Form.Group controlId="formGroupEmail">
+              <Form.Label>Email</Form.Label>
+              <Form.Control type="Email" placeholder="What is your Email?" />
+            </Form.Group>
+          </Form>
+
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="primary" onClick={newEventSubmit}>Send An Email</Button>
+          <Button variant="primary" onClick={handleClose}>Cancel</Button>
+        </Modal.Footer>
+      </Modal>
     </div>
   );
 }

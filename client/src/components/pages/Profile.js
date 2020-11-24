@@ -4,6 +4,9 @@ import Button from 'react-bootstrap/Button';
 import BootstrapSwitchButton from 'bootstrap-switch-button-react'
 import NaviBar from '../layout/NaviBar';
 import "./Profile.css"
+import Modal from "react-bootstrap/Modal";
+import Form from "react-bootstrap/Form";
+import Header from "../layout/Header";
 
 class Profile extends Component{
     constructor(props) {
@@ -12,7 +15,8 @@ class Profile extends Component{
         this.state = {
             email: "dummy@email.com",
             notificationSetting: false,
-            autoSyncSetting: false
+            autoSyncSetting: false,
+            inputpassword: ""
         }
 
         //Request and load user profile and settings from server into state for later display
@@ -24,43 +28,52 @@ class Profile extends Component{
         const { email, notificationSetting, autoSyncSetting } = this.state;
         return (
             <div>
-            <NaviBar />
-            <div className = "top-right">
-                <div className = "profile-form">
-                    <h4 className = "profile-title">Profile and Settings</h4>
-                    <div className="profile-body">
-                        <p>Welcome, {email}</p>
-                        <p>Change your email</p>
-                        <input type="email" onChange={(e)=>{
-                            this.setState({email: e.target.value})}}
-                        />
-                        <br/>
-                        <Button viriant="light">change</Button>
-                        <p>Notification Setting: {notificationSetting} </p>
-                        <BootstrapSwitchButton
-                            checked={notificationSetting}
-                            onlabel='on'
-                            onstyle='danger'
-                            offlabel='off'
-                            offstyle='success'
-                            onChange={(checked) => {
-                                this.setState({ notificationSetting: checked })
-                            }}
-                        />
-                        <p>AutoSync Setting: {autoSyncSetting} </p>
-                        <BootstrapSwitchButton
-                            checked={autoSyncSetting}
-                            onlabel='on'
-                            onstyle='danger'
-                            offlabel='off'
-                            offstyle='success'
-                            onChange={(checked) => {
-                                this.setState({ autoSyncSetting: checked })
-                            }}
-                        />
+                <Header/>
+                <div>
+                    <NaviBar />
+                    <div className = "top-right">
+                        <div className = "profile-form">
+                            <h4 className = "profile-title">Profile and Settings</h4>
+                            <div className="profile-body">
+                                <p>Welcome, {email}</p>
+                                <p>Change your email</p>
+                                <input type="email" onChange={(e)=>{
+                                    this.setState({email: e.target.value})}}
+                                />
+                                <br/>
+                                <Button viriant="light">change</Button>
+                                <p>Change your password</p>
+                                <input type="password" onChange={(e)=>{
+                                    this.setState({inputPassword: e.target.value})}}
+                                />
+                                <br/>
+                                <Button viriant="light">change</Button>
+                                <p>Notification Setting: {notificationSetting} </p>
+                                <BootstrapSwitchButton
+                                    checked={notificationSetting}
+                                    onlabel='on'
+                                    onstyle='danger'
+                                    offlabel='off'
+                                    offstyle='success'
+                                    onChange={(checked) => {
+                                        this.setState({ notificationSetting: checked })
+                                    }}
+                                />
+                                <p>AutoSync Setting: {autoSyncSetting} </p>
+                                <BootstrapSwitchButton
+                                    checked={autoSyncSetting}
+                                    onlabel='on'
+                                    onstyle='danger'
+                                    offlabel='off'
+                                    offstyle='success'
+                                    onChange={(checked) => {
+                                        this.setState({ autoSyncSetting: checked })
+                                    }}
+                                />
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
             </div>
             );
     }

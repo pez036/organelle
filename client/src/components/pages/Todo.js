@@ -1,3 +1,4 @@
+import Header from 'components/layout/Header';
 import React, { useState } from 'react';
 import NavBar from '../layout/NaviBar';
 import "../layout/todoList.css";
@@ -9,10 +10,13 @@ import TodoList from './TodoComponents/TodoList';*/
 
 export default function Todo() {
     return (
-    <div>
-      <NavBar/>
-      <div className = "top-left">
-        <EventList />
-      </div>
-    </div>);
+      <div>
+        <Header/>
+        <div>
+          <NavBar/>
+          <div className = "top-left">
+            <EventList />
+          </div>
+        </div>
+      </div>);
 }
