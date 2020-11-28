@@ -18,11 +18,11 @@
 .features{
     margin-top: 50px;
 }
-.homePage h3{
+.homePage h3, .welcome h3{
     font-size: 250%;
 
 }
-.homePage h2, .homePage h3{
+.homePage h2, .homePage h3, .welcome h2, .welcome h3{
     margin-top: 1em;
     margin-bottom: 1em;
 }

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import MonthandYear from '../calendar/monthandyear';
 import NavBar from '../layout/NaviBar';
 import "../layout/calendar.css";
@@ -8,13 +8,20 @@ import days from '../calendar/days';
 import dayStyles from '../calendar/dayStyles';
 //import EventCalendar from '../pages/EventCalendar';
 import Header from "../layout/Header";
+import AddEventModal from "../misc/AddEventModal";
 
 
 export default function Calendar() {
 
 const [calendar,setCalendar] = useState([]);
 const [value, setValue] = useState(moment());
+const [modalToggle, setModalToggle] = useState(false);
 
+const modalHandler = () => {
+  // e.preventDefault(); //i added this to prevent the default behavior
+  modalToggle ? setModalToggle(false) : setModalToggle(true);
+
+}
 
 useEffect(() => {
   setCalendar(days(value));
@@ -33,7 +40,7 @@ return (
   <div><Header/>
     <div>
         <NavBar/>
-
+        <AddEventModal action={modalHandler} show={modalToggle}/>
         <div className = "top-padding">
           <MonthandYear/>
         </div>
@@ -54,20 +61,20 @@ return (
             <div className = "day-names">
             {
               ["Sun","Mon", "Tue","Wed","Thu","Fri","Sat"].map((d) => (
-                <div className="week">
+                <div className="week" key={d}>
                 {d}
                 </div>
             ))}
             
             </div>
               {calendar.map((week) =>(
-                <div>
+                <div key={week}>
                   {week.map((day)=>(
-                      <div className="day"
+                      <div className="day" key={day}
                         onClick={()=>setValue(day)}>
 
                           <div className = "button-align">
-                            <Button variant="light" size="sm">+</Button>
+                            <Button onClick={modalHandler} variant="light" size="sm">+</Button>
                             </div>
 
                             <div className={dayStyles(day,value)}>
