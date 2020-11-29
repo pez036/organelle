@@ -73,7 +73,7 @@ return (
                       <div className="day" key={day}
                         onClick={()=>setValue(day)}>
 
-                          <div className = "button-align">
+                          <div className={`button-align ${dayStyles(day,value) === "before" ? 'before' : ''}`}>
                             <Button onClick={modalHandler} variant="light" size="sm">+</Button>
                             </div>
 
