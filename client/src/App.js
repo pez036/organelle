@@ -58,9 +58,9 @@ export default function App() {
               <Route path='/login' component={Login} />
               <Route path='/register' component={Register} />
               {/* below should be privateroute*/}
-              <Route path='/todo' component={Todo} />
-              <Route path='/calendar' component={Calendar} />
-              <Route path='/profile' component={Profile} />
+              <PrivateRoute path='/todo' component={Todo} />
+              <PrivateRoute path='/calendar' component={Calendar} />
+              <PrivateRoute path='/profile' component={Profile} />
             </Switch>
           {/* </div> */}
         </ UserContext.Provider>
