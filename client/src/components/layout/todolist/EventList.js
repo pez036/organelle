@@ -1,4 +1,4 @@
-import React,{useState} from 'react';
+import React,{useState, useEffect} from 'react';
 import reactBS from 'react-bootstrap';
 import ListGroup from 'react-bootstrap/ListGroup';
 import Tab from 'react-bootstrap/Tab';
@@ -16,6 +16,7 @@ import Form from "react-bootstrap/Form";
 import AddEventModal_Todo from "../../misc/AddEventModal_Todo";
 import AddCourseModal_Todo from "../../misc/AddCourseModal";
 import DropCourseModal_Todo from "../../misc/DropCourseModal";
+import Axios from "axios";
 export default function EventList(){
 
 
@@ -33,7 +34,39 @@ export default function EventList(){
     const DropCourseModalHandler = () => {
         DropCourseModal ? setDropCourseModal(false) : setDropCourseModal(true);
     }
+    const [userEvents,setUserEvents] = useState([]);
+    // const [eventRes, setEventRes] = useState([]);
 
+    useEffect(() => {
+      
+        const eventImports = async() => {
+          try{
+      
+            const eventURL = "http://localhost:8080/events/all";
+            let token = localStorage.getItem("auth-token");
+            let eventRes = await Axios.get(eventURL,{headers: {"x-auth-token": token}});
+            setUserEvents(eventRes.data);
+            console.log("EVENT");
+            console.log(eventRes.data);
+          /*
+            const eventRes = await Axios.post(eventURL,
+              {header: {
+                "x-auth-token": token
+              }}, {data: {eventTag}}
+            );
+      
+            console.log("This is event res:", eventRes);  */
+      
+          } catch (err){
+            console.log("This is event res ERR:");
+            console.log(err);
+          }
+      
+        }
+      
+        eventImports();
+      
+      }, [AddEventModal])
 
     return(
         <div>
@@ -65,9 +98,37 @@ export default function EventList(){
                 </Row>
                 </p>
 
-            <p className="EventList">
+
+                <ListGroup variant="flush">
+                {userEvents.map((event) => (
+                    
+                    <div>
+                        <br/>
+                        <p>{'>'} Deadline: {event.endTime.substring(0,10)} {event.endTime.substring(12,16)}</p>
+
+                            <ListGroup.Item variant="primary" className="listgroupEvent">
+                                <Row>
+                                    <Col xs={9} >{event.title} | {event.priority} </Col>
+                                    <Col xs={1}>
+                                        <ButtonGroup className="mb-2">
+                                            <Button>Edit</Button>
+                                            <Button>Delete</Button>
+                                            <DropdownButton as={ButtonGroup} title="Checkoff" id="anesteddropdown">
+                                                <Dropdown.Item eventKey="1">Checkoff</Dropdown.Item>
+                                                <Dropdown.Item eventKey="2">DeCheckoff</Dropdown.Item>
+                                            </DropdownButton>
+                                        </ButtonGroup>
+                                    </Col>
+                                </Row>
+                            </ListGroup.Item>
+                    </div>
+                    
+                ))}
+                </ListGroup>
+
+            {/* <p className="EventList">
                 <Event/>
-            </p>
+            </p> */}
 
         </div>
     )
