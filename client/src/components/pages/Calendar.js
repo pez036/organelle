@@ -9,6 +9,10 @@ import dayStyles from '../calendar/dayStyles';
 //import EventCalendar from '../pages/EventCalendar';
 import Header from "../layout/Header";
 import AddEventModal from "../misc/AddEventModal";
+import UserContext from "../../context/UserContext";
+import Axios from "axios";
+import ErrorNotice from "../misc/ErrorNotice";
+import { useHistory } from "react-router-dom";
 
 
 export default function Calendar() {
@@ -16,6 +20,7 @@ export default function Calendar() {
 const [calendar,setCalendar] = useState([]);
 const [value, setValue] = useState(moment());
 const [modalToggle, setModalToggle] = useState(false);
+const [userEvents,setUserEvents] = useState([]);
 
 const modalHandler = () => {
   // e.preventDefault(); //i added this to prevent the default behavior
@@ -23,8 +28,36 @@ const modalHandler = () => {
 
 }
 
+
+
 useEffect(() => {
   setCalendar(days(value));
+
+  const eventImports = async() => {
+    try{
+
+      const eventURL = "http://localhost:8080/events/all";
+      let token = localStorage.getItem("auth-token");
+      const eventRes = await Axios.get(eventURL,{headers: {"x-auth-token": token}});
+      setUserEvents(JSON.stringify(eventRes.data));
+    /*
+      const eventRes = await Axios.post(eventURL,
+        {header: {
+          "x-auth-token": token
+        }}, {data: {eventTag}}
+      );
+
+      console.log("This is event res:", eventRes);  */
+
+    } catch (err){
+      console.log("This is event res ERR:");
+      console.log(err);
+    }
+
+  }
+
+  eventImports();
+
 },[value])
 
 
@@ -65,8 +98,9 @@ return (
                 {d}
                 </div>
             ))}
-            
+
             </div>
+              {userEvents}
               {calendar.map((week) =>(
                 <div key={week}>
                   {week.map((day)=>(

@@ -24,6 +24,14 @@ const usersRouter = require('./routes/usersRouter');
 
 app.use('/users', usersRouter);
 
+const eventsRouter = require('./routes/eventRouter');
+
+app.use('/events', eventsRouter);
+
+const courseRouter = require('./routes/courseRouter');
+
+app.use('/courses', courseRouter);
+
 if (process.env.NODE_ENV === "production") {
 
     // Set static folder
