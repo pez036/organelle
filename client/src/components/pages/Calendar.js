@@ -40,8 +40,9 @@ useEffect(() => {
 
       const eventURL = "http://localhost:8080/events/all";
       let token = localStorage.getItem("auth-token");
-      const eventRes = await Axios.get(eventURL,{headers: {"x-auth-token": token}});
-      setUserEvents(JSON.stringify(eventRes.data));
+      let eventRes = await Axios.get(eventURL,{headers: {"x-auth-token": token}});
+      setUserEvents(eventRes.data);
+      // console.log(JSON.stringify(userEvents));
     /*
       const eventRes = await Axios.post(eventURL,
         {header: {
@@ -60,9 +61,23 @@ useEffect(() => {
 
   eventImports();
 
-},[value])
+},[value, modalToggle])
 
+let track = new Object();
+console.log(userEvents);
+userEvents.map((el) => {
+  if (!(moment(el.endTime).format("MM-DD-YYYY") in track)){
+    track[moment(el.endTime).format("MM-DD-YYYY")] = 1;
+    document.getElementById(`${moment(el.endTime).format("MM-DD-YYYY")}`).innerHTML = "";
+  }
 
+  let node = document.createElement("li"); 
+  // node.className = `text-leftPadding`;
+  node.innerHTML = el.title;
+  document.getElementById(`${moment(el.endTime).format("MM-DD-YYYY")}`).appendChild(node);
+  
+  
+})
 /*function currMonthName(){
   return value.format("MMM");
 }
@@ -102,23 +117,28 @@ return (
             ))}
 
             </div>
-              {userEvents}
               {calendar.map((week) =>(
                 <div key={week}>
                   {week.map((day)=>(
+
                       <div className="day" key={day}
                         onClick={()=>setValue(day)}>
 
                           <div className={`button-align ${dayStyles(day,value) === "before" ? 'before' : ''}`}>
                             <Button onClick={modalHandler} variant="light" size="sm">+</Button>
-                            </div>
+                          </div>
 
-                            <div className={dayStyles(day,value)}>
-                              <div className="text-leftPadding">
+                          <div className={`text-leftPadding`}>
                                 {day.format("D")}
-                              </div>
-                            </div>
-                        </div>
+                          </div>
+
+                              <ul className="cal-ud" id={day.format("MM-DD-YYYY")}>
+
+                              </ul>
+                          {/* <div  className={dayStyles(day,value)}>
+                          </div> */}
+
+                      </div>
                         ))}
                       </div>
                     ))}
@@ -126,6 +146,18 @@ return (
               </div>
             </div>
     </div>
+    {/* {userEvents.forEach(el => {
+      var node = document.createElement("div"); 
+      node.className = `text-leftPadding`;
+      node.innerHTML = el.title;
+      document.getElementById(`${moment(el.endTime).format("MM-DD-YYYY")}`).appendChild(node);
+    })} */}
+
+
+
+
+
     </div>
+
 );
 }
