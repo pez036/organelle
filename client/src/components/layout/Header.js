@@ -12,7 +12,6 @@ export default function Header() {
         <img src={logo} style={{width: 74, height: 74}} alt="Logo" />
         <img src={organelle} style={{height: 37}} alt="Logo" />
       </Link>
-      <Routes />
     </header>
   );
 }

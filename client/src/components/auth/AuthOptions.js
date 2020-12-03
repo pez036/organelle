@@ -15,10 +15,17 @@ export default function AuthOptions() {
         });
         localStorage.setItem('auth-token', "");
     };
+    const redirectCalendar = () => history.push('/calendar')
     return (
         <nav className='auth-options'>
             {
-                localStorage.getItem('auth-token') !== "" ? (<button onClick={redirectLogout}> Log out</button>) : (
+                localStorage.getItem('auth-token') !== "" ? 
+                (
+                    <>
+                    <button onClick={redirectLogout}>Logout</button>
+                    <button onClick={redirectCalendar}>Home</button>
+                    </>
+                ) : (
                     <>
                         <button className="btn" onClick={redirectRegister}> Register </button>
                         <button className="btn" onClick={redirectLogin}> Log In </button>
