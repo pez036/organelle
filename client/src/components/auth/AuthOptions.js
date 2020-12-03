@@ -18,7 +18,7 @@ export default function AuthOptions() {
     return (
         <nav className='auth-options'>
             {
-                userData.user ? (<button onClick={redirectLogout}> Log out</button>) : (
+                localStorage.getItem('auth-token') !== "" ? (<button onClick={redirectLogout}> Log out</button>) : (
                     <>
                         <button className="btn" onClick={redirectRegister}> Register </button>
                         <button className="btn" onClick={redirectLogin}> Log In </button>
