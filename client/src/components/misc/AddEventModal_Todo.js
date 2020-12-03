@@ -20,13 +20,14 @@ export default function AddEventModalTodo(props){
     const [endTime, setEventEndTime] = useState();
 
 
-    const [courseList, setCourseList] = useState("");
+    const [courseList, setCourseList] = useState([]);
     const [courseName, setCourseName] = useState("");
     const fakeCourse = ["CSE110","CSE101","CSE152","HUM3"];/*This is intended for tests. */
 
     const [showAddEvent, setShowAddEvent] = useState(props.show);
     useEffect(() => {
         setShowAddEvent(props.show);
+        getCourseList();
     })
     function handleClose() {
         props.action();
@@ -57,7 +58,18 @@ const newEventSubmit = async(e) => {
       return setShowAddEvent(false);
     }
 
-    
+    function getCourseList() {
+        let token = localStorage.getItem("auth-token");
+        Axios.get('http://localhost:8080/courses/all',{headers: {"x-auth-token": token}})/*NOTICE: this may not be correct.*/
+        .then(
+            (response) => {
+                console.log(response);
+                setCourseList(response.data);
+
+            }
+        )
+        .catch( (error) => {console.log(error); }) 
+      }
 
     return(
         <Modal show={showAddEvent} onHide={handleClose} backdrop="static" keyboard={false} animation={false}>
@@ -73,12 +85,12 @@ const newEventSubmit = async(e) => {
                 </Form.Group>
 
                 <Form.Group controlId="formGroupCourse">
-                    <Form.Label>Event Course</Form.Label>
-                    <Form.Control as="select" onChange={(e)=>setCourseName(e.target.value)}>
-                        <option>"Uncategorized"</option>
-                        {fakeCourse.map((courseName) =>
-                            <option key={courseName}>{courseName}</option>
-                        )}
+                    <Form.Label>Course</Form.Label>
+                    <Form.Control as="select" defaultValue="Choose..." onChange={(e)=>setCourseName(e.target.value)}>
+                        <option>Choose...</option>
+                        {courseList.map((data,key) =>
+                        <option key={key}>{data.courseName}</option>
+                    )}
                     </Form.Control>
                 </Form.Group>
 
@@ -105,7 +117,7 @@ const newEventSubmit = async(e) => {
                     <Form.Control as="select" onChange={(e)=>setEventPriority(e.target.value)} defaultValue="How important is this event?">
                         <option>How important is this event?</option>
                         <option value = "3">High</option>
-                        <option value = "2">Median</option>
+                        <option value = "2">Medium</option>
                         <option value = "1">Low</option>
                     </Form.Control>
                 </Form.Group>

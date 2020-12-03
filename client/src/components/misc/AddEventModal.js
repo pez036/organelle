@@ -27,18 +27,23 @@ export default function AddEventModal(props){
     const [courseID, setEventCourse] = useState("");
     const [user, setUser] = useState(null);
 
-    const [startTime, setEventStartTime] = useState();
-    const [endTime, setEventEndTime] = useState();
+    const [startTime, setEventStartTime] = useState(moment());
+    console.log("Event Start Time");
+    console.log(startTime.toString());
 
-    console.log("Re-render");
+    const [endTime, setEventEndTime] = useState(moment());
+    console.log("Event: End Time");
+    console.log(endTime.toString());
+
 
     useEffect(() => {
         setShowAddEvent(props.show);
-    },[props.show])
+        setEventStartTime(props.day.clone().startOf("day").toISOString());
+        setEventEndTime(props.day.clone().endOf("day").toISOString());
+    },[props.show,props.day])
 
 
     function handleAddEventClose() {
-        
         return props.action();
     }
 
@@ -50,7 +55,7 @@ export default function AddEventModal(props){
       try{
         title = document.getElementById("formGroupName").value;
         description = document.getElementById("formGroupDescription").value;
-        priority = document.getElementById("formGroupPriority").value === "High" ? 3 : document.getElementById("formGroupPriority").value === "Median" ? 2 : 1;
+        priority = document.getElementById("formGroupPriority").value === "High" ? 3 : document.getElementById("formGroupPriority").value === "Medium" ? 2 : 1;
         const eventTag = {title: title,
           type: type, startTime: startTime, endTime: endTime,
           priority:priority, description: description, courseID: courseID};
@@ -107,7 +112,7 @@ export default function AddEventModal(props){
                     <Form.Label>Priority</Form.Label>
                     <Form.Control as="select" defaultValue="How important is this event?">
                         <option>High</option>
-                        <option>Median</option>
+                        <option>Medium</option>
                         <option>Low</option>
                     </Form.Control>
                 </Form.Group>

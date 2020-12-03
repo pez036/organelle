@@ -20,16 +20,16 @@ export default function AddCourseModal(props){
         setShowAddCourse(props.show);
     })
     function handleClose() {
-        return props.action();
+        props.action();
+        return setShowAddCourse(false);
     }
-
     const newCourseSubmit = async(e) => {
 
         e.preventDefault();
   
         try{
 
-            const courseTag = {title: title, professor: professor};
+            const courseTag = {courseName: title, professor: professor};
             console.log(courseTag);
     
             const courseURL = "http://localhost:8080/courses/add";
@@ -43,7 +43,11 @@ export default function AddCourseModal(props){
             console.log(err);
           }
 
-        return props.action();
+
+
+
+        props.action();
+        return setShowAddCourse(false);
       }
 
     return(

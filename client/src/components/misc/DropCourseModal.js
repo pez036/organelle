@@ -11,8 +11,10 @@ import Axios from "axios";
 export default function DropCourseModal(props){
     
 
+    //getCourseList();
+    const [courseList, setCourseList] = useState([]);
+    //let courseList = getCourseList();
 
-    const [courseList, setCourseList] = useState("");
     const [courseName, setCourseName] = useState("");
     
     const fakeCourse = ["CSE110","CSE101","CSE152","HUM3"];/*This is intended for tests. */
@@ -20,6 +22,7 @@ export default function DropCourseModal(props){
     const [showDropCourse, setShowDropCourse] = useState(props.show);
     useEffect(() => {
         setShowDropCourse(props.show);
+        getCourseList();
     })
     function handleClose() {
         props.action();
@@ -35,10 +38,10 @@ export default function DropCourseModal(props){
             const courseTag = {courseName: courseName};
             console.log(courseTag);
     
-            const courseURL = "http://localhost:8080/courses/deleteName";
+            const courseURL = "http://localhost:8080/courses/" + courseName;
             let token = localStorage.getItem("auth-token");
     
-            const courseRes = await Axios.post(courseURL,courseTag,{headers: {"x-auth-token": token}});
+            const courseRes = await Axios.delete(courseURL,{headers: {"x-auth-token": token}});
             console.log("This is course res:", courseRes);
     
           } catch (err){
@@ -51,19 +54,22 @@ export default function DropCourseModal(props){
         return setShowDropCourse(false);
       }
 
-    function getCourseList() {
-        Axios.get('http://localhost:8080/courses/all')/*NOTICE: this may not be correct.*/
+      function getCourseList() {
+        let token = localStorage.getItem("auth-token");
+        Axios.get('http://localhost:8080/courses/all',{headers: {"x-auth-token": token}})/*NOTICE: this may not be correct.*/
         .then(
             (response) => {
                 console.log(response);
-                this.setState({courseList: response.data});/*How can I handle the return data as a courseList?*/
+                setCourseList(response.data);
+
             }
         )
         .catch( (error) => {console.log(error); }) 
-    }
+      }
 
 
     return(
+
         <Modal show={showDropCourse} onHide={handleClose} backdrop="static" keyboard={false} animation={false}>
             <Modal.Header closeButton>
                 <Modal.Title>Drop the Course</Modal.Title>
@@ -75,8 +81,8 @@ export default function DropCourseModal(props){
                     <Form.Label>Course</Form.Label>
                     <Form.Control as="select" defaultValue="Choose..." onChange={(e)=>setCourseName(e.target.value)}>
                         <option>Choose...</option>
-                        {fakeCourse.map((courseName) =>
-                        <option key={courseName}>{courseName}</option>
+                        {courseList.map((data,key) =>
+                        <option key={key}>{data.courseName}</option>
                     )}
                     </Form.Control>
                 </Form.Group>

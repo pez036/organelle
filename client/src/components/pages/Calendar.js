@@ -21,6 +21,7 @@ const [calendar,setCalendar] = useState([]);
 const [value, setValue] = useState(moment());
 const [modalToggle, setModalToggle] = useState(false);
 const [userEvents,setUserEvents] = useState([]);
+const [dayPasser, setDayPasser] = useState(moment());
 
 const modalHandler = () => {
   // e.preventDefault(); //i added this to prevent the default behavior
@@ -32,6 +33,7 @@ const modalHandler = () => {
 
 useEffect(() => {
   setCalendar(days(value));
+  setDayPasser(value);
 
   const eventImports = async() => {
     try{
@@ -73,7 +75,7 @@ return (
   <div><Header/>
     <div>
         <NavBar/>
-        <AddEventModal action={modalHandler} show={modalToggle}/>
+        <AddEventModal action={modalHandler} show={modalToggle} day={dayPasser}/>
         <div className = "top-padding">
           <MonthandYear/>
         </div>
