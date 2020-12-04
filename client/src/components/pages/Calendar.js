@@ -6,6 +6,7 @@ import moment from 'moment';
 import Button from 'react-bootstrap/Button';
 import days from '../calendar/days';
 import dayStyles from '../calendar/dayStyles';
+import DayEvents from '../misc/dayEvents';
 //import EventCalendar from '../pages/EventCalendar';
 import Header from "../layout/Header";
 import AddEventModal from "../misc/AddEventModal";
@@ -17,31 +18,42 @@ import { useHistory } from "react-router-dom";
 
 export default function Calendar() {
 
-const [calendar,setCalendar] = useState([]);
+
 const [value, setValue] = useState(moment());
+const [calendar,setCalendar] = useState(days(value));
 const [modalToggle, setModalToggle] = useState(false);
 const [userEvents,setUserEvents] = useState([]);
 const [dayPasser, setDayPasser] = useState(moment());
 
-const modalHandler = () => {
+const modalHandler = (day) => {
   // e.preventDefault(); //i added this to prevent the default behavior
+  setDayPasser(day);
   modalToggle ? setModalToggle(false) : setModalToggle(true);
 
 }
 
+const prevMonth = () => {
+  setValue(value.subtract(1,"month"));
+  setCalendar(days(value));
+  return value;
 
+}
+
+const nextMonth = () => {
+  setValue(value.add(1,"month"));
+  setCalendar(days(value));
+  return value;
+}
 
 useEffect(() => {
-  setCalendar(days(value));
-  setDayPasser(value);
-
   const eventImports = async() => {
     try{
 
       const eventURL = "http://localhost:8080/events/all";
       let token = localStorage.getItem("auth-token");
-      const eventRes = await Axios.get(eventURL,{headers: {"x-auth-token": token}});
-      setUserEvents(JSON.stringify(eventRes.data));
+      let eventRes = await Axios.get(eventURL,{headers: {"x-auth-token": token}});
+      setUserEvents(eventRes.data);
+      // console.log(JSON.stringify(userEvents));
     /*
       const eventRes = await Axios.post(eventURL,
         {header: {
@@ -60,7 +72,7 @@ useEffect(() => {
 
   eventImports();
 
-},[value])
+},[calendar,value,modalToggle])
 
 
 /*function currMonthName(){
@@ -77,7 +89,7 @@ return (
         <NavBar/>
         <AddEventModal action={modalHandler} show={modalToggle} day={dayPasser}/>
         <div className = "top-padding">
-          <MonthandYear/>
+          <MonthandYear value={value} nextMonth={nextMonth} prevMonth={prevMonth}/>
         </div>
 
         <div className = "top-right">
@@ -102,23 +114,25 @@ return (
             ))}
 
             </div>
-              {userEvents}
               {calendar.map((week) =>(
                 <div key={week}>
                   {week.map((day)=>(
-                      <div className="day" key={day}
-                        onClick={()=>setValue(day)}>
 
+                      <div className="day" key={day}>
                           <div className={`button-align ${dayStyles(day,value) === "before" ? 'before' : ''}`}>
-                            <Button onClick={modalHandler} variant="light" size="sm">+</Button>
-                            </div>
+                            <Button onClick={()=>modalHandler(day)} variant="light" size="sm">+</Button>
+                          </div>
 
-                            <div className={dayStyles(day,value)}>
-                              <div className="text-leftPadding">
+                          <div className={`text-leftPadding`}>
                                 {day.format("D")}
-                              </div>
-                            </div>
-                        </div>
+                                <div>
+                                  <DayEvents thisDay={day} render={modalToggle}/>
+                                </div>
+                          </div>
+                          {/* <div  className={dayStyles(day,value)}>
+                          </div> */}
+
+                      </div>
                         ))}
                       </div>
                     ))}
@@ -126,6 +140,18 @@ return (
               </div>
             </div>
     </div>
+    {/* {userEvents.forEach(el => {
+      var node = document.createElement("div");
+      node.className = `text-leftPadding`;
+      node.innerHTML = el.title;
+      document.getElementById(`${moment(el.endTime).format("MM-DD-YYYY")}`).appendChild(node);
+    })} */}
+
+
+
+
+
     </div>
+
 );
 }
