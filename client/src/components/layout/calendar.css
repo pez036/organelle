@@ -125,3 +125,8 @@
 .before Button{
   visibility: hidden;
 }
+
+.title-list{
+  display: inline-block;
+  font-size: 10px;
+}

@@ -26,7 +26,7 @@ router.post("/add",auth,async (req, res) => {
         //if (!userID) {
             //userID = null;
         //}
-        const newEvent = new Event({title, type, startTime, endTime, 
+        const newEvent = new Event({title, type, startTime, endTime,
             priority, description, courseName, userID});
         const savedEvent = await newEvent.save();
         res.json(savedEvent);
@@ -34,12 +34,26 @@ router.post("/add",auth,async (req, res) => {
     catch (err) {
         res.status(500).json({ error: err.message });
     }
-});
+})
 
 
-router.get("/all", auth,async (req, res) => {
+router.get("/all",auth,async (req, res) => {
     const event = await Event.find({userID: req.user});
     res.json(event);
+})
+
+router.get('/:startTime', auth, async(req, res) => {
+  try {
+    console.log(req.params.startTime);
+    const event = await Event.find({startTime: req.params.startTime, userID: req.user});
+    res.json(event);
+
+
+  }
+  catch (err) {
+      res.status(500).json({ error: err.message });
+  }
+
 })
 
 router.delete('/:id',  auth, async (req, res) => {

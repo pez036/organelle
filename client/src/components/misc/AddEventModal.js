@@ -38,8 +38,8 @@ export default function AddEventModal(props){
 
     useEffect(() => {
         setShowAddEvent(props.show);
-        setEventStartTime(props.day.clone().startOf("day").toISOString());
-        setEventEndTime(props.day.clone().endOf("day").toISOString());
+        setEventEndTime(moment(props.day).endOf("day").toISOString());
+        setEventStartTime(moment(props.day).startOf("day").toISOString());
     },[props.show,props.day])
 
 
@@ -63,7 +63,6 @@ export default function AddEventModal(props){
 
         const eventURL = "http://localhost:8080/events/add";
         let token = localStorage.getItem("auth-token");
-
         const eventRes = await Axios.post(eventURL,eventTag,{headers: {"x-auth-token": token}});
 /*
         const eventRes = await Axios.post(eventURL,

@@ -17,14 +17,10 @@ import moment from 'moment';
 import days from '../calendar/days';
 
 
-export default function MonthandYear() {
+export default function MonthandYear(props) {
 
 /*needs to be fixed - might take up a lot of data*/
-const [myValue, setmyValue] = useState(moment());
-
-useEffect(() => {
-  days(myValue);
-},[myValue])
+const [myValue, setMyValue] = useState(props.value);
 
 function currMonthName(){
   return myValue.format("MMMM");
@@ -34,6 +30,15 @@ function currYear(){
   return myValue.format("YYYY");
 }
 
+function prevMonth(){
+  return props.prevMonth();
+}
+
+function nextMonth(){
+  return props.nextMonth();
+}
+
+
 return (
 
     <div>
@@ -41,8 +46,8 @@ return (
       <Row>
       <Col xl={2}>
         <ButtonToolbar>
-        <Button variant="dark" size="lg">Previous</Button>
-        <Button variant="dark" size="lg">Next</Button>
+        <Button variant="dark" size="lg" onClick={()=>prevMonth()}>Previous</Button>
+        <Button variant="dark" size="lg" onClick={()=>nextMonth()}>Next</Button>
         </ButtonToolbar>
       </Col>
         <Col xl={5}>
