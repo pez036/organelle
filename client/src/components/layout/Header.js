@@ -1,6 +1,5 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import Routes from "../pages/Routes";
 import logo from "../../images/logo2.png";
 import organelle from "../../images/ORGANELLE.png";
 //import { Container } from "react-bootstrap";
