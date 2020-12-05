@@ -52,24 +52,26 @@ class Profile extends Component{
                                 <BootstrapSwitchButton
                                     checked={notificationSetting}
                                     onlabel='on'
-                                    onstyle='danger'
+                                    onstyle='success'
                                     offlabel='off'
-                                    offstyle='success'
+                                    offstyle='danger'
                                     onChange={(checked) => {
                                         this.setState({ notificationSetting: checked })
                                     }}
                                 />
-                                <p>AutoSync Setting: {autoSyncSetting} </p>
+                                <p>Canvas AutoSync Setting: {autoSyncSetting} </p>
                                 <BootstrapSwitchButton
                                     checked={autoSyncSetting}
                                     onlabel='on'
-                                    onstyle='danger'
+                                    onstyle='success'
                                     offlabel='off'
-                                    offstyle='success'
+                                    offstyle='danger'
                                     onChange={(checked) => {
                                         this.setState({ autoSyncSetting: checked })
                                     }}
                                 />
+                                <p>Get events from Canvas</p>
+                                <Button>Import</Button>
                             </div>
                         </div>
                     </div>
