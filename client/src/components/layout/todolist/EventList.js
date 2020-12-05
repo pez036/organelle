@@ -71,7 +71,7 @@ export default function EventList(){
     return(
         <div>
 
-                <p className="EventListHeader">
+                <div className="EventListHeader">
                 <AddEventModal_Todo action={AddEventModalHandler} show={AddEventModal}/>
                 <AddCourseModal_Todo action={AddCourseModalHandler} show={AddCourseModal}/>
                 <DropCourseModal_Todo action={DropCourseModalHandler} show={DropCourseModal}/>
@@ -96,7 +96,7 @@ export default function EventList(){
                     </Row>
 
                 </Row>
-                </p>
+                </div>
 
 
                 <ListGroup variant="flush">

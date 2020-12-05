@@ -1,5 +1,6 @@
 import "./navibar.css";
 import {useHistory} from 'react-router-dom';
+import { Link } from "react-router-dom";
 import {useContext} from 'react';
 import UserContext from "../../context/UserContext";
 import Button from 'react-bootstrap/Button';
@@ -18,10 +19,13 @@ export default function NaviBar() {
         history.push("/");
     };
   return (
-    <nav className = "navibar-default navbar-dark bg-dark">
-      <h3>Welcome <script type="text/javascript">
+    <nav className = "navibar-default navbar-dark">
+      {/* <h3>Welcome <script type="text/javascript">
         document.write(displayName)
-      </script>!</h3>
+      </script>!</h3> */}
+      <Link to="/">
+        <h1 className="logo">ORGANELLE</h1>
+      </Link>
       <ul className ="navbar-nav">
         <li className ="nav-item navibar-side">
           <a href="/calendar" className ="nav-link">Calendar</a>

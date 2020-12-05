@@ -84,8 +84,9 @@ function currYear(){
 }*/
 
 return (
-  <div><Header/>
-    <div>
+  <div>
+        {/* <Header/> */}
+
         <NavBar/>
         <AddEventModal action={modalHandler} show={modalToggle} day={dayPasser}/>
         <div className = "top-padding">
@@ -97,7 +98,7 @@ return (
           <div className ="calendar">
             <div className = "header">
               <div>
-
+          
               </div>
               <div>
 
@@ -139,18 +140,6 @@ return (
                 </div>
               </div>
             </div>
-    </div>
-    {/* {userEvents.forEach(el => {
-      var node = document.createElement("div");
-      node.className = `text-leftPadding`;
-      node.innerHTML = el.title;
-      document.getElementById(`${moment(el.endTime).format("MM-DD-YYYY")}`).appendChild(node);
-    })} */}
-
-
-
-
-
     </div>
 
 );

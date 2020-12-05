@@ -80,7 +80,7 @@ p{
 .EventListHeader{
     padding-top: 10px;
     background-color: #323230;
-    color: #FFFFFF;
+    color: #ffffff;
     border-width: 0px;
     padding: 20px;
     margin: 0px;
@@ -89,6 +89,8 @@ p{
     font-weight: 345;
     width: 60%;
     min-width: 850px;
+    height: 65px;
+
 }
 
 .EventList{

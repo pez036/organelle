@@ -4,12 +4,27 @@
   height: 100%;
   width: 10%;
   z-index: 9999;     /* Stay on top of everything */
-  top: 7.4em;      /*top position*/
+  /* top: 7.4em;      top position */
   overflow-x: hidden;     /* Disable horizontal scroll */
   padding-top: 10px;
   padding-left: 10px;
+  background-color: rgb(37, 37, 37);
+
 }
 
+.navibar-default .logo{
+  color: white;
+  font-size: 1.45vw;
+  margin: 12px 0;
+
+}
+.navibar-default .logo:hover{
+  text-decoration: none;
+
+}
+a:-webkit-any-link{
+  text-decoration:none !important;
+}
 
 /* NavBar element display*/
 .navibar-side {
@@ -18,10 +33,36 @@
   padding: 100 15px;
   margin-top: 1em;
   margin-bottom: 1em;
-  text-align: left;
+  text-align: center;
   font-size: 14px;
+  width: 8vw;
+
+}
+.nav-link{
+  margin: 50px 0;
+  border: 1px solid rgb(37, 37, 37);
+
 }
 
+.nav-link:hover{
+  animation: nextarrow 3s;
+}
+
+@keyframes nextarrow {
+  0% {
+   border: 1px solid rgb(255, 255, 255);
+  }
+  70% {
+   border: 1px solid rgb(255, 255, 255, 0);
+  }
+  100% {
+   border: 1px solid rgb(255, 255, 255, 0);
+  }
+}
+
+.dropdown-divider{
+  width: 100%;
+}
 .logout-button {
   text-align: center;
   position: fixed;
@@ -31,4 +72,5 @@
 }
 .logout-button Button{
   width: 100%;
+  height: 40px;
 }

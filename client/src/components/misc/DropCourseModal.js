@@ -89,7 +89,7 @@ export default function DropCourseModal(props){
                 <Form.Group>
                     <Form.Check
                     required
-                    label="Warning: I know this operation will deletes all events that relevant to this course."
+                    label="        Warning: I know this operation will deletes all events that relevant to this course."
                     feedback="You must agree before dropping."
                     />
                  </Form.Group>

@@ -10,3 +10,14 @@
     width: 60%;
     height: 74px;
 }
+#header{
+    /* background-color: black; */
+    position: sticky;
+    top: 0;
+    z-index: 1000000;
+
+}
+#header h1{
+    color: rgb(255, 239, 220);
+    margin-bottom: 0;
+}
