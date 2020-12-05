@@ -16,6 +16,7 @@ import Form from "react-bootstrap/Form";
 import AddEventModal_Todo from "../../misc/AddEventModal_Todo";
 import AddCourseModal_Todo from "../../misc/AddCourseModal";
 import DropCourseModal_Todo from "../../misc/DropCourseModal";
+import eventStyles from "../../calendar/eventStyles"
 import Axios from "axios";
 export default function EventList(){
 
@@ -106,7 +107,7 @@ export default function EventList(){
                         <br/>
                         <p>{'>'} Deadline: {event.endTime.substring(0,10)} {event.endTime.substring(12,16)}</p>
 
-                            <ListGroup.Item variant="primary" className="listgroupEvent">
+                            <ListGroup.Item variant={eventStyles(event.priority)} className="listgroupEvent">
                                 <Row>
                                     <Col xs={9} >{event.title} | {event.priority} </Col>
                                     <Col xs={1}>
