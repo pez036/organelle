@@ -11,12 +11,11 @@ import TodoList from './TodoComponents/TodoList';*/
 export default function Todo() {
     return (
       <div>
-        <Header/>
-        <div>
+        {/* <Header/> */}
           <NavBar/>
           <div className = "top-left">
             <EventList />
           </div>
-        </div>
+
       </div>);
 }
