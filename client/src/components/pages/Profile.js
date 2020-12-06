@@ -26,7 +26,7 @@ class Profile extends Component{
         this.handleEmailChange = this.handleEmailChange.bind(this);
         this.handlePasswordChange = this.handlePasswordChange.bind(this);
     }
-    
+
     componentDidMount() {
         let token = localStorage.getItem("auth-token");
         Axios.get("http://localhost:8080/users/setting",{headers: {"x-auth-token": token}})
@@ -70,14 +70,30 @@ class Profile extends Component{
     }
 
     handleImportCanvas() {
+        //this token is valid until Dec.8th 12am, belonging to Pengyu Zhang's Canvas account
         const token = "13171~cvR5q31Pa3SShRqoR0NXsXC8uSntxCaHARMQ2jleR9v3BJFEO9mGe1V8PARLg4CF";
         const config = {
-            headers: { Authorization: `Bearer':${token}`}
+            headers: { Authorization: `Bearer ${token}`}
         };
         console.log(config);
         const proxyServer = "https://cors-anywhere.herokuapp.com/";
-        const canvasRes = Axios.get(proxyServer+"https://canvas.ucsd.edu/api/v1/calendar_events", config );
-        console.log(canvasRes);
+        Axios.get(proxyServer+"https://canvas.ucsd.edu/api/v1/calendar_events", config )
+        .then((res) => {
+            let token = localStorage.getItem("auth-token");
+            res.data.forEach((element) => {
+                const title = element.title;
+                const type = element.type;
+                const startTime = element.start_at;
+                const endTime = element.end_at;
+                const priority = 1;
+                const description = element.description;
+                const eventTag = {title: title,
+                    type: type, startTime: startTime, endTime: endTime,
+                    priority:priority, description: description};
+                console.log(eventTag);
+                Axios.post("http://localhost:8080/events/add", eventTag, {headers: {"x-auth-token": token}});
+            })
+        });
     }
 
     render(){
