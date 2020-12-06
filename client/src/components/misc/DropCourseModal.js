@@ -29,7 +29,9 @@ export default function DropCourseModal(props){
 
           try{
           let token = localStorage.getItem("auth-token");
-          let getCourseURL = 'http://localhost:8080/courses/all';
+          let getCourseURL = process.env.NODE_ENV === "production"?
+                  "http://organelle.pzny.xyz/courses/all":
+                  "http://localhost:8080/courses/all";
           let courseRes = await Axios.get(getCourseURL,{headers: {"x-auth-token": token}});/*NOTICE: this may not be correct.*/
           setCourseList(courseRes.data);
 
@@ -58,7 +60,9 @@ export default function DropCourseModal(props){
             const courseTag = {courseName: courseName};
             console.log(courseTag);
 
-            const courseURL = "http://localhost:8080/courses/" + courseName;
+            const courseURL = process.env.NODE_ENV === "production"?
+                "http://organelle.pzny.xyz/courses/"+courseName:
+                "http://localhost:8080/courses/"+courseName;
             let token = localStorage.getItem("auth-token");
 
             const courseRes = await Axios.delete(courseURL,{headers: {"x-auth-token": token}});

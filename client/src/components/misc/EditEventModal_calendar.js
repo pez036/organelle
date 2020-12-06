@@ -71,7 +71,9 @@ export default function EditEventModal_Calendar(props){
             console.log("this is updated info")
             console.log(eventTag);
 
-            const eventURL = "http://localhost:8080/events/" + props.id;
+            const eventURL = process.env.NODE_ENV === "production"?
+                "http://organelle.pzny.xyz/events/"+ props.id:
+                "http://localhost:8080/events/"+ props.id;
             let token = localStorage.getItem("auth-token");
 
             const eventRes = await Axios.put(eventURL,eventTag,{headers: {"x-auth-token": token}});
