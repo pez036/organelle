@@ -6,7 +6,7 @@ import Form from "react-bootstrap/Form";
 import Axios from "axios";
 
 export default function AddCourseModal(props){
-    
+
 
     const [title, setCourseTitle] = useState("");
     const [professor, setProfessor] = useState("");
@@ -15,36 +15,33 @@ export default function AddCourseModal(props){
     const [showAddCourse, setShowAddCourse] = useState(props.show);
     useEffect(() => {
         setShowAddCourse(props.show);
-    })
+    },[props.show])
+
     function handleClose() {
-        props.action();
-        return setShowAddCourse(false);
+        return  props.action();
     }
     const newCourseSubmit = async(e) => {
 
         e.preventDefault();
-  
+
         try{
 
             const courseTag = {courseName: title, professor: professor};
             console.log(courseTag);
-    
+
             const courseURL = "http://localhost:8080/courses/add";
             let token = localStorage.getItem("auth-token");
-    
+
             const courseRes = await Axios.post(courseURL,courseTag,{headers: {"x-auth-token": token}});
             console.log("This is course res:", courseRes);
-    
+
           } catch (err){
             console.log("This is course res ERR:");
             console.log(err);
           }
 
 
-
-
-        props.action();
-        return setShowAddCourse(false);
+        return  props.action();
       }
 
     return(
@@ -63,12 +60,12 @@ export default function AddCourseModal(props){
                     <Form.Label>Professor</Form.Label>
                     <Form.Control type="course" placeholder="Who is the professor of this course?" onChange={(e)=>setProfessor(e.target.value)}/>
                 </Form.Group>
-            
+
                 {/* <Form.Group controlId="formGroupDescription">
                     <Form.Label>Event Description</Form.Label>
                     <Form.Control type="description" as="textarea" rows={3} placeholder="Any notes for this course?" onChange={(e)=>setCourseDescription(e.target.value)}/>
                 </Form.Group> */}
-                
+
             </Form>
 
             </Modal.Body>

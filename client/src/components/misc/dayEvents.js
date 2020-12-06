@@ -13,7 +13,7 @@ export default function DayEvents(props){
 
   const [dayEvents,setDayEvents] = useState([]);
   const [day, setDay] = useState(moment(props.thisDay).startOf("day").toISOString());
-
+  const [eventID, setEventID] = useState(null);
 
 
 
@@ -23,7 +23,7 @@ export default function DayEvents(props){
 
     const eventDayImports = async() => {
           try{
-            const eventURL = "http://localhost:8080/events/"+day;
+            const eventURL = "http://localhost:8080/events/time/"+day;
             let token = localStorage.getItem("auth-token");
             const dayRes = await Axios.get(eventURL,{headers: {"x-auth-token": token}});
             setDayEvents(dayRes.data);
@@ -50,6 +50,7 @@ export default function DayEvents(props){
           <ListGroup.Item action variant={eventStyles(e.priority)}>
               <div className="title-list">
                 {e.title}
+                <Button variant="secondary" onClick={()=>setEventID(e.id)}>Edit</Button>
               </div>
           </ListGroup.Item>
 

@@ -10,81 +10,169 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import AddEventModal_Todo from "../../misc/AddEventModal_Todo";
 import AddCourseModal_Todo from "../../misc/AddCourseModal";
 import DropCourseModal_Todo from "../../misc/DropCourseModal";
+import EditEventModal_Todo from "../../misc/EditEventModal_todo";
 import eventStyles from "../../calendar/eventStyles"
 import Axios from "axios";
+import moment from 'moment';
+
 export default function EventList(){
 
 
-    const [AddEventModal, setAddEventModal] = useState(false);
-    const AddEventModalHandler = () => {
-        AddEventModal ? setAddEventModal(false) : setAddEventModal(true);
-    }
+  const [eventID,setEventID] = useState("");
 
-    const [AddCourseModal, setAddCourseModal] = useState(false);
-    const AddCourseModalHandler = () => {
-        AddCourseModal ? setAddCourseModal(false) : setAddCourseModal(true);
-    }
+  const [editEventModal, setEditEventModal] = useState(false);
+  const editEventModalHandler = () => {
+      editEventModal ? setEditEventModal(false) : setEditEventModal(true);
+  }
 
-    const [DropCourseModal, setDropCourseModal] = useState(false);
-    const DropCourseModalHandler = () => {
-        DropCourseModal ? setDropCourseModal(false) : setDropCourseModal(true);
-    }
-    const [userEvents,setUserEvents] = useState([]);
+  const [addEventModal, setAddEventModal] = useState(false);
+  const addEventModalHandler = () => {
+      addEventModal ? setAddEventModal(false) : setAddEventModal(true);
+  }
+
+  const [addCourseModal, setAddCourseModal] = useState(false);
+  const addCourseModalHandler = () => {
+      addCourseModal ? setAddCourseModal(false) : setAddCourseModal(true);
+  }
+
+  const [dropCourseModal, setDropCourseModal] = useState(false);
+  const dropCourseModalHandler = () => {
+      dropCourseModal ? setDropCourseModal(false) : setDropCourseModal(true);
+  }
+  const [userEvents,setUserEvents] = useState([]);
     // const [eventRes, setEventRes] = useState([]);
 
-    useEffect(() => {
-      
-        const eventImports = async() => {
-          try{
-      
-            const eventURL = "http://localhost:8080/events/all";
-            let token = localStorage.getItem("auth-token");
-            let eventRes = await Axios.get(eventURL,{headers: {"x-auth-token": token}});
-            setUserEvents(eventRes.data);
-            console.log("EVENT");
-            console.log(eventRes.data);
-          /*
-            const eventRes = await Axios.post(eventURL,
-              {header: {
-                "x-auth-token": token
-              }}, {data: {eventTag}}
-            );
-      
-            console.log("This is event res:", eventRes);  */
-      
-          } catch (err){
-            console.log("This is event res ERR:");
-            console.log(err);
+  const [deleteEvent, setDeleteEvent] = useState(false);
+  const [editEvent, setEditEvent] = useState(false);
+  const [checkEvent, setCheckEvent] = useState(false);
+  const [uncheckEvent, setUncheckEvent] = useState(false);
+
+
+
+
+    const Edit = () => {
+              editEventModalHandler();
+    }
+
+    const Delete = (id) => {
+
+              let token = localStorage.getItem("auth-token");
+              Axios.delete('http://localhost:8080/events/'+id,{headers: {"x-auth-token": token}})
+                  .then(
+                      (response) => {
+                          deleteEvent ? setDeleteEvent(false) : setDeleteEvent(true);
+                          console.log(deleteEvent);
+                          console.log(response);
+                      }
+                  )
+                  .catch( (error) => {console.log(error); })
+
           }
-      
-        }
-      
-        eventImports();
-      
-      }, [AddEventModal])
+
+    const CheckOff = (id) => {
+
+              let token = localStorage.getItem("auth-token");
+              Axios.get('http://localhost:8080/events/' + id,{headers: {"x-auth-token": token}})
+                  .then(
+                      (response) => {
+                          checkEvent ? setCheckEvent(false) : setCheckEvent(true);
+                          let temp = response.data.priority;
+                          if (response.data.priority > 0) {
+                               temp = 0 - response.data.priority;
+                          }
+                          const eventTag = {
+                          title: response.data.title, type: response.data.type, startTime: response.data.startTime,
+                              endTime: response.data.endTime, priority: temp, description: response.data.description,
+                              courseName: response.data.courseName
+                          };
+                          console.log(eventTag);
+                          const eventURL = "http://localhost:8080/events/" + id;
+                          Axios.put(eventURL, eventTag, {headers: {"x-auth-token": token}});
+
+                          }
+                      )
+                      .catch( (error) => {console.log(error); })
+              }
+
+
+
+    const UnCheckOff = (id) => {
+              let token = localStorage.getItem("auth-token");
+              Axios.get('http://localhost:8080/events/' + id,{headers: {"x-auth-token": token}})
+                  .then(
+                      (response) => {
+                          uncheckEvent ? setUncheckEvent(false) : setUncheckEvent(true);
+                          let temp = response.data.priority;
+                          if (response.data.priority < 0) {
+                              temp = 0 - response.data.priority;
+                          }
+                          const eventTag = {
+                              title: response.data.title, type: response.data.type, startTime: response.data.startTime,
+                              endTime: response.data.endTime, priority: temp, description: response.data.description,
+                              courseName: response.data.courseName
+                          };
+                          console.log(eventTag);
+                          const eventURL = "http://localhost:8080/events/" + id;
+                          Axios.put(eventURL, eventTag, {headers: {"x-auth-token": token}});
+
+                      }
+                  )
+                  .catch( (error) => {console.log(error); })
+
+          }
+
+          useEffect(() => {
+
+            const initialImport = async() => {
+
+                  try{
+
+                    const eventURL = "http://localhost:8080/events/all";
+                    let token = localStorage.getItem("auth-token");
+                    let eventRes = await Axios.get(eventURL,{headers: {"x-auth-token": token}});
+                    setUserEvents(eventRes.data);
+                    console.log("Use Effect Called");
+
+                  } catch (err){
+                    console.log("This is event res ERR:");
+                    console.log(err);
+                  }
+
+                }
+
+                initialImport();
+
+          }, [deleteEvent,editEvent,checkEvent,eventID,uncheckEvent,addEventModal,addCourseModal,dropCourseModal])
+
+    const displayEventTime = (time) =>
+    {
+      return moment(time).toString();
+
+    }
 
     return(
         <div>
 
                 <div className="EventListHeader">
-                <AddEventModal_Todo action={AddEventModalHandler} show={AddEventModal}/>
-                <AddCourseModal_Todo action={AddCourseModalHandler} show={AddCourseModal}/>
-                <DropCourseModal_Todo action={DropCourseModalHandler} show={DropCourseModal}/>
+                <AddEventModal_Todo action={addEventModalHandler} show={addEventModal}/>
+                <AddCourseModal_Todo action={addCourseModalHandler} show={addCourseModal}/>
+                <DropCourseModal_Todo action={dropCourseModalHandler} show={dropCourseModal}/>
+                <EditEventModal_Todo action={editEventModalHandler} show={editEventModal} id={eventID}/>
                 <Row>
                     <Col lg={6}>TodoList</Col>
                     <Row lg={1}>
                         <Col lg="auto">
-                            <Button variant="dark" size="lg" onClick={AddEventModalHandler}>
+                            <Button variant="dark" size="lg" onClick={addEventModalHandler}>
                                 Add an Event
                             </Button>
                         </Col>
                         <Col lg="auto">
-                            <Button variant="dark" size="lg" onClick={AddCourseModalHandler}>
+                            <Button variant="dark" size="lg" onClick={addCourseModalHandler}>
                                 Create a Course
                             </Button>
                         </Col>
                         <Col lg="auto">
-                            <Button variant="dark" size="lg" onClick={DropCourseModalHandler}>
+                            <Button variant="dark" size="lg" onClick={dropCourseModalHandler}>
                                 Drop a Course
                             </Button>
                         </Col>
@@ -96,28 +184,27 @@ export default function EventList(){
 
                 <ListGroup variant="flush">
                 {userEvents.map((event) => (
-                    
                     <div>
                         <br/>
-                        <p>{'>'} Deadline: {event.endTime.substring(0,10)} {event.endTime.substring(12,16)}</p>
+                        <p>{'>'} Deadline: {displayEventTime(event.endTime)}</p>
 
                             <ListGroup.Item variant={eventStyles(event.priority)} className="listgroupEvent">
                                 <Row>
                                     <Col xs={9} >{event.title} | {event.priority} </Col>
                                     <Col xs={1}>
                                         <ButtonGroup className="mb-2">
-                                            <Button>Edit</Button>
-                                            <Button>Delete</Button>
-                                            <DropdownButton as={ButtonGroup} title="Checkoff" id="anesteddropdown">
-                                                <Dropdown.Item eventKey="1">Checkoff</Dropdown.Item>
-                                                <Dropdown.Item eventKey="2">DeCheckoff</Dropdown.Item>
+                                            <Button onClick={() => Edit(setEventID(event._id))}>Edit</Button>
+                                            <Button onClick={() => Delete(event._id)}>Delete</Button>
+                                            <DropdownButton as={ButtonGroup} title="Options" id="anesteddropdown">
+                                                <Dropdown.Item eventKey="1" onClick={() => CheckOff(event._id)}>Checkoff</Dropdown.Item>
+                                                <Dropdown.Item eventKey="2" onClick={() => UnCheckOff(event._id)}>DeCheckoff</Dropdown.Item>
                                             </DropdownButton>
                                         </ButtonGroup>
                                     </Col>
                                 </Row>
                             </ListGroup.Item>
                     </div>
-                    
+
                 ))}
                 </ListGroup>
 
