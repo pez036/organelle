@@ -7,6 +7,10 @@ import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
 import UserContext from "../../context/UserContext";
 import Axios from "axios";
+import moment from 'moment';
+
+import Datetime from 'react-datetime';
+import "react-datetime/css/react-datetime.css";
 
 export default function EditEventModal_todo(props){
 
@@ -147,6 +151,10 @@ export default function EditEventModal_todo(props){
         setEventEndTime(""+year+"-"+month+"-"+day+"T"+hour+":"+min+":00.000Z");
     }
 
+    function onDatePickerChange(e) {
+        setEventStartTime(moment(e).startOf("day").toISOString());
+        setEventEndTime(e);
+    }
 
     return(
 
@@ -193,18 +201,23 @@ export default function EditEventModal_todo(props){
                             <Form.Group as={Col}>
                                 <Form.Group controlId="formGroupName">
                                     <Form.Label>Event Name</Form.Label>
-                                    <Form.Control type="title" placeholder="What is this event?" onChange={(e)=>setEventTitle(e.target.value)}/>
+                                    <Form.Control type="title" placeholder="What is this event?" onChange={(e)=>setEventTitle(e.target.value)} defaultValue= {title2}/>
                                 </Form.Group>
                                 <Form.Group controlId="formGroupCourse">
                                     <Form.Label>Course</Form.Label>
-                                    <Form.Control as="select" defaultValue="Choose..." onChange={(e)=>setCourseName(e.target.value)}>
-                                        <option>Choose...</option>
+                                    <Form.Control as="select" placeholder="Choose..." onChange={(e)=>setCourseName(e.target.value)} >
+                                        <option>Choose...</option> {/** selected= */}
                                         {courseList.map((data,key) =>
                                         <option key={key}>{data.courseName}</option>
                                     )}
                                     </Form.Control>
                                 </Form.Group>
-
+                            
+                                <Form.Group controlId="formDatePicker">
+                                    <Form.Label>End Time</Form.Label>
+                                    <Datetime onChange={(e)=>onDatePickerChange(e)}/>
+                                </Form.Group>
+                {/*
                 <Form.Row>
                         <Form.Group as={Col} controlId="FormYear">
                             <Form.Label>Year</Form.Label>
@@ -259,21 +272,21 @@ export default function EditEventModal_todo(props){
                         </Form.Group>
                 </Form.Row>
                 <Button variant="primary" onClick={updateTime} block>Save Time</Button>
-
+                */}
                                 <Form.Group controlId="formGroupDescription">
                                     <Form.Label>Event Description</Form.Label>
-                                    <Form.Control type="description" as="textarea" rows={3} placeholder="Any notes for this event?" onChange={(e)=>setEventDescription(e.target.value)}/>
+                                    <Form.Control type="description" as="textarea" rows={3} placeholder="Any notes for this event?" onChange={(e)=>setEventDescription(e.target.value)} defaultValue= {description2}/>
                                 </Form.Group>
 
                                 <Form.Group controlId="formGroupType">
                                     <Form.Label>Event Type</Form.Label>
-                                    <Form.Control type="type" placeholder="Is this a Lecture or Something else?" onChange={(e)=>setEventType(e.target.value)}/>
+                                    <Form.Control type="type" placeholder="Is this a Lecture or Something else?" onChange={(e)=>setEventType(e.target.value)} defaultValue= {type2}/>
                                 </Form.Group>
 
                                 <Form.Group controlId="formGroupPriority">
                                 <Form.Label>Priority</Form.Label>
-                                <Form.Control as="select" onChange={(e)=>setEventPriority(e.target.value)} defaultValue="How important is this event?">
-                                    <option>How important is this event?</option>
+                                <Form.Control as="select" onChange={(e)=>setEventPriority(e.target.value)} placeholder="How important is this event?" defaultValue= {priority2}>
+                                    <option>How important is this event?</option> {/** selected= */}
                                     <option value = "3">High</option>
                                     <option value = "2">Median</option>
                                     <option value = "1">Low</option>
