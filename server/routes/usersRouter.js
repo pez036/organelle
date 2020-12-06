@@ -35,6 +35,9 @@ router.post("/register", async (req, res) => {
       email,
       password: passwordHash,
       displayName,
+      emailSetting: false,
+      autoSyncSetting: false,
+      courses: []
     });
     const savedUser = await newUser.save();
     res.json(savedUser);
@@ -83,6 +86,45 @@ router.delete("/delete", auth, async (req, res) => {
   }
 });
 
+router.put("/updateemailsetting", auth, async (req, res) => {
+  try{
+    await User.findByIdAndUpdate(req.user, {emailSetting: req.body.emailSetting});
+    res.json("email setting updated to "+ req.body.emailSetting);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+router.put("/updatesyncsetting", auth, async (req, res) => {
+  try{
+    await User.findByIdAndUpdate(req.user, {autoSyncSetting: req.body.autoSyncSetting});
+    res.json("auto-sync setting updated to "+ req.body.autoSyncSetting);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+router.put("/updateemail", auth, async (req, res) => {
+  try{
+    await User.findByIdAndUpdate(req.user, {email: req.body.email});
+    res.json("email updated to "+ req.body.email);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+router.put("/updatepassword", auth, async (req, res) => {
+  try {
+    const password = req.body.password;
+    const salt = await bcrypt.genSalt();
+    const passwordHash = await bcrypt.hash(password, salt);
+    await User.findByIdAndUpdate(req.user, {password: passwordHash});
+    res.json("password updated to "+ password);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+})
+
 router.post("/tokenIsValid", async (req, res) => {
   try {
     const token = req.header("x-auth-token");
@@ -105,6 +147,16 @@ router.get("/", auth, async (req, res) => {
   res.json({
     displayName: user.displayName,
     id: user._id,
+  });
+});
+
+router.get("/setting", auth, async (req, res) => {
+  const user = await User.findById(req.user);
+  res.json({
+    email: user.email,
+    displayName: user.displayName,
+    emailSetting: user.emailSetting,
+    autoSyncSetting: user.autoSyncSetting
   });
 });
 

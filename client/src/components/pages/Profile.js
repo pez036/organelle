@@ -3,6 +3,7 @@ import React, {Component} from 'react';
 import Button from 'react-bootstrap/Button';
 import BootstrapSwitchButton from 'bootstrap-switch-button-react'
 import NaviBar from '../layout/NaviBar';
+import Axios from "axios";
 import "./Profile.css"
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
@@ -13,15 +14,71 @@ class Profile extends Component{
         super(props);
 
         this.state = {
-            email: "dummy@email.com",
+            email : "dummy@email.com",
+            inputEmail: "dummy@email.com",
             notificationSetting: false,
             autoSyncSetting: false,
-            inputpassword: ""
+            inputPassword: ""
         }
+        this.handleImportCanvas = this.handleImportCanvas.bind(this);
+        this.handleAutoSyncSetting = this.handleAutoSyncSetting.bind(this);
+        this.handleEmailSetting = this.handleEmailSetting.bind(this);
+        this.handleEmailChange = this.handleEmailChange.bind(this);
+        this.handlePasswordChange = this.handlePasswordChange.bind(this);
+    }
+    componentDidMount() {
+        let token = localStorage.getItem("auth-token");
+        Axios.get("http://localhost:8080/users/setting",{headers: {"x-auth-token": token}})
+        .then(res => {
+            this.setState({inputEmail: res.data.email});
+            this.setState({email: res.data.email});
+            this.setState({autoSyncSetting: res.data.autoSyncSetting});
+            this.setState({notificationSetting: res.data.emailSetting});
+        });
+        //this.notificationSetting = profile.data.emailSetting;
+        //this.autoSyncSetting = profile.data.autoSyncSetting;
+    }
 
-        //Request and load user profile and settings from server into state for later display
-        //Axios.get();
-        //this.setState({email, notificationSetting, autoSyncSetting});
+    handleAutoSyncSetting(checked) {
+        this.setState({ autoSyncSetting: checked });
+        const updateURL = "http://localhost:8080/users/updatesyncsetting";
+        const body = {autoSyncSetting: checked};
+        const token = localStorage.getItem("auth-token");
+        Axios.put(updateURL,body, {headers: {"x-auth-token": token}});
+    }
+
+    handleEmailSetting(checked) {
+        this.setState({ notificationSetting: checked });
+        const updateURL = "http://localhost:8080/users/updateemailsetting";
+        const body = {emailSetting: checked};
+        const token = localStorage.getItem("auth-token");
+        Axios.put(updateURL,body, {headers: {"x-auth-token": token}});
+    }
+
+    handleEmailChange(e) {
+        this.setState({email: this.state.inputEmail});
+        const updateURL = "http://localhost:8080/users/updateemail";
+        const body = {email: this.state.inputEmail};
+        const token = localStorage.getItem("auth-token");
+        Axios.put(updateURL,body, {headers: {"x-auth-token": token}});
+    }
+
+    handlePasswordChange() {
+        const updateURL = "http://localhost:8080/users/updatepassword";
+        const body = {password: this.state.inputPassword};
+        const token = localStorage.getItem("auth-token");
+        Axios.put(updateURL,body, {headers: {"x-auth-token": token}});
+    }
+
+    handleImportCanvas() {
+        const token = "13171~cvR5q31Pa3SShRqoR0NXsXC8uSntxCaHARMQ2jleR9v3BJFEO9mGe1V8PARLg4CF";
+        const config = {
+            headers: { Authorization: `Bearer':${token}`}
+        };
+        console.log(config);
+        const proxyServer = "https://cors-anywhere.herokuapp.com/";
+        const canvasRes = Axios.get(proxyServer+"https://canvas.ucsd.edu/api/v1/calendar_events", config );
+        console.log(canvasRes);
     }
 
     render(){
@@ -37,39 +94,40 @@ class Profile extends Component{
                             <div className="profile-body">
                                 <p>Welcome, {email}</p>
                                 <p>Change your email</p>
-                                <input type="email" onChange={(e)=>{
-                                    this.setState({email: e.target.value})}}
+                               
+                                <input className="change-setting" type="email" onChange={(e)=>{
+                                    this.setState({inputEmail: e.target.value})
+                                }}
                                 />
                                 <br/>
-                                <Button viriant="light">change</Button>
+                                <Button viriant="light" onClick={this.handleEmailChange}>change</Button>
+                              
                                 <p>Change your password</p>
-                                <input type="password" onChange={(e)=>{
+                                <input className="change-setting" type="password" onChange={(e)=>{
                                     this.setState({inputPassword: e.target.value})}}
                                 />
                                 <br/>
-                                <Button viriant="light">change</Button>
+                                <Button viriant="light" onClick={this.handlePasswordChange}>change</Button>
                                 <p>Notification Setting: {notificationSetting} </p>
                                 <BootstrapSwitchButton
                                     checked={notificationSetting}
                                     onlabel='on'
-                                    onstyle='danger'
+                                    onstyle='success'
                                     offlabel='off'
-                                    offstyle='success'
-                                    onChange={(checked) => {
-                                        this.setState({ notificationSetting: checked })
-                                    }}
+                                    offstyle='danger'
+                                    onChange={(checked) => this.handleEmailSetting(checked)}
                                 />
-                                <p>AutoSync Setting: {autoSyncSetting} </p>
+                                <p>Canvas AutoSync Setting: {autoSyncSetting} </p>
                                 <BootstrapSwitchButton
                                     checked={autoSyncSetting}
                                     onlabel='on'
-                                    onstyle='danger'
+                                    onstyle='success'
                                     offlabel='off'
-                                    offstyle='success'
-                                    onChange={(checked) => {
-                                        this.setState({ autoSyncSetting: checked })
-                                    }}
+                                    offstyle='danger'
+                                    onChange={(checked) =>this.handleAutoSyncSetting(checked)}
                                 />
+                                <p>Get events from Canvas</p>
+                                <Button onClick={this.handleImportCanvas}>Import</Button>
                             </div>
                         </div>
                     </div>

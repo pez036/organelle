@@ -1,11 +1,8 @@
-import React,{useState, useEffect,useContext} from 'react';
-import Col from 'react-bootstrap/Col';
-import Row from 'react-bootstrap/Row';
+import React,{useState, useEffect} from 'react';
 import "../layout/todoList.css";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
-import UserContext from "../../context/UserContext";
 import Axios from "axios";
 
 export default function AddCourseModal(props){
@@ -13,7 +10,7 @@ export default function AddCourseModal(props){
 
     const [title, setCourseTitle] = useState("");
     const [professor, setProfessor] = useState("");
-    const [description, setCourseDescription] = useState("");
+    //const [description, setCourseDescription] = useState("");
 
     const [showAddCourse, setShowAddCourse] = useState(props.show);
     useEffect(() => {

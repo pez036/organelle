@@ -1,7 +1,7 @@
 import React from 'react';
-import { Link } from "react-router-dom";
+//import { Link } from "react-router-dom";
 import AuthOptions from "../auth/AuthOptions";
-import Routes from "../pages/Routes";
+//import Routes from "../pages/Routes";
 
 export default function Welcome() {
 return (
@@ -12,7 +12,7 @@ return (
         {/* <Link to="/">
         </Link> */}
         <AuthOptions />
-        <Routes />
+        {/*<Routes />*/}
     </div>
 );
 }

@@ -1,16 +1,10 @@
-import React,{ useState, useEffect, useContext} from 'react';
-import Col from 'react-bootstrap/Col';
-import Row from 'react-bootstrap/Row';
+import React,{ useState, useEffect} from 'react';
 import "../layout/todoList.css";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
 import moment from 'moment';
-
-import UserContext from "../../context/UserContext";
 import Axios from "axios";
-import ErrorNotice from "../misc/ErrorNotice";
-import { useHistory } from "react-router-dom";
 
 
 
@@ -20,12 +14,12 @@ export default function AddEventModal(props){
 
 
     let title = "";
-    const [type, setEventType] = useState("");
+    const [type] = useState("");
     let description = "";
     // const [priority, setEventPriority] = useState(3);
     let priority = 3;
-    const [courseID, setEventCourse] = useState("");
-    const [user, setUser] = useState(null);
+    const [courseID] = useState("");
+    //const [user, setUser] = useState(null);
 
     const [startTime, setEventStartTime] = useState(moment());
     console.log("Event Start Time");
