@@ -142,7 +142,7 @@ export default function EventList(){
 
                 initialImport();
 
-          }, [deleteEvent,editEvent,checkedOff,eventID,addEventModal,addCourseModal,dropCourseModal])
+          }, [deleteEvent,editEvent,checkEvent,eventID,addEventModal,addCourseModal,dropCourseModal])
 
     const displayEventTime = (time) =>
     {
