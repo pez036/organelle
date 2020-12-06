@@ -6,6 +6,9 @@ function isHigh(value){
 function isMedium(value){
   return (value===2);
 }
+function isNegative(value){
+  return (value<0);
+}
 
 export default function eventStyles(value){
 
@@ -15,6 +18,9 @@ export default function eventStyles(value){
 
   if(isMedium(value)){
     return "warning";
+  }
+  if(isNegative(value)){
+    return "secondary";
   }
   return "success";
 }

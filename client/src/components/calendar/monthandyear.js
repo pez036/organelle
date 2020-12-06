@@ -82,7 +82,6 @@ return (
       <Col xl={2}>
         <ButtonToolbar>
         <Button variant="dark" size="lg" onClick={()=>prevMonth()}>Previous</Button>
-        <Button variant="dark" size="lg" onClick={()=>nextMonth()}>Next</Button>
         </ButtonToolbar>
       </Col>
         <Col xl={5}>
@@ -97,6 +96,7 @@ return (
           <ButtonToolbar>
           <Button variant="dark" size="lg" onClick={exportIcs}>Export Calendar File</Button>
           <Button variant="dark" size="lg">Import Calendar File</Button>
+          <Button variant="dark" size="lg" onClick={()=>nextMonth()}>Next</Button>
           </ButtonToolbar>
         </Col>
       </Row>
