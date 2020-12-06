@@ -14,6 +14,7 @@ import EditEventModal_Todo from "../../misc/EditEventModal_todo";
 import eventStyles from "../../calendar/eventStyles"
 import Axios from "axios";
 import moment from 'moment';
+import BootstrapSwitchButton from 'bootstrap-switch-button-react'
 
 export default function EventList(){
 
@@ -51,9 +52,6 @@ export default function EventList(){
         "http://organelle.pzny.xyz/events/":
         "http://localhost:8080/events/";
 
-
-
-
     const Edit = () => {
               editEventModalHandler();
     }
@@ -78,7 +76,6 @@ export default function EventList(){
               Axios.get(eventsURL + id,{headers: {"x-auth-token": token}})
                   .then(
                       (response) => {
-                          checkEvent ? setCheckEvent(false) : setCheckEvent(true);
                           let temp = response.data.priority;
                           if (response.data.priority > 0) {
                                temp = 0 - response.data.priority;
@@ -100,11 +97,11 @@ export default function EventList(){
 
 
     const UnCheckOff = (id) => {
+
               let token = localStorage.getItem("auth-token");
               Axios.get(eventsURL + id,{headers: {"x-auth-token": token}})
                   .then(
                       (response) => {
-                          uncheckEvent ? setUncheckEvent(false) : setUncheckEvent(true);
                           let temp = response.data.priority;
                           if (response.data.priority < 0) {
                               temp = 0 - response.data.priority;
@@ -145,12 +142,11 @@ export default function EventList(){
 
                 initialImport();
 
-          }, [deleteEvent,editEvent,checkEvent,eventID,uncheckEvent,addEventModal,addCourseModal,dropCourseModal])
+          }, [deleteEvent,editEvent,checkedOff,eventID,addEventModal,addCourseModal,dropCourseModal])
 
     const displayEventTime = (time) =>
     {
       return moment(time).toString();
-
     }
 
     return(
@@ -186,22 +182,36 @@ export default function EventList(){
 
 
                 <ListGroup variant="flush">
-                {userEvents.map((event) => (
+                {userEvents
+                  .sort((a,b) =>(b.priority - a.priority))
+                  .map((event) => (
                     <div>
                         <br/>
                         <p>{'>'} Deadline: {displayEventTime(event.endTime)}</p>
 
                             <ListGroup.Item variant={eventStyles(event.priority)} className="listgroupEvent">
                                 <Row>
-                                    <Col xs={9} >{event.title} | {event.priority} </Col>
+                                    <Col xs={9} >{event.title} </Col>
                                     <Col xs={1}>
                                         <ButtonGroup className="mb-2">
                                             <Button onClick={() => Edit(setEventID(event._id))}>Edit</Button>
                                             <Button onClick={() => Delete(event._id)}>Delete</Button>
-                                            <DropdownButton as={ButtonGroup} title="Options" id="anesteddropdown">
+
+                                            <BootstrapSwitchButton
+                                                checked={event.priority * -1 > 0}
+                                                onlabel='&#x2713;'
+                                                onstyle='success'
+                                                offlabel='&#10007;'
+                                                offstyle='danger'
+                                                onChange={(checked) => {
+                                                    if(checked) CheckOff(event._id);
+                                                    else UnCheckOff(event._id);
+                                                }}
+                                            />
+                                            {/* <DropdownButton as={ButtonGroup} title="Options" id="anesteddropdown">
                                                 <Dropdown.Item eventKey="1" onClick={() => CheckOff(event._id)}>Checkoff</Dropdown.Item>
                                                 <Dropdown.Item eventKey="2" onClick={() => UnCheckOff(event._id)}>DeCheckoff</Dropdown.Item>
-                                            </DropdownButton>
+                                            </DropdownButton> */}
                                         </ButtonGroup>
                                     </Col>
                                 </Row>

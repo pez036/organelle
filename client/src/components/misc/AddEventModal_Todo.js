@@ -9,6 +9,9 @@ import UserContext from "../../context/UserContext";
 import Axios from "axios";
 import moment from 'moment';
 
+import Datetime from 'react-datetime';
+import "react-datetime/css/react-datetime.css";
+
 export default function AddEventModalTodo(props){
 
     const [title, setEventTitle] = useState("");
@@ -109,6 +112,11 @@ const newEventSubmit = async(e) => {
         setEventEndTime(""+year+"-"+month+"-"+day+"T"+hour+":"+min+":00.000Z");
     }
 
+    function onDatePickerChange(e) {
+        setEventStartTime(moment(e).startOf("day").toISOString());
+        setEventEndTime(e);
+    }
+
     return(
         <Modal show={showAddEvent} onHide={handleClose} backdrop="static" keyboard={false} animation={false}>
             <Modal.Header closeButton>
@@ -131,7 +139,13 @@ const newEventSubmit = async(e) => {
                     )}
                     </Form.Control>
                 </Form.Group>
+                
+                <Form.Group controlId="formDatePicker">
+                    <Form.Label>Due Date</Form.Label>
+                    <Datetime onChange={(e)=>onDatePickerChange(e)}/>
+                </Form.Group>
 
+            {/*
                 <Form.Row>
                         <Form.Group as={Col} controlId="FormYear">
                             <Form.Label>Year</Form.Label>
@@ -184,6 +198,7 @@ const newEventSubmit = async(e) => {
                         </Form.Group>
                 </Form.Row>
                 <Button variant="primary" onClick={updateTime} block>Save Time</Button>
+            */}
                 <Form.Group controlId="formGroupDescription">
                     <Form.Label>Event Description</Form.Label>
                     <Form.Control type="description" as="textarea" rows={3} placeholder="Any notes for this event?" onChange={(e)=>setEventDescription(e.target.value)}/>
