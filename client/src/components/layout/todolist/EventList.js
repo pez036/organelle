@@ -75,21 +75,21 @@ export default function EventList(){
               Axios.get('http://localhost:8080/events/' + id,{headers: {"x-auth-token": token}})
                   .then(
                       (response) => {
-                          checkEvent ? setCheckEvent(false) : setCheckEvent(true);
                           let temp = response.data.priority;
                           if (response.data.priority > 0) {
-                               temp = 0 - response.data.priority;
-                          }
-                          const eventTag = {
-                          title: response.data.title, type: response.data.type, startTime: response.data.startTime,
-                              endTime: response.data.endTime, priority: temp, description: response.data.description,
-                              courseName: response.data.courseName
-                          };
-                          console.log(eventTag);
-                          const eventURL = "http://localhost:8080/events/" + id;
-                          Axios.put(eventURL, eventTag, {headers: {"x-auth-token": token}});
-
-                          }
+                              temp = 0 - response.data.priority;
+                            }
+                            const eventTag = {
+                                title: response.data.title, type: response.data.type, startTime: response.data.startTime,
+                                endTime: response.data.endTime, priority: temp, description: response.data.description,
+                                courseName: response.data.courseName
+                            };
+                            console.log(eventTag);
+                            const eventURL = "http://localhost:8080/events/" + id;
+                            Axios.put(eventURL, eventTag, {headers: {"x-auth-token": token}});
+                            checkEvent ? setCheckEvent(false) : setCheckEvent(true);
+                            
+                        }
                       )
                       .catch( (error) => {console.log(error); })
               }
@@ -102,20 +102,20 @@ export default function EventList(){
               Axios.get('http://localhost:8080/events/' + id,{headers: {"x-auth-token": token}})
                   .then(
                       (response) => {
-                          uncheckEvent ? setUncheckEvent(false) : setUncheckEvent(true);
                           let temp = response.data.priority;
                           if (response.data.priority < 0) {
                               temp = 0 - response.data.priority;
-                          }
-                          const eventTag = {
-                              title: response.data.title, type: response.data.type, startTime: response.data.startTime,
-                              endTime: response.data.endTime, priority: temp, description: response.data.description,
-                              courseName: response.data.courseName
-                          };
-                          console.log(eventTag);
-                          const eventURL = "http://localhost:8080/events/" + id;
-                          Axios.put(eventURL, eventTag, {headers: {"x-auth-token": token}});
-
+                            }
+                            const eventTag = {
+                                title: response.data.title, type: response.data.type, startTime: response.data.startTime,
+                                endTime: response.data.endTime, priority: temp, description: response.data.description,
+                                courseName: response.data.courseName
+                            };
+                            console.log(eventTag);
+                            const eventURL = "http://localhost:8080/events/" + id;
+                            Axios.put(eventURL, eventTag, {headers: {"x-auth-token": token}});
+                            uncheckEvent ? setUncheckEvent(false) : setUncheckEvent(true);
+                            
                       }
                   )
                   .catch( (error) => {console.log(error); })
