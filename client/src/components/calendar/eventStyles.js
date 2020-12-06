@@ -1,14 +1,10 @@
-import React, { useState, useEffect, useRef } from 'react';
-import moment from 'moment';
-
-
 
 function isHigh(value){
-  return (value==3);
+  return (value===3);
 }
 
 function isMedium(value){
-  return (value==2);
+  return (value===2);
 }
 
 export default function eventStyles(value){

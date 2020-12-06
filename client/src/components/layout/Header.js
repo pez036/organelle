@@ -1,7 +1,5 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import logo from "../../images/logo2.png";
-import organelle from "../../images/ORGANELLE.png";
 import "./Header.css"
 //import { Container } from "react-bootstrap";
 

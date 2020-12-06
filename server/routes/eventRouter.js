@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const auth = require("../middleware/auth");
 const Event = require("../models/eventModel");
+//const Axios = require("axios");
 
 router.post("/add",auth,async (req, res) => {
     try{

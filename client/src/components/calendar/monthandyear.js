@@ -3,24 +3,24 @@
 *Function: month and year component for display
 *Author: Michael
 */
-import React, { useState, useEffect } from 'react';
+import React, { useState} from 'react';
 
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
 import '../calendar/cssFiles/monthandyear.css';
-import Popover from 'react-bootstrap/Popover';
+//import Popover from 'react-bootstrap/Popover';
 import ButtonToolbar from 'react-bootstrap/ButtonToolbar';
 
-import moment from 'moment';
-import days from '../calendar/days';
+//import moment from 'moment';
+//import days from '../calendar/days';
 
 
 export default function MonthandYear(props) {
 
 /*needs to be fixed - might take up a lot of data*/
-const [myValue, setMyValue] = useState(props.value);
+const [myValue] = useState(props.value);
 
 function currMonthName(){
   return myValue.format("MMMM");

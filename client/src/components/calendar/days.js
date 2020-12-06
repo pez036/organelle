@@ -1,6 +1,3 @@
-import React from 'react';
-import moment from 'moment';
-
 export default function days(value){
 
   const startDay = value.clone().startOf("month").startOf("week");

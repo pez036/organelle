@@ -1,18 +1,12 @@
 import React,{useState, useEffect} from 'react';
-import reactBS from 'react-bootstrap';
 import ListGroup from 'react-bootstrap/ListGroup';
-import Tab from 'react-bootstrap/Tab';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import "../../layout/todoList.css";
 import Button from "react-bootstrap/Button";
-import Badge from "react-bootstrap/Badge";
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import Dropdown from 'react-bootstrap/Dropdown';
-import Event from "./Event";
-import Modal from "react-bootstrap/Modal";
-import Form from "react-bootstrap/Form";
 import AddEventModal_Todo from "../../misc/AddEventModal_Todo";
 import AddCourseModal_Todo from "../../misc/AddCourseModal";
 import DropCourseModal_Todo from "../../misc/DropCourseModal";

@@ -1,5 +1,3 @@
-import React from 'react';
-import moment from 'moment';
 
 function isSelected(day,value){
   return value.isSame(day,"day");

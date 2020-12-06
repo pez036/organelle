@@ -1,12 +1,9 @@
 import React, {useState} from 'react';
-import reactBS from 'react-bootstrap';
 import ListGroup from 'react-bootstrap/ListGroup';
-import Tab from 'react-bootstrap/Tab';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import "../../layout/todoList.css";
 import Button from "react-bootstrap/Button";
-import Badge from "react-bootstrap/Badge";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import DropdownButton from 'react-bootstrap/DropdownButton';
@@ -15,9 +12,9 @@ import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
 
 
-function alertClicked() {
+/*function alertClicked() {
     alert('You clicked it!!');
-}
+}*/
 
 
 export default function Event(){
@@ -26,9 +23,9 @@ export default function Event(){
     function handleClose() {
         return setShow(false);
     }
-    function handleShow() {
+    /*function handleShow() {
         return setShow(true);
-    }
+    }*/
     function newEventSubmit(){
         /*Todo*/
         return setShow(false);
@@ -38,9 +35,9 @@ export default function Event(){
     function handleShowDeleteClose() {
         return setShowDelete(false);
     }
-    function handleShowDelete() {
+    /*function handleShowDelete() {
         return setShowDelete(true);
-    }
+    }*/
     function deleteSubmit(){
         /*Todo*/
         return setShowDelete(false);
