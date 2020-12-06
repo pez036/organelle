@@ -47,6 +47,10 @@ export default function EventList(){
   const [checkEvent, setCheckEvent] = useState(false);
   const [uncheckEvent, setUncheckEvent] = useState(false);
 
+  const eventsURL = process.env.NODE_ENV === "production"?
+        "http://organelle.pzny.xyz/events/":
+        "http://localhost:8080/events/";
+
 
 
 
@@ -57,7 +61,7 @@ export default function EventList(){
     const Delete = (id) => {
 
               let token = localStorage.getItem("auth-token");
-              Axios.delete('http://localhost:8080/events/'+id,{headers: {"x-auth-token": token}})
+              Axios.delete(eventsURL+id,{headers: {"x-auth-token": token}})
                   .then(
                       (response) => {
                           deleteEvent ? setDeleteEvent(false) : setDeleteEvent(true);
@@ -70,9 +74,8 @@ export default function EventList(){
           }
 
     const CheckOff = (id) => {
-
               let token = localStorage.getItem("auth-token");
-              Axios.get('http://localhost:8080/events/' + id,{headers: {"x-auth-token": token}})
+              Axios.get(eventsURL + id,{headers: {"x-auth-token": token}})
                   .then(
                       (response) => {
                           checkEvent ? setCheckEvent(false) : setCheckEvent(true);
@@ -86,7 +89,7 @@ export default function EventList(){
                               courseName: response.data.courseName
                           };
                           console.log(eventTag);
-                          const eventURL = "http://localhost:8080/events/" + id;
+                          const eventURL = eventsURL + id;
                           Axios.put(eventURL, eventTag, {headers: {"x-auth-token": token}});
 
                           }
@@ -98,7 +101,7 @@ export default function EventList(){
 
     const UnCheckOff = (id) => {
               let token = localStorage.getItem("auth-token");
-              Axios.get('http://localhost:8080/events/' + id,{headers: {"x-auth-token": token}})
+              Axios.get(eventsURL + id,{headers: {"x-auth-token": token}})
                   .then(
                       (response) => {
                           uncheckEvent ? setUncheckEvent(false) : setUncheckEvent(true);
@@ -112,7 +115,7 @@ export default function EventList(){
                               courseName: response.data.courseName
                           };
                           console.log(eventTag);
-                          const eventURL = "http://localhost:8080/events/" + id;
+                          const eventURL = eventsURL + id;
                           Axios.put(eventURL, eventTag, {headers: {"x-auth-token": token}});
 
                       }
@@ -127,7 +130,7 @@ export default function EventList(){
 
                   try{
 
-                    const eventURL = "http://localhost:8080/events/all";
+                    const eventURL = eventsURL + "all";
                     let token = localStorage.getItem("auth-token");
                     let eventRes = await Axios.get(eventURL,{headers: {"x-auth-token": token}});
                     setUserEvents(eventRes.data);
