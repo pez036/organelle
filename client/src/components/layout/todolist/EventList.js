@@ -14,6 +14,7 @@ import EditEventModal_Todo from "../../misc/EditEventModal_todo";
 import eventStyles from "../../calendar/eventStyles"
 import Axios from "axios";
 import moment from 'moment';
+import BootstrapSwitchButton from 'bootstrap-switch-button-react'
 
 export default function EventList(){
 
@@ -46,7 +47,8 @@ export default function EventList(){
   const [editEvent, setEditEvent] = useState(false);
   const [checkEvent, setCheckEvent] = useState(false);
   const [uncheckEvent, setUncheckEvent] = useState(false);
-
+  
+  const [checkedOff, setCheckedOff] = useState(false);
 
 
 
@@ -55,17 +57,18 @@ export default function EventList(){
     }
 
     const Delete = (id) => {
-
-              let token = localStorage.getItem("auth-token");
-              Axios.delete('http://localhost:8080/events/'+id,{headers: {"x-auth-token": token}})
-                  .then(
-                      (response) => {
-                          deleteEvent ? setDeleteEvent(false) : setDeleteEvent(true);
-                          console.log(deleteEvent);
-                          console.log(response);
-                      }
-                  )
-                  .catch( (error) => {console.log(error); })
+              if(window.confirm("This will permanently delete the event. Are you sure?")){
+                  let token = localStorage.getItem("auth-token");
+                  Axios.delete('http://localhost:8080/events/'+id,{headers: {"x-auth-token": token}})
+                      .then(
+                          (response) => {
+                              deleteEvent ? setDeleteEvent(false) : setDeleteEvent(true);
+                              console.log(deleteEvent);
+                              console.log(response);
+                          }
+                      )
+                      .catch( (error) => {console.log(error); })
+              }
 
           }
 
@@ -86,12 +89,16 @@ export default function EventList(){
                             };
                             console.log(eventTag);
                             const eventURL = "http://localhost:8080/events/" + id;
-                            Axios.put(eventURL, eventTag, {headers: {"x-auth-token": token}});
-                            checkEvent ? setCheckEvent(false) : setCheckEvent(true);
+                            Axios.put(eventURL, eventTag, {headers: {"x-auth-token": token}}).then(
+                                () => {
+                                    checkedOff ? setCheckedOff(false) : setCheckedOff(true);
+                                }
+                            ).catch();;
                             
                         }
-                      )
-                      .catch( (error) => {console.log(error); })
+                        )
+                        .catch( (error) => {console.log(error); })
+                    
               }
 
 
@@ -113,12 +120,16 @@ export default function EventList(){
                             };
                             console.log(eventTag);
                             const eventURL = "http://localhost:8080/events/" + id;
-                            Axios.put(eventURL, eventTag, {headers: {"x-auth-token": token}});
-                            uncheckEvent ? setUncheckEvent(false) : setUncheckEvent(true);
+                            Axios.put(eventURL, eventTag, {headers: {"x-auth-token": token}}).then(
+                                () => {
+                                    checkedOff ? setCheckedOff(false) : setCheckedOff(true);
+                                }
+                            ).catch();
                             
-                      }
-                  )
-                  .catch( (error) => {console.log(error); })
+                            
+                        }
+                        )
+                        .catch( (error) => {console.log(error); })
 
           }
 
@@ -143,7 +154,7 @@ export default function EventList(){
 
                 initialImport();
 
-          }, [deleteEvent,editEvent,checkEvent,eventID,uncheckEvent,addEventModal,addCourseModal,dropCourseModal])
+          }, [deleteEvent,editEvent,checkedOff,eventID,addEventModal,addCourseModal,dropCourseModal])
 
     const displayEventTime = (time) =>
     {
@@ -192,15 +203,27 @@ export default function EventList(){
 
                             <ListGroup.Item variant={eventStyles(event.priority)} className="listgroupEvent">
                                 <Row>
-                                    <Col xs={9} >{event.title} | {event.priority} </Col>
+                                    <Col xs={9} >{event.title} </Col>
                                     <Col xs={1}>
                                         <ButtonGroup className="mb-2">
                                             <Button onClick={() => Edit(setEventID(event._id))}>Edit</Button>
                                             <Button onClick={() => Delete(event._id)}>Delete</Button>
-                                            <DropdownButton as={ButtonGroup} title="Options" id="anesteddropdown">
+
+                                            <BootstrapSwitchButton
+                                                checked={event.priority * -1 > 0}
+                                                onlabel='&#x2713;'
+                                                onstyle='success'
+                                                offlabel='&#10007;'
+                                                offstyle='danger'
+                                                onChange={(checked) => {
+                                                    if(checked) CheckOff(event._id);
+                                                    else UnCheckOff(event._id);
+                                                }}
+                                            />
+                                            {/* <DropdownButton as={ButtonGroup} title="Options" id="anesteddropdown">
                                                 <Dropdown.Item eventKey="1" onClick={() => CheckOff(event._id)}>Checkoff</Dropdown.Item>
                                                 <Dropdown.Item eventKey="2" onClick={() => UnCheckOff(event._id)}>DeCheckoff</Dropdown.Item>
-                                            </DropdownButton>
+                                            </DropdownButton> */}
                                         </ButtonGroup>
                                     </Col>
                                 </Row>
