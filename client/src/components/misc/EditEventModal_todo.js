@@ -7,6 +7,7 @@ import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
 import UserContext from "../../context/UserContext";
 import Axios from "axios";
+import moment from 'moment';
 
 export default function EditEventModal_todo(props){
 
@@ -81,7 +82,16 @@ export default function EditEventModal_todo(props){
 
 
         getCourseList();
+
         getEvent();
+        getCourseList();
+        setEventPriority2("");
+        setEventType2("");
+        setEventStartTime2("");
+        setEventDescription2("");
+        setCourseName2("");
+        setEventEndTime2("");
+        setEventTitle2("");
 
     },[props.id,props.show])
 
@@ -143,7 +153,7 @@ export default function EditEventModal_todo(props){
     }
 
     function updateTime(){
-        setEventStartTime(""+year+"-"+month+"-"+day+"T"+hour+":"+min+":00.000Z");
+        setEventStartTime(moment(""+year+"-"+month+"-"+day+"T"+hour+":"+min+":00.000Z").startOf("day").toISOString());
         setEventEndTime(""+year+"-"+month+"-"+day+"T"+hour+":"+min+":00.000Z");
     }
 

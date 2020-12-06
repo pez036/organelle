@@ -97,6 +97,7 @@ export default function EventList(){
 
 
     const UnCheckOff = (id) => {
+
               let token = localStorage.getItem("auth-token");
               Axios.get('http://localhost:8080/events/' + id,{headers: {"x-auth-token": token}})
                   .then(
@@ -147,7 +148,6 @@ export default function EventList(){
     const displayEventTime = (time) =>
     {
       return moment(time).toString();
-
     }
 
     return(
@@ -183,7 +183,9 @@ export default function EventList(){
 
 
                 <ListGroup variant="flush">
-                {userEvents.map((event) => (
+                {userEvents
+                  .sort((a,b) =>(b.priority - a.priority))
+                  .map((event) => (
                     <div>
                         <br/>
                         <p>{'>'} Deadline: {displayEventTime(event.endTime)}</p>
