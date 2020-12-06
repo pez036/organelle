@@ -26,6 +26,7 @@ class Profile extends Component{
         this.handleEmailChange = this.handleEmailChange.bind(this);
         this.handlePasswordChange = this.handlePasswordChange.bind(this);
     }
+    
     componentDidMount() {
         let token = localStorage.getItem("auth-token");
         Axios.get("http://localhost:8080/users/setting",{headers: {"x-auth-token": token}})
@@ -35,8 +36,6 @@ class Profile extends Component{
             this.setState({autoSyncSetting: res.data.autoSyncSetting});
             this.setState({notificationSetting: res.data.emailSetting});
         });
-        //this.notificationSetting = profile.data.emailSetting;
-        //this.autoSyncSetting = profile.data.autoSyncSetting;
     }
 
     handleAutoSyncSetting(checked) {
