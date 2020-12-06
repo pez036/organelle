@@ -9,24 +9,44 @@ import UserContext from "../../context/UserContext";
 import Axios from "axios";
 
 export default function DropCourseModal(props){
-    
+
 
     //getCourseList();
     const [courseList, setCourseList] = useState([]);
     //let courseList = getCourseList();
 
     const [courseName, setCourseName] = useState("");
-    
+
     const fakeCourse = ["CSE110","CSE101","CSE152","HUM3"];/*This is intended for tests. */
 
     const [showDropCourse, setShowDropCourse] = useState(props.show);
+
     useEffect(() => {
+
         setShowDropCourse(props.show);
+
+        const getCourseList = async() => {
+
+          try{
+          let token = localStorage.getItem("auth-token");
+          let getCourseURL = 'http://localhost:8080/courses/all';
+          let courseRes = await Axios.get(getCourseURL,{headers: {"x-auth-token": token}});/*NOTICE: this may not be correct.*/
+          setCourseList(courseRes.data);
+
+          }
+          catch(error){
+          console.log(error);
+        }
+
+        }
+
         getCourseList();
-    })
+
+    },[props.show,courseList])
+
     function handleClose() {
-        props.action();
-        return setShowDropCourse(false);
+
+        return  props.action();
     }
 
     const DropCourseSubmit = async(e) => {
@@ -37,35 +57,24 @@ export default function DropCourseModal(props){
 
             const courseTag = {courseName: courseName};
             console.log(courseTag);
-    
+
             const courseURL = "http://localhost:8080/courses/" + courseName;
             let token = localStorage.getItem("auth-token");
-    
+
             const courseRes = await Axios.delete(courseURL,{headers: {"x-auth-token": token}});
             console.log("This is course res:", courseRes);
-    
+
           } catch (err){
             console.log("This is course res ERR:");
             console.log(err);
           }
 
 
-        props.action();
-        return setShowDropCourse(false);
+
+        return  props.action();
       }
 
-      function getCourseList() {
-        let token = localStorage.getItem("auth-token");
-        Axios.get('http://localhost:8080/courses/all',{headers: {"x-auth-token": token}})/*NOTICE: this may not be correct.*/
-        .then(
-            (response) => {
-                console.log(response);
-                setCourseList(response.data);
 
-            }
-        )
-        .catch( (error) => {console.log(error); }) 
-      }
 
 
     return(

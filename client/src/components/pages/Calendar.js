@@ -46,31 +46,6 @@ const nextMonth = () => {
 }
 
 useEffect(() => {
-  const eventImports = async() => {
-    try{
-
-      const eventURL = "http://localhost:8080/events/all";
-      let token = localStorage.getItem("auth-token");
-      let eventRes = await Axios.get(eventURL,{headers: {"x-auth-token": token}});
-      setUserEvents(eventRes.data);
-      // console.log(JSON.stringify(userEvents));
-    /*
-      const eventRes = await Axios.post(eventURL,
-        {header: {
-          "x-auth-token": token
-        }}, {data: {eventTag}}
-      );
-
-      console.log("This is event res:", eventRes);  */
-
-    } catch (err){
-      console.log("This is event res ERR:");
-      console.log(err);
-    }
-
-  }
-
-  eventImports();
 
 },[calendar,value,modalToggle])
 
@@ -98,7 +73,7 @@ return (
           <div className ="calendar">
             <div className = "header">
               <div>
-          
+
               </div>
               <div>
 
