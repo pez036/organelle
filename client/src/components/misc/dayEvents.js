@@ -47,10 +47,9 @@ export default function DayEvents(props){
     <ListGroup>
       {dayEvents.map((e)=>(
 
-          <ListGroup.Item action variant={eventStyles(e.priority)}>
+          <ListGroup.Item onClick={()=>props.action(e._id)} action variant={eventStyles(e.priority)}>
               <div className="title-list">
                 {e.title}
-                <Button variant="secondary" onClick={()=>setEventID(e.id)}>Edit</Button>
               </div>
           </ListGroup.Item>
 

@@ -10,6 +10,7 @@ import DayEvents from '../misc/dayEvents';
 //import EventCalendar from '../pages/EventCalendar';
 import Header from "../layout/Header";
 import AddEventModal from "../misc/AddEventModal";
+import EditEventModal from "../misc/EditEventModal_calendar"
 import UserContext from "../../context/UserContext";
 import Axios from "axios";
 import ErrorNotice from "../misc/ErrorNotice";
@@ -22,13 +23,20 @@ export default function Calendar() {
 const [value, setValue] = useState(moment());
 const [calendar,setCalendar] = useState(days(value));
 const [modalToggle, setModalToggle] = useState(false);
+const [editToggle, setEditToggle] = useState(false);
 const [userEvents,setUserEvents] = useState([]);
 const [dayPasser, setDayPasser] = useState(moment());
-
+const [eventId, setEventId] = useState("");
 const modalHandler = (day) => {
   // e.preventDefault(); //i added this to prevent the default behavior
   setDayPasser(day);
   modalToggle ? setModalToggle(false) : setModalToggle(true);
+
+}
+const editHandler = (id) => {
+  setEventId(id);
+  // e.preventDefault(); //i added this to prevent the default behavior
+  editToggle ? setEditToggle(false) : setEditToggle(true);
 
 }
 
@@ -64,6 +72,7 @@ return (
 
         <NavBar/>
         <AddEventModal action={modalHandler} show={modalToggle} day={dayPasser}/>
+        <EditEventModal action={editHandler} show={editToggle} id={eventId}/>
         <div className = "top-padding">
           <MonthandYear value={value} nextMonth={nextMonth} prevMonth={prevMonth}/>
         </div>
@@ -102,7 +111,7 @@ return (
                           <div className={`text-leftPadding`}>
                                 {day.format("D")}
                                 <div>
-                                  <DayEvents thisDay={day} render={modalToggle}/>
+                                  <DayEvents action={editHandler} thisDay={day} render={modalToggle}/>
                                 </div>
                           </div>
                           {/* <div  className={dayStyles(day,value)}>
