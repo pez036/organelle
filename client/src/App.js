@@ -35,8 +35,8 @@ export default function App() {
 
       if (tokenRes.data) {
         const usersURL = process.env.NODE_ENV === "production" ?
-            "http://organelle.pzny.xyz/users":
-            "http://localhost:8080/users";
+            "http://organelle.pzny.xyz/users/users":
+            "http://localhost:8080/users/users";
         const userRes = await Axios.get(usersURL,
           {headers: {"x-auth-token": token}}
         );
