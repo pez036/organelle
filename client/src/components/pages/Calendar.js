@@ -107,15 +107,13 @@ return (
                           <div className={`button-align ${dayStyles(day,value) === "before" ? 'before' : ''}`}>
                             <Button onClick={()=>modalHandler(day)} variant="light" size="sm">+</Button>
                           </div>
-
-                          <div className={`text-leftPadding`}>
-                                {day.format("D")}
-                                <div>
-                                  <DayEvents action={editHandler} thisDay={day} render={modalToggle}/>
-                                </div>
+                            <div className="text-left">
+                              {day.format("D")}
+                            </div>
+                                
+                          <div className="list-events">
+                            <DayEvents action={editHandler} thisDay={day} render={modalToggle}/>
                           </div>
-                          {/* <div  className={dayStyles(day,value)}>
-                          </div> */}
 
                       </div>
                         ))}

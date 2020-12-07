@@ -7,6 +7,7 @@ import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
 import UserContext from "../../context/UserContext";
 import Axios from "axios";
+import moment from 'moment';
 
 export default function EditEventModal_Calendar(props){
 
@@ -110,7 +111,7 @@ export default function EditEventModal_Calendar(props){
                     setEventDescription2(response.data.description);
                     setEventPriority2(response.data.priority);
                     setEventStartTime2(response.data.startTime);
-                    setEventEndTime2(response.data.endTime);
+                    setEventEndTime2(moment(response.data.endTime).toString());
                     setEventType2(response.data.type)
                 }
             )

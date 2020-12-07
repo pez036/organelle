@@ -44,8 +44,7 @@ export default function EventList(){
 
   const [deleteEvent, setDeleteEvent] = useState(false);
   const [editEvent, setEditEvent] = useState(false);
-  const [checkEvent, setCheckEvent] = useState(false);
-  const [uncheckEvent, setUncheckEvent] = useState(false);
+  const [checkedOff, setCheckedOff] = useState(false);
 
   const eventsURL = process.env.NODE_ENV === "production"?
         "http://organelle.pzny.xyz/events/":
@@ -56,7 +55,7 @@ export default function EventList(){
     }
 
     const Delete = (id) => {
-
+        if(window.confirm("This will permanently delete the event. Are you sure?")){
               let token = localStorage.getItem("auth-token");
               Axios.delete(eventsURL+id,{headers: {"x-auth-token": token}})
                   .then(
@@ -69,8 +68,9 @@ export default function EventList(){
                   .catch( (error) => {console.log(error); })
 
           }
-
+        }
     const CheckOff = (id) => {
+
               let token = localStorage.getItem("auth-token");
               Axios.get(eventsURL + id,{headers: {"x-auth-token": token}})
                   .then(
@@ -86,7 +86,10 @@ export default function EventList(){
                           };
                           console.log(eventTag);
                           const eventURL = eventsURL + id;
-                          Axios.put(eventURL, eventTag, {headers: {"x-auth-token": token}});
+                          Axios.put(eventURL, eventTag, {headers: {"x-auth-token": token}}).then(
+                            () => {
+                                checkedOff ? setCheckedOff(false) : setCheckedOff(true);
+                            }).catch();
 
                           }
 
@@ -111,7 +114,11 @@ export default function EventList(){
                           };
                           console.log(eventTag);
                           const eventURL = eventsURL + id;
-                          Axios.put(eventURL, eventTag, {headers: {"x-auth-token": token}});
+
+                          Axios.put(eventURL, eventTag, {headers: {"x-auth-token": token}}).then(
+                                () => {
+                                    checkedOff ? setCheckedOff(false) : setCheckedOff(true);
+                                }).catch();
                       }
                   )
                   .catch( (error) => {console.log(error); })
@@ -139,7 +146,9 @@ export default function EventList(){
 
                 initialImport();
 
-          }, [deleteEvent,editEvent,checkEvent,eventID,addEventModal,addCourseModal,dropCourseModal])
+
+          }, [deleteEvent,editEvent,checkedOff,eventID,addEventModal,addCourseModal,dropCourseModal])
+
     const displayEventTime = (time) =>
     {
       return moment(time).toString();
