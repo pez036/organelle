@@ -42,7 +42,10 @@ export default function EditEventModal_todo(props){
 
               console.log("EventID:", props.id);
               let token = localStorage.getItem("auth-token");
-              Axios.get('http://localhost:8080/events/'+props.id,{headers: {"x-auth-token": token}})/*NOTICE: this may not be correct.*/
+              const eventURL = process.env.NODE_ENV === "production"?
+              'http://organelle.pzny.xyz/events/'+ props.id:
+              'http://localhost:8080/events/'+props.id
+              Axios.get(eventURL,{headers: {"x-auth-token": token}})/*NOTICE: this may not be correct.*/
                   .then(
                       (response) => {
                           console.log(response);
@@ -64,7 +67,10 @@ export default function EditEventModal_todo(props){
         setShowEdit(props.show);
         function getCourseList() {
              let token = localStorage.getItem("auth-token");
-             Axios.get('http://localhost:8080/courses/all',{headers: {"x-auth-token": token}})/*NOTICE: this may not be correct.*/
+             const courseURL = process.env.NODE_ENV === "production"?
+             'http://organelle.pzny.xyz/courses/all':
+             'http://localhost:8080/courses/all'
+             Axios.get(courseURL,{headers: {"x-auth-token": token}})/*NOTICE: this may not be correct.*/
              .then(
                  (response) => {
                      setCourseList(response.data);

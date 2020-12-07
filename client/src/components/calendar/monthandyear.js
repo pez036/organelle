@@ -41,7 +41,9 @@ function nextMonth(){
 }
 const exportIcs = async(e) => {
 
-  const eventURL = "http://localhost:8080/events/all";
+  const eventURL = process.env.NODE_ENV === "production"?
+  "http://organelle.pzny.xyz/events/all":
+  "http://localhost:8080/events/all";
   let token = localStorage.getItem("auth-token");
   let eventRes = await Axios.get(eventURL,{headers: {"x-auth-token": token}});
 
