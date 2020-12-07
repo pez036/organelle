@@ -43,7 +43,7 @@ export default function EventList(){
     // const [eventRes, setEventRes] = useState([]);
 
   const [deleteEvent, setDeleteEvent] = useState(false);
-  const [editEvent, setEditEvent] = useState(false);
+  const [editEvent] = useState(false);
   const [checkedOff, setCheckedOff] = useState(false);
 
   const eventsURL = process.env.NODE_ENV === "production"?

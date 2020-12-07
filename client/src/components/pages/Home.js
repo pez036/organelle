@@ -1,6 +1,5 @@
 import React from 'react';
 import Welcome from "../layout/Welcome";
-import Header from "../layout/Header";
 import img from "../../images/bg.png";
 import "./home.css";
 

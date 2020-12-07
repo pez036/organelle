@@ -29,11 +29,11 @@ export default function NaviBar() {
       <ul className ="navbar-nav">
         <li className ="nav-item navibar-side">
           <a href="/calendar" className ="nav-link">Calendar</a>
-          <div class="dropdown-divider"></div>
+          <div className="dropdown-divider"></div>
           <a href="/todo" className ="nav-link">Todo</a>
-          <div class="dropdown-divider"></div>
+          <div className="dropdown-divider"></div>
           <a href="https://canvas.ucsd.edu" className ="nav-link">Canvas</a>
-          <div class="dropdown-divider"></div>
+          <div className="dropdown-divider"></div>
           <a href="/profile" className ="nav-link">Profile</a>
         </li>
         <div className="logout-button">

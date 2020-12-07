@@ -5,9 +5,6 @@ import BootstrapSwitchButton from 'bootstrap-switch-button-react'
 import NaviBar from '../layout/NaviBar';
 import Axios from "axios";
 import "./Profile.css"
-import Modal from "react-bootstrap/Modal";
-import Form from "react-bootstrap/Form";
-import Header from "../layout/Header";
 
 class Profile extends Component{
     constructor(props) {

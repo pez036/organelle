@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect} from 'react';
 import MonthandYear from '../calendar/monthandyear';
 import NavBar from '../layout/NaviBar';
 import "../layout/calendar.css";
@@ -8,13 +8,8 @@ import days from '../calendar/days';
 import dayStyles from '../calendar/dayStyles';
 import DayEvents from '../misc/dayEvents';
 //import EventCalendar from '../pages/EventCalendar';
-import Header from "../layout/Header";
 import AddEventModal from "../misc/AddEventModal";
 import EditEventModal from "../misc/EditEventModal_calendar"
-import UserContext from "../../context/UserContext";
-import Axios from "axios";
-import ErrorNotice from "../misc/ErrorNotice";
-import { useHistory } from "react-router-dom";
 
 
 export default function Calendar() {
@@ -24,7 +19,6 @@ const [value, setValue] = useState(moment());
 const [calendar,setCalendar] = useState(days(value));
 const [modalToggle, setModalToggle] = useState(false);
 const [editToggle, setEditToggle] = useState(false);
-const [userEvents,setUserEvents] = useState([]);
 const [dayPasser, setDayPasser] = useState(moment());
 const [eventId, setEventId] = useState("");
 const modalHandler = (day) => {

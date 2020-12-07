@@ -1,11 +1,7 @@
-import React,{ useState, useEffect, useContext} from 'react';
+import React,{ useState, useEffect} from 'react';
 import moment from 'moment';
-import Button from "react-bootstrap/Button";
 import ListGroup from 'react-bootstrap/ListGroup';
-import UserContext from "../../context/UserContext";
 import Axios from "axios";
-import ErrorNotice from "../misc/ErrorNotice";
-import { useHistory } from "react-router-dom";
 import eventStyles from "../calendar/eventStyles";
 import "../layout/calendar.css";
 
@@ -13,9 +9,6 @@ export default function DayEvents(props){
 
   const [dayEvents,setDayEvents] = useState([]);
   const [day, setDay] = useState(moment(props.thisDay).startOf("day").toISOString());
-  const [eventID, setEventID] = useState(null);
-
-
 
   useEffect(() => {
 

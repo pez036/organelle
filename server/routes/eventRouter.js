@@ -53,7 +53,7 @@ router.get("/all",auth,async (req, res) => {
 
 router.get('/time/:startTime', auth, async(req, res) => {
   try {
-    console.log(req.params.startTime);
+    //console.log(req.params.startTime);
     const event = await Event.find({startTime: req.params.startTime, userID: req.user});
     res.json(event);
 

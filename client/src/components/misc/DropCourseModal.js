@@ -1,11 +1,8 @@
-import React,{useState, useEffect,useContext} from 'react';
-import Col from 'react-bootstrap/Col';
-import Row from 'react-bootstrap/Row';
+import React,{useState, useEffect} from 'react';
 import "../layout/todoList.css";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
-import UserContext from "../../context/UserContext";
 import Axios from "axios";
 
 export default function DropCourseModal(props){
@@ -16,8 +13,6 @@ export default function DropCourseModal(props){
     //let courseList = getCourseList();
 
     const [courseName, setCourseName] = useState("");
-
-    const fakeCourse = ["CSE110","CSE101","CSE152","HUM3"];/*This is intended for tests. */
 
     const [showDropCourse, setShowDropCourse] = useState(props.show);
 

@@ -1,11 +1,9 @@
-import React,{useState, useEffect,useContext} from 'react';
+import React,{useState, useEffect} from 'react';
 import Col from 'react-bootstrap/Col';
-import Row from 'react-bootstrap/Row';
 import "../layout/todoList.css";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
-import UserContext from "../../context/UserContext";
 import Axios from "axios";
 import moment from 'moment';
 
@@ -26,7 +24,6 @@ export default function EditEventModal_Calendar(props){
     const [startTime2, setEventStartTime2] = useState("");
     const [endTime2, setEventEndTime2] = useState("");
     const [courseName2, setCourseName2] = useState("");
-    const fakeCourse = ["CSE110","CSE101","CSE152","HUM3"];/*This is intended for tests. */
     const [courseList, setCourseList] = useState([]);
 
     const monthList = ["01","02","03","04","05","06","07","08","09","10","11","12"];
@@ -93,7 +90,6 @@ export default function EditEventModal_Calendar(props){
         Axios.get('http://localhost:8080/courses/all',{headers: {"x-auth-token": token}})/*NOTICE: this may not be correct.*/
         .then(
             (response) => {
-                console.log(response);
                 setCourseList(response.data);
             }
         )
@@ -102,7 +98,8 @@ export default function EditEventModal_Calendar(props){
 
     function getEvent() {
         let token = localStorage.getItem("auth-token");
-        Axios.get('http://localhost:8080/events/' + props.id,{headers: {"x-auth-token": token}})/*NOTICE: this may not be correct.*/
+        const eventsURL = 'http://localhost:8080/events/' + props.id;
+        Axios.get(eventsURL,{headers: {"x-auth-token": token}})/*NOTICE: this may not be correct.*/
             .then(
                 (response) => {
                     console.log(response);
@@ -119,14 +116,14 @@ export default function EditEventModal_Calendar(props){
     }
 
     function getDays(year,month) {
-            if(month == "02"){
-                if(year == "2020" ||year == "2024" ||year == "2028" ||year == "2032" ||year == "2036"){
+            if(month === "02"){
+                if(year === "2020" ||year === "2024" ||year === "2028" ||year === "2032" ||year === "2036"){
                     setDayList(["01","02","03","04","05","06","07","08","09","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29"]);}
                 else{
                     setDayList(["01","02","03","04","05","06","07","08","09","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28"]);
                 }
             }
-            else if(month == "01" || month == "03"|| month == "05"|| month == "07"|| month == "08"|| month == "10"|| month == "12"){
+            else if(month === "01" || month === "03"|| month === "05"|| month === "07"|| month === "08"|| month === "10"|| month === "12"){
                 setDayList(["01","02","03","04","05","06","07","08","09","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31"]);
             }
             else{setDayList(["01","02","03","04","05","06","07","08","09","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30"]);}

@@ -47,17 +47,17 @@ const exportIcs = async(e) => {
 
   var arr = [];
   for (var i = 0; i < eventRes.data.length; i++) {
-    var e = eventRes.data[i];
-    var startDate = new Date(e.startTime);
-    var endDate = new Date(e.endTime);
+    var event = eventRes.data[i];
+    var startDate = new Date(event.startTime);
+    var endDate = new Date(event.endTime);
     function f(date)  {
       return [date.getFullYear(), date.getMonth() + 1, date.getDate(), date.getHours(), date.getMinutes()];
     }
     var st = f(startDate);
     var ed = f(endDate);
     var evics = {
-      title: e.title,
-      description: e.description,
+      title: event.title,
+      description: event.description,
       categories: ["organelle"],
       start: st,
       end: ed,
