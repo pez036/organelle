@@ -121,7 +121,6 @@ class Profile extends Component{
                             <div className="profile-body">
                                 <p>Welcome, {email}</p>
                                 <p>Change your email</p>
-                               
                                 <input className="change-setting" type="email" onChange={(e)=>{
                                     this.setState({inputEmail: e.target.value})
                                 }}

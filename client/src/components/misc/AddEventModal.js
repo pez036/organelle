@@ -12,7 +12,8 @@ import "react-datetime/css/react-datetime.css";
 export default function AddEventModal(props){
 
     const [showAddEvent, setShowAddEvent] = useState(props.show);
-
+    const [courseList, setCourseList] = useState([]);
+    const [courseName, setCourseName] = useState("");
 
     let title = "";
     const [type] = useState("");
@@ -49,7 +50,7 @@ export default function AddEventModal(props){
         priority = document.getElementById("formGroupPriority").value === "High" ? 3 : document.getElementById("formGroupPriority").value === "Medium" ? 2 : 1;
         const eventTag = {title: title,
           type: type, startTime: startTime, endTime: endTime,
-          priority:priority, description: description, courseID: courseID};
+          priority:priority, description: description, courseName: courseName};
         console.log(eventTag);
 
         const eventURL = process.env.NODE_ENV === "production"?
@@ -74,6 +75,21 @@ export default function AddEventModal(props){
       return props.action();
     }
 
+
+    function getCourseList() {
+        let token = localStorage.getItem("auth-token");
+        const coursesURL = process.env.NODE_ENV === "production"?
+        "http://organelle.pzny.xyz/courses/all" :
+        'http://localhost:8080/courses/all'
+        Axios.get(coursesURL,{headers: {"x-auth-token": token}})/*NOTICE: this may not be correct.*/
+        .then(
+            (response) => {
+                setCourseList(response.data);
+            }
+        )
+        .catch( (error) => {console.log(error); })
+    }
+    
     return(
 
 
@@ -91,8 +107,13 @@ export default function AddEventModal(props){
                     <Form.Control type="name" placeholder="What is this event?"/>
                 </Form.Group>
                 <Form.Group controlId="formGroupCourse">
-                    <Form.Label>Event Course</Form.Label>
-                    <Form.Control type="course" placeholder="Where does event come?"/>
+                                <Form.Label>Course</Form.Label>
+                                <Form.Control as="select" defaultValue={courseName} onChange={(e)=>setCourseName(e.target.value)}>
+                                        <option>Choose from Enrolled Courses</option>
+                                        {courseList.map((data,key) =>
+                                        <option key={key}>{data.courseName}</option>
+                                    )}
+                                    </Form.Control>
                 </Form.Group>
 
                 <Form.Group>

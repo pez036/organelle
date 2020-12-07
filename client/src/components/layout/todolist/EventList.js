@@ -67,7 +67,7 @@ export default function EventList(){
                   .catch( (error) => {console.log(error); })
 
           }
-        }
+    }
     const CheckOff = (id) => {
 
               let token = localStorage.getItem("auth-token");
@@ -125,20 +125,15 @@ export default function EventList(){
           }
 
           useEffect(() => {
-
             const initialImport = async() => {
-
                   try{
-
                     const eventURL = eventsURL + "all";
                     let token = localStorage.getItem("auth-token");
                     let eventRes = await Axios.get(eventURL,{headers: {"x-auth-token": token}});
                     setUserEvents(eventRes.data);
-                    console.log("Use Effect Called");
 
-                  } catch (err){
-                    console.log("This is event res ERR:");
-                    console.log(err);
+                  } catch (err) {
+                      console.log(err);
                   }
 
                 }
@@ -146,7 +141,7 @@ export default function EventList(){
                 initialImport();
 
 
-          }, [deleteEvent,editEvent,checkedOff,eventID,addEventModal,addCourseModal,dropCourseModal])
+          }, [deleteEvent,editEvent,checkedOff,addEventModal,addCourseModal,dropCourseModal])
 
     const displayEventTime = (time) =>
     {
