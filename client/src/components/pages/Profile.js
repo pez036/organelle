@@ -29,7 +29,7 @@ class Profile extends Component{
 
     componentDidMount() {
         let token = localStorage.getItem("auth-token");
-        const settingURL = process.env.MODE_ENV === "production"?
+        const settingURL = process.env.NODE_ENV === "production"?
             "http://organelle.pzny.xyz/users/setting":
             "http://localhost:8080/users/setting";
         Axios.get(settingURL,{headers: {"x-auth-token": token}})
@@ -105,7 +105,7 @@ class Profile extends Component{
                 console.log(eventTag);
                 const addURL = process.env.MODE_ENV === "production"?
                     "http://organelle.pzny.xyz/events/add":
-                    "http://localhost:8080/users/add";
+                    "http://localhost:8080/events/add";
                 Axios.post(addURL, eventTag, {headers: {"x-auth-token": token}});
             })
         });
