@@ -99,11 +99,12 @@ class Profile extends Component{
                 const endTime = element.end_at;
                 const priority = 1;
                 const description = element.description;
+                const canvasID = element.id;
                 const eventTag = {title: title,
                     type: type, startTime: startTime, endTime: endTime,
-                    priority:priority, description: description};
+                    priority:priority, description: description, canvasID: canvasID};
                 console.log(eventTag);
-                const addURL = process.env.MODE_ENV === "production"?
+                const addURL = process.env.NODE_ENV === "production"?
                     "http://organelle.pzny.xyz/events/add":
                     "http://localhost:8080/events/add";
                 Axios.post(addURL, eventTag, {headers: {"x-auth-token": token}});

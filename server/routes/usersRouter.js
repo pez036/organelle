@@ -106,6 +106,12 @@ router.put("/updatesyncsetting", auth, async (req, res) => {
 
 router.put("/updateemail", auth, async (req, res) => {
   try{
+    const newEmail = await User.findOne({email: req.body.email});
+    if (newEmail) {
+      return res
+        .status(400)
+        .json({ msg: "An account with this email already exists." });
+    }
     await User.findByIdAndUpdate(req.user, {email: req.body.email});
     res.json("email updated to "+ req.body.email);
   } catch (err) {

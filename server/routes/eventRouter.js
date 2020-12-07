@@ -5,8 +5,7 @@ const Event = require("../models/eventModel");
 
 router.post("/add",auth,async (req, res) => {
     try{
-        let {title, type, startTime, endTime, priority, description, courseName} = req.body;
-        console.log(req.user);
+        let {title, type, startTime, endTime, priority, description, courseName, canvasID} = req.body;
         const userID = req.user;
         if (!title || !priority) {
             return res.status(400).json({ msg: "Not all fields have been entered." });
@@ -27,8 +26,17 @@ router.post("/add",auth,async (req, res) => {
         //if (!userID) {
             //userID = null;
         //}
+        console.log(canvasID);
+        if (canvasID) {
+            const canvasEvent = await Event.findOne({canvasID: canvasID});
+            if (canvasEvent) {
+                return res
+                .status(400)
+                .json({ msg: "An event with this canvasID already exists." });
+            }
+        }
         const newEvent = new Event({title, type, startTime, endTime,
-            priority, description, courseName, userID});
+            priority, description, courseName, userID, canvasID});
         const savedEvent = await newEvent.save();
         res.json(savedEvent);
     }

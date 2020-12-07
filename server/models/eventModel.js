@@ -16,7 +16,8 @@ const eventSchema = new mongoose.Schema({
         type : mongoose.Schema.Types.ObjectId,
         ref: 'users',
         required: true
-    }
+    },
+    canvasID: {type : Number}
 });
 
 module.exports = Event = mongoose.model("Event", eventSchema);
