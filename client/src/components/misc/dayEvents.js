@@ -53,7 +53,7 @@ export default function DayEvents(props){
 
           <ListGroup.Item onClick={()=>props.action(e._id)} action variant={eventStyles(e.priority)}>
               <div className="title-list">
-                {e.title}
+                {e.title.substring(0,10)}
               </div>
           </ListGroup.Item>
 
