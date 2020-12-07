@@ -45,7 +45,9 @@ export default function DayEvents(props){
   return(
     <div>
     <ListGroup>
-      {dayEvents.map((e)=>(
+        {dayEvents
+          .sort((a, b) => (b.priority - a.priority))
+          .map((e) => (
 
           <ListGroup.Item onClick={()=>props.action(e._id)} action variant={eventStyles(e.priority)}>
               <div className="title-list">

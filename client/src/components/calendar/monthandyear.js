@@ -40,7 +40,7 @@ function nextMonth(){
   return props.nextMonth();
 }
 const exportIcs = async(e) => {
-  
+
   const eventURL = "http://localhost:8080/events/all";
   let token = localStorage.getItem("auth-token");
   let eventRes = await Axios.get(eventURL,{headers: {"x-auth-token": token}});

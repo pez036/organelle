@@ -5,7 +5,8 @@ import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
 import moment from 'moment';
 import Axios from "axios";
-
+import Datetime from 'react-datetime';
+import "react-datetime/css/react-datetime.css";
 
 
 export default function AddEventModal(props){
@@ -21,21 +22,17 @@ export default function AddEventModal(props){
     const [courseID] = useState("");
     //const [user, setUser] = useState(null);
 
-    const [startTime, setEventStartTime] = useState(moment());
-    console.log("Event Start Time");
-    console.log(startTime.toString());
-
-    const [endTime, setEventEndTime] = useState(moment());
-    console.log("Event: End Time");
-    console.log(endTime.toString());
-
+    const [startTime, setEventStartTime] = useState(moment(props.day).startOf("day").toISOString());
+    const [endTime, setEventEndTime] = useState(moment(props.day));
 
     useEffect(() => {
         setShowAddEvent(props.show);
-        setEventEndTime(moment(props.day).endOf("day").toISOString());
-        setEventStartTime(moment(props.day).startOf("day").toISOString());
     },[props.show,props.day])
 
+    function onDatePickerChange(e) {
+        setEventStartTime(moment(e).startOf("day").toISOString());
+        setEventEndTime(e);
+    }
 
     function handleAddEventClose() {
         return props.action();
@@ -96,6 +93,11 @@ export default function AddEventModal(props){
                     <Form.Control type="course" placeholder="Where does event come?"/>
                 </Form.Group>
 
+                <Form.Group>
+                    <Form.Label>Due Time</Form.Label>
+                        <Datetime initialValue={moment(props.day)} dateFormat={false} onChange={(e)=>onDatePickerChange(e)}/>
+                </Form.Group>
+                    
 
                 <Form.Group controlId="formGroupDescription">
                     <Form.Label>Event Description</Form.Label>
