@@ -1,7 +1,6 @@
 const router = require("express").Router();
 const auth = require("../middleware/auth");
 const Event = require("../models/eventModel");
-//const Axios = require("axios");
 
 router.post("/add",auth,async (req, res) => {
     try{
@@ -23,9 +22,7 @@ router.post("/add",auth,async (req, res) => {
         if (!courseName) {
             courseName = null;
         }
-        //if (!userID) {
-            //userID = null;
-        //}
+
         console.log(canvasID);
         if (canvasID) {
             const canvasEvent = await Event.findOne({canvasID: canvasID});
@@ -45,7 +42,6 @@ router.post("/add",auth,async (req, res) => {
     }
 })
 
-
 router.get("/all",auth,async (req, res) => {
     const event = await Event.find({userID: req.user});
     res.json(event);
@@ -53,7 +49,6 @@ router.get("/all",auth,async (req, res) => {
 
 router.get('/time/:startTime', auth, async(req, res) => {
   try {
-    //console.log(req.params.startTime);
     const event = await Event.find({startTime: req.params.startTime, userID: req.user});
     res.json(event);
 
@@ -90,8 +85,6 @@ router.put('/:id', auth, async (req,res) => {
         });
 
         res.json(updated);
-        /*Event.findByIdAndUpdate(req.params.id, req.body)
-        res.json({msg:"Edit successfully"})*/
     }
     catch (err) {
         res.status(500).json({error: err.message})
