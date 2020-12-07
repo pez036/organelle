@@ -52,7 +52,9 @@ export default function AddEventModal(props){
           priority:priority, description: description, courseID: courseID};
         console.log(eventTag);
 
-        const eventURL = "http://localhost:8080/events/add";
+        const eventURL = process.env.NODE_ENV === "production"?
+              "http://organelle.pzny.xyz/events/add":
+              "http://localhost:8080/events/add";
         let token = localStorage.getItem("auth-token");
         const eventRes = await Axios.post(eventURL,eventTag,{headers: {"x-auth-token": token}});
 /*

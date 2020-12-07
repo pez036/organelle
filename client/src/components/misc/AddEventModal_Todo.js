@@ -57,7 +57,9 @@ const newEventSubmit = async(e) => {
       try{
         const eventTag = {title: title, type: type, startTime: startTime, endTime: endTime,
                         priority:priority, description: description, courseName: courseName};
-        const eventURL = "http://localhost:8080/events/add";
+        const eventURL = process.env.NODE_ENV === "production"?
+              "http://organelle.pzny.xyz/events/add":
+              "http://localhost:8080/events/add";
         let token = localStorage.getItem("auth-token");
 
         const eventRes = await Axios.post(eventURL,eventTag,{headers: {"x-auth-token": token}});
@@ -71,7 +73,10 @@ const newEventSubmit = async(e) => {
 
     function getCourseList() {
         let token = localStorage.getItem("auth-token");
-        Axios.get('http://localhost:8080/courses/all',{headers: {"x-auth-token": token}})/*NOTICE: this may not be correct.*/
+        const coursesURL = process.env.NODE_ENV === "production"?
+            "http://organelle.pzny.xyz/courses/all":
+            "http://localhost:8080/courses/all";
+        Axios.get(coursesURL,{headers: {"x-auth-token": token}})/*NOTICE: this may not be correct.*/
         .then(
             (response) => {
                 setCourseList(response.data);

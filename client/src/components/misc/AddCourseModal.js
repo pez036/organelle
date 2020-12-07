@@ -29,7 +29,9 @@ export default function AddCourseModal(props){
             const courseTag = {courseName: title, professor: professor};
             console.log(courseTag);
 
-            const courseURL = "http://localhost:8080/courses/add";
+            const courseURL = process.env.NODE_ENV === "production"?
+                "http://organelle.pzny.xyz/courses/add":
+                "http://localhost:8080/courses/add";
             let token = localStorage.getItem("auth-token");
 
             const courseRes = await Axios.post(courseURL,courseTag,{headers: {"x-auth-token": token}});

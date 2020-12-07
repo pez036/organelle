@@ -29,7 +29,10 @@ class Profile extends Component{
 
     componentDidMount() {
         let token = localStorage.getItem("auth-token");
-        Axios.get("http://localhost:8080/users/setting",{headers: {"x-auth-token": token}})
+        const settingURL = process.env.MODE_ENV === "production"?
+            "http://organelle.pzny.xyz/users/setting":
+            "http://localhost:8080/users/setting";
+        Axios.get(settingURL,{headers: {"x-auth-token": token}})
         .then(res => {
             this.setState({inputEmail: res.data.email});
             this.setState({email: res.data.email});
@@ -40,7 +43,10 @@ class Profile extends Component{
 
     handleAutoSyncSetting(checked) {
         this.setState({ autoSyncSetting: checked });
-        const updateURL = "http://localhost:8080/users/updatesyncsetting";
+        const updateURL = process.env.NODE_ENV === "production"?
+            "http://organelle.pzny.xyz/users/updatesyncsetting":
+            "http://localhost:8080/users/updatesyncsetting";
+
         const body = {autoSyncSetting: checked};
         const token = localStorage.getItem("auth-token");
         Axios.put(updateURL,body, {headers: {"x-auth-token": token}});
@@ -48,7 +54,9 @@ class Profile extends Component{
 
     handleEmailSetting(checked) {
         this.setState({ notificationSetting: checked });
-        const updateURL = "http://localhost:8080/users/updateemailsetting";
+        const updateURL = process.env.NODE_ENV === "production"?
+            "http://organelle.pzny.xyz/users/updateemailsetting":
+            "http://localhost:8080/users/updateemailsetting";
         const body = {emailSetting: checked};
         const token = localStorage.getItem("auth-token");
         Axios.put(updateURL,body, {headers: {"x-auth-token": token}});
@@ -56,14 +64,18 @@ class Profile extends Component{
 
     handleEmailChange(e) {
         this.setState({email: this.state.inputEmail});
-        const updateURL = "http://localhost:8080/users/updateemail";
+        const updateURL = process.env.NODE_ENV === "production"?
+            "http://organelle.pzny.xyz/users/updateemail":
+            "http://localhost:8080/users/updateemail";
         const body = {email: this.state.inputEmail};
         const token = localStorage.getItem("auth-token");
         Axios.put(updateURL,body, {headers: {"x-auth-token": token}});
     }
 
     handlePasswordChange() {
-        const updateURL = "http://localhost:8080/users/updatepassword";
+        const updateURL = process.env.NODE_ENV === "production"?
+            "http://organelle.pzny.xyz/users/updatepassword":
+            "http://localhost:8080/users/updatepassword";
         const body = {password: this.state.inputPassword};
         const token = localStorage.getItem("auth-token");
         Axios.put(updateURL,body, {headers: {"x-auth-token": token}});
@@ -91,7 +103,10 @@ class Profile extends Component{
                     type: type, startTime: startTime, endTime: endTime,
                     priority:priority, description: description};
                 console.log(eventTag);
-                Axios.post("http://localhost:8080/events/add", eventTag, {headers: {"x-auth-token": token}});
+                const addURL = process.env.MODE_ENV === "production"?
+                    "http://organelle.pzny.xyz/events/add":
+                    "http://localhost:8080/users/add";
+                Axios.post(addURL, eventTag, {headers: {"x-auth-token": token}});
             })
         });
     }
