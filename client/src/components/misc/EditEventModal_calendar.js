@@ -7,6 +7,9 @@ import Form from "react-bootstrap/Form";
 import Axios from "axios";
 import moment from 'moment';
 
+import Datetime from 'react-datetime';
+import "react-datetime/css/react-datetime.css";
+
 export default function EditEventModal_Calendar(props){
 
     const [title, setEventTitle] = useState("");
@@ -111,37 +114,17 @@ export default function EditEventModal_Calendar(props){
                     setEventDescription2(response.data.description);
                     setEventPriority2(response.data.priority);
                     setEventStartTime2(response.data.startTime);
-                    setEventEndTime2(moment(response.data.endTime).toString());
+                    setEventEndTime2(moment(response.data.endTime).format('LLLL'));
                     setEventType2(response.data.type)
                 }
             )
             .catch( (error) => {console.log(error);})
     }
 
-    function getDays(year,month) {
-            if(month === "02"){
-                if(year === "2020" ||year === "2024" ||year === "2028" ||year === "2032" ||year === "2036"){
-                    setDayList(["01","02","03","04","05","06","07","08","09","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29"]);}
-                else{
-                    setDayList(["01","02","03","04","05","06","07","08","09","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28"]);
-                }
-            }
-            else if(month === "01" || month === "03"|| month === "05"|| month === "07"|| month === "08"|| month === "10"|| month === "12"){
-                setDayList(["01","02","03","04","05","06","07","08","09","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31"]);
-            }
-            else{setDayList(["01","02","03","04","05","06","07","08","09","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30"]);}
-    }
 
-    function updateDays(){
-        updateTime();
-        getDays(year,month);
-        console.log("update!")
-
-    }
-
-    function updateTime(){
-        setEventStartTime(""+year+"-"+month+"-"+day+"T"+hour+":"+min+":00.000Z");
-        setEventEndTime(""+year+"-"+month+"-"+day+"T"+hour+":"+min+":00.000Z");
+    function onDatePickerChange(e) {
+        setEventStartTime(moment(e).startOf("day").toISOString());
+        setEventEndTime(e);
     }
 
 
@@ -202,60 +185,12 @@ export default function EditEventModal_Calendar(props){
                                     </Form.Control>
                                 </Form.Group>
 
-                <Form.Row>
-                        <Form.Group as={Col} controlId="FormYear">
-                            <Form.Label>Year</Form.Label>
-                            <Form.Control as="select" defaultValue="Choose..."  onClick={updateDays} onChange={(e)=>setYear(e.target.value)}>
-                                <option>Choose...</option>
-                                {yearList.map((year,key) =>
-                                <option key={key}>{year}</option>
-                            )}
-                            </Form.Control>
-                        </Form.Group>
-
-                        <Form.Group as={Col} controlId="FormMonth">
-                            <Form.Label>Month</Form.Label>
-                            <Form.Control as="select" defaultValue="Choose..." onClick={updateDays} onChange={(e)=>setMonth(e.target.value)}>
-                                <option>Choose...</option>
-                                {monthList.map((month,key) =>
-                                <option key={key}>{month}</option>
-                            )}
-                            </Form.Control>
-                        </Form.Group>
-
-                        <Form.Group as={Col} controlId="FormDay">
-                            <Form.Label>Day</Form.Label>
-                            <Form.Control as="select" onClick={updateDays} defaultValue="Choose..." onChange={(e)=>setDay(e.target.value)}>
-                                <option>Choose...</option>
-                                {dayList.map((day,key) =>
-                                <option key={key}>{day}</option>
-                            )}
-                            </Form.Control>
-                        </Form.Group>
-                        </Form.Row>
-
                         <Form.Row>
-                        <Form.Group as={Col} controlId="FormHour">
-                            <Form.Label>Hour</Form.Label>
-                            <Form.Control as="select" defaultValue="Choose..." onClick={updateDays} onChange={(e)=>setHour(e.target.value)}>
-                                <option>Choose...</option>
-                                {hourList.map((hour,key) =>
-                                <option key={key}>{hour}</option>
-                            )}
-                            </Form.Control>
-                        </Form.Group>
-
-                        <Form.Group as={Col} controlId="FormMinute">
-                            <Form.Label>Minute</Form.Label>
-                            <Form.Control as="select"defaultValue="Choose..." onClick={updateDays} onChange={(e)=>setMin(e.target.value)}>
-                                <option>Choose...</option>
-                                {minList.map((min,key) =>
-                                <option key={key}>{min}</option>
-                            )}
-                            </Form.Control>
-                        </Form.Group>
-                </Form.Row>
-                <Button variant="primary" onClick={updateTime} block>Save Time</Button>
+                                <Form.Group controlId="formDatePicker">
+                                    <Form.Label>End Time</Form.Label>
+                                        <Datetime onChange={(e)=>onDatePickerChange(e)}/>
+                                </Form.Group>
+                        </Form.Row>
 
                                 <Form.Group controlId="formGroupDescription">
                                     <Form.Label>Event Description</Form.Label>

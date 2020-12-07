@@ -98,14 +98,14 @@ return (
                   {week.map((day)=>(
 
                       <div className="day" key={day}>
-                          <div className={`button-align ${dayStyles(day,value) === "before" ? 'before' : ''}`}>
+                          <div className={`button-align ${dayStyles(day) === "text-left before" ? 'before' : ''}`}>
                             <Button onClick={()=>modalHandler(day)} variant="light" size="sm">+</Button>
-                          </div>
-                            <div className="text-left">
-                              {day.format("D")}
-                            </div>
-                                
-                          <div className="list-events">
+                      </div>
+                      
+                      <div className={dayStyles(day)}>
+                          {day.format("D")}
+                      </div> 
+                          <div className="list-events list-overflow">
                             <DayEvents action={editHandler} thisDay={day} render={modalToggle}/>
                           </div>
 

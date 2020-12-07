@@ -151,7 +151,7 @@ export default function EventList(){
 
     const displayEventTime = (time) =>
     {
-      return moment(time).toString();
+      return moment(time).format('LLLL');
     }
 
     return(
@@ -188,7 +188,7 @@ export default function EventList(){
 
                 <ListGroup variant="flush">
                 {userEvents
-                  .sort((a,b) =>(b.priority - a.priority))
+                  .sort((a,b) =>(b.priority - a.priority)|| Date.parse(a.endTime)- Date.parse(b.endTime))
                   .map((event) => (
                     <div>
                         <br/>
@@ -214,9 +214,6 @@ export default function EventList(){
                 ))}
                 </ListGroup>
 
-            {/* <p className="EventList">
-                <Event/>
-            </p> */}
 
         </div>
     )

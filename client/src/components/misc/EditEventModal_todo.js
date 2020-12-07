@@ -54,7 +54,7 @@ export default function EditEventModal_todo(props){
                           setEventDescription2(response.data.description);
                           setEventPriority2(response.data.priority);
                           setEventStartTime2(response.data.startTime);
-                          setEventEndTime2(response.data.endTime);
+                          setEventEndTime2(moment(response.data.endTime).format('LLLL'));
                           setEventType2(response.data.type)
                       }
                   )
@@ -129,35 +129,6 @@ export default function EditEventModal_todo(props){
       }
 
 
-
-
-
-
-    function getDays(year,month) {
-            if(month === "02"){
-                if(year === "2020" ||year === "2024" ||year === "2028" ||year === "2032" ||year === "2036"){
-                    setDayList(["01","02","03","04","05","06","07","08","09","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29"]);}
-                else{
-                    setDayList(["01","02","03","04","05","06","07","08","09","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28"]);
-                }
-            }
-            else if(month === "01" || month === "03"|| month === "05"|| month === "07"|| month === "08"|| month === "10"|| month === "12"){
-                setDayList(["01","02","03","04","05","06","07","08","09","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31"]);
-            }
-            else{setDayList(["01","02","03","04","05","06","07","08","09","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30"]);}
-    }
-
-    /*function updateDays(){
-        updateTime();
-        getDays(year,month);
-        console.log("update!")
-
-    }*/
-
-    /*function updateTime(){
-        setEventStartTime(moment(""+year+"-"+month+"-"+day+"T"+hour+":"+min+":00.000Z").startOf("day").toISOString());
-        setEventEndTime(""+year+"-"+month+"-"+day+"T"+hour+":"+min+":00.000Z");
-    }*/
 
     function onDatePickerChange(e) {
         setEventStartTime(moment(e).startOf("day").toISOString());

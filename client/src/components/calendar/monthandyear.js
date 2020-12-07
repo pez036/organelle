@@ -81,24 +81,21 @@ return (
     <div>
       <Container>
       <Row>
-      <Col xl={2}>
+      <Col xl={1}>
         <ButtonToolbar>
         <Button variant="dark" size="lg" onClick={()=>prevMonth()}>Previous</Button>
         </ButtonToolbar>
       </Col>
-        <Col xl={5}>
+        <Col xl={7}>
         <h1 class="text-dark" align ="center">
         <div>
-        {currMonthName()} </div>
-        <div>   </div>
-        <div> {currYear()}</div>
+        {currMonthName()}   {currYear()}</div>
         </h1>
         </Col>
-        <Col xl={5}>
+        <Col xl={4}>
           <ButtonToolbar>
-          <Button variant="dark" size="lg" onClick={exportIcs}>Export Calendar File</Button>
-          <Button variant="dark" size="lg">Import Calendar File</Button>
-          <Button variant="dark" size="lg" onClick={()=>nextMonth()}>Next</Button>
+            <Button variant="dark" size="lg" onClick={() => nextMonth()}>Next</Button>
+            <Button variant="dark" size="lg" onClick={exportIcs}>Export Calendar File</Button>
           </ButtonToolbar>
         </Col>
       </Row>

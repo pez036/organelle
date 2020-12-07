@@ -113,7 +113,6 @@ class Profile extends Component{
         const { email, notificationSetting, autoSyncSetting } = this.state;
         return (
             <div>
-                {/* <Header/> */}
                 <div>
                     <NaviBar />
                     <div className = "top-right">

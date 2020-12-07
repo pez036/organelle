@@ -41,18 +41,18 @@ export default function DayEvents(props){
     <div>
     <ListGroup>
         {dayEvents
-          .sort((a, b) => (b.priority - a.priority))
+          .sort((a, b) => b.priority - a.priority || Date.parse(a.endTime) - Date.parse(b.endTime))
+          .slice(0,4)
           .map((e) => (
-
-          <ListGroup.Item onClick={()=>props.action(e._id)} action variant={eventStyles(e.priority)}>
+            <ListGroup.Item onClick={()=>props.action(e._id)} action variant={eventStyles(e.priority)}>
               <div className="title-list">
-                {e.title.substring(0,10)}
+                {e.title.substring(0,10)} | {moment(e.endTime).format('LT')}
               </div>
-          </ListGroup.Item>
-
+            </ListGroup.Item>
       ))}
 
-        </ListGroup>
+      </ListGroup>
+     
     </div>
 
   );
