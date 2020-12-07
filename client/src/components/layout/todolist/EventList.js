@@ -5,8 +5,6 @@ import Row from 'react-bootstrap/Row';
 import "../../layout/todoList.css";
 import Button from "react-bootstrap/Button";
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
-import DropdownButton from 'react-bootstrap/DropdownButton';
-import Dropdown from 'react-bootstrap/Dropdown';
 import AddEventModal_Todo from "../../misc/AddEventModal_Todo";
 import AddCourseModal_Todo from "../../misc/AddCourseModal";
 import DropCourseModal_Todo from "../../misc/DropCourseModal";
@@ -14,6 +12,7 @@ import EditEventModal_Todo from "../../misc/EditEventModal_todo";
 import eventStyles from "../../calendar/eventStyles"
 import Axios from "axios";
 import moment from 'moment';
+import BootstrapSwitchButton from 'bootstrap-switch-button-react'
 
 export default function EventList(){
 
@@ -196,15 +195,22 @@ export default function EventList(){
 
                             <ListGroup.Item variant={eventStyles(event.priority)} className="listgroupEvent">
                                 <Row>
-                                    <Col xs={9} >{event.title} | {event.priority} </Col>
+                                    <Col xs={9} >{event.title}</Col>
                                     <Col xs={1}>
                                         <ButtonGroup className="mb-2">
                                             <Button onClick={() => Edit(setEventID(event._id))}>Edit</Button>
                                             <Button onClick={() => Delete(event._id)}>Delete</Button>
-                                            <DropdownButton as={ButtonGroup} title="Options" id="anesteddropdown">
-                                                <Dropdown.Item eventKey="1" onClick={() => CheckOff(event._id)}>Checkoff</Dropdown.Item>
-                                                <Dropdown.Item eventKey="2" onClick={() => UnCheckOff(event._id)}>DeCheckoff</Dropdown.Item>
-                                            </DropdownButton>
+                                            <BootstrapSwitchButton
+                                                checked={event.priority * -1 > 0}
+                                                onlabel='&#x2713;'
+                                                onstyle='success'
+                                                offlabel='&#10007;'
+                                                offstyle='danger'
+                                                onChange={(checked) => {
+                                                    if(checked) CheckOff(event._id);
+                                                    else UnCheckOff(event._id);
+                                                }}
+                                            />
                                         </ButtonGroup>
                                     </Col>
                                 </Row>

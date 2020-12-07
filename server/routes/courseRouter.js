@@ -11,7 +11,7 @@ router.post("/add",auth,async (req, res) => {
         if (!courseName) {
             return res.status(400).json({ msg: "No courseName entered." });
         }
-        const existingCourse = await Course.findOne({ courseName: courseName });
+        const existingCourse = await Course.findOne({ courseName: courseName, userID: userID });
         if (existingCourse)
             return res
                 .status(400)
