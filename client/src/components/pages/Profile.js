@@ -48,6 +48,22 @@ class Profile extends Component{
         const token = localStorage.getItem("auth-token");
         Axios.put(updateURL,body, {headers: {"x-auth-token": token}});
     }
+    scheduleSend(){
+        // e-mail message options
+
+        try{
+            const emailURL = "http://localhost:8080/events/emailstart";
+
+            const token = localStorage.getItem("auth-token");
+            const body = {};
+            Axios.post(emailURL,body, {headers: {"x-auth-token": token}});
+            window.alert("Email sent successfully.");
+            
+        } catch(err){
+            console.log("SCHE ERR");
+            console.log(err);
+        }
+    }
 
     handleEmailSetting(checked) {
         this.setState({ notificationSetting: checked });
@@ -134,15 +150,8 @@ class Profile extends Component{
                                 />
                                 <br/>
                                 <Button viriant="light" onClick={this.handlePasswordChange}>change</Button>
-                                <p>Notification Setting: {notificationSetting} </p>
-                                <BootstrapSwitchButton
-                                    checked={notificationSetting}
-                                    onlabel='on'
-                                    onstyle='success'
-                                    offlabel='off'
-                                    offstyle='danger'
-                                    onChange={(checked) => this.handleEmailSetting(checked)}
-                                />
+                                <p>Notification Email (Events for the next three days): {notificationSetting} </p>
+                                <Button onClick={this.scheduleSend}>Send Email</Button>
                                 <p>Canvas AutoSync Setting: {autoSyncSetting} </p>
                                 <BootstrapSwitchButton
                                     checked={autoSyncSetting}

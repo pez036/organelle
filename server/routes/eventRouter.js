@@ -149,7 +149,7 @@ router.post("/emailstart",auth, async (req, res) => {
             
             transporter.sendMail({
             from: 'organelleplanner',
-                to: 'mhtoo@ucsd.edu',
+                to: 'pez036@ucsd.edu',
                 subject: 'Deadline Reminder',
                 text: message
             });
