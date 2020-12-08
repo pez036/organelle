@@ -153,7 +153,7 @@ export default function EditEventModal_todo(props){
 
                                 <Form.Group controlId="formGroupPriority">
                                 <Form.Label>{displayPriority()}</Form.Label>
-                                 <Form.Control as="select" onChange={(e) => setEventPriority(e.target.value)}>
+                            <Form.Control value={priority} as="select" onChange={(e) => setEventPriority(e.target.value)}>
                                     <option value = "3">High</option>
                                     <option value = "2">Median</option>
                                     <option value = "1">Low</option>

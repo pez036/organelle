@@ -42,7 +42,7 @@ export default function EventList(){
     // const [eventRes, setEventRes] = useState([]);
 
   const [deleteEvent, setDeleteEvent] = useState(false);
-  const [editEvent] = useState(false);
+  const [editEvent, setEditEvent] = useState(false);
   const [checkedOff, setCheckedOff] = useState(false);
 
   const eventsURL = process.env.NODE_ENV === "production"?
@@ -50,7 +50,8 @@ export default function EventList(){
         "http://localhost:8080/events/";
 
     const Edit = () => {
-              editEventModalHandler();
+        editEventModalHandler();
+        editEvent ? setEditEvent(false) : setEditEvent(true);
     }
 
     const Delete = (id) => {
@@ -124,7 +125,8 @@ export default function EventList(){
 
           }
 
-          useEffect(() => {
+    useEffect(() => {
+              
             const initialImport = async() => {
                   try{
                     const eventURL = eventsURL + "all";
@@ -141,7 +143,7 @@ export default function EventList(){
                 initialImport();
 
 
-          }, [deleteEvent,editEvent,checkedOff,addEventModal,addCourseModal,dropCourseModal])
+          }, [deleteEvent,checkedOff,addEventModal,addCourseModal,dropCourseModal,editEventModal])
 
     const displayEventTime = (time) =>
     {
@@ -155,7 +157,8 @@ export default function EventList(){
                 <AddEventModal_Todo action={addEventModalHandler} show={addEventModal}/>
                 <AddCourseModal_Todo action={addCourseModalHandler} show={addCourseModal}/>
                 <DropCourseModal_Todo action={dropCourseModalHandler} show={dropCourseModal}/>
-                <EditEventModal_Todo action={editEventModalHandler} show={editEventModal} id={eventID}/>
+                <EditEventModal_Todo action={editEventModalHandler} show={editEventModal} id={eventID} />
+                
                 <Row>
                     <Col lg={6}>TodoList</Col>
                     <Row lg={1}>

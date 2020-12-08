@@ -28,6 +28,7 @@ export default function AddEventModal(props){
 
     useEffect(() => {
         setShowAddEvent(props.show);
+        getCourseList();
     },[props.show,props.day])
 
     function onDatePickerChange(e) {
@@ -51,21 +52,13 @@ export default function AddEventModal(props){
         const eventTag = {title: title,
           type: type, startTime: startTime, endTime: endTime,
           priority:priority, description: description, courseName: courseName};
-        console.log(eventTag);
 
         const eventURL = process.env.NODE_ENV === "production"?
               "http://organelle.pzny.xyz/events/add":
               "http://localhost:8080/events/add";
         let token = localStorage.getItem("auth-token");
         const eventRes = await Axios.post(eventURL,eventTag,{headers: {"x-auth-token": token}});
-/*
-        const eventRes = await Axios.post(eventURL,
-          {header: {
-            "x-auth-token": token
-          }}, {data: {eventTag}}
-        );
-*/
-        console.log("This is event res:", eventRes);
+
 
       } catch (err){
         console.log("This is event res ERR:");
@@ -113,7 +106,7 @@ export default function AddEventModal(props){
                                         {courseList.map((data,key) =>
                                         <option key={key}>{data.courseName}</option>
                                     )}
-                                    </Form.Control>
+                                </Form.Control>
                 </Form.Group>
 
                 <Form.Group>

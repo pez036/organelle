@@ -60,7 +60,6 @@ export default function EditEventModal_Calendar(props){
                 "http://organelle.pzny.xyz/events/"+ props.id:
                 "http://localhost:8080/events/"+ props.id;
             let token = localStorage.getItem("auth-token");
-
             const eventRes = await Axios.put(eventURL,eventTag,{headers: {"x-auth-token": token}});
         
           } catch (err){
@@ -147,8 +146,8 @@ export default function EditEventModal_Calendar(props){
                                 <Form.Control type="title" placeholder={title} onChange={(e)=>setEventTitle(e.target.value)}/>
                             </Form.Group>
                             <Form.Group controlId="formGroupCourse">
-                                <Form.Label>Course</Form.Label>
-                                <Form.Control as="select" defaultValue={courseName} onChange={(e)=>setCourseName(e.target.value)}>
+                                <Form.Label>Course: {courseName} </Form.Label>
+                                <Form.Control as="select" onChange={(e)=>setCourseName(e.target.value)}>
                                         <option>Choose from Enrolled Courses</option>
                                         {courseList.map((data,key) =>
                                         <option key={key}>{data.courseName}</option>
@@ -174,7 +173,7 @@ export default function EditEventModal_Calendar(props){
 
                                 <Form.Group controlId="formGroupPriority">
                                 <Form.Label>{displayPriority()}</Form.Label>
-                                <Form.Control as="select" onChange={(e)=>setEventPriority(e.target.value)}>
+                            <Form.Control value={priority} as="select" onChange={(e) => setEventPriority(e.target.value)}>
                                     <option value = "3">High</option>
                                     <option value = "2">Median</option>
                                     <option value = "1">Low</option>

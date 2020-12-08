@@ -33,7 +33,7 @@ export default function DayEvents(props){
       }
 
     eventDayImports();
-  },[props.render,props.action]);
+  },[props.render,props.thisDay]);
 
 
 

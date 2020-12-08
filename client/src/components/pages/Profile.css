@@ -15,7 +15,6 @@
 }
 
 .profile-body{
-    padding-top: 10px;
     background-color: #666464;
     color: #FFFFFF;
     border-width: 0px;
@@ -28,6 +27,11 @@
     height:100%;
 }
 
-.change-setting {
-    color: #000000;
+.settings{
+    padding-right: 150px;
+
+}
+
+.option{
+    padding-top:10px;
 }
