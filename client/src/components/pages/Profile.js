@@ -126,7 +126,11 @@ class Profile extends Component{
                     "http://localhost:8080/events/add";
                 Axios.post(addURL, eventTag, {headers: {"x-auth-token": token}});
             })
-        });
+        })
+        .catch((err)=>{
+            console.log(err);
+        })
+        window.alert("Imported from you Canvas calendar successfully!");
     }
 
     render(){
