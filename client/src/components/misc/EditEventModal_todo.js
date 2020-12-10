@@ -80,7 +80,9 @@ export default function EditEventModal_todo(props){
 
     function getEvent() {
         let token = localStorage.getItem("auth-token");
-        const eventsURL = 'http://localhost:8080/events/' + props.id;
+        const eventsURL = process.env.NODE_ENV === "production"?
+        'http://organelle.pzny.xyz/events' + props.id :
+        'http://localhost:8080/events/' + props.id;
         Axios.get(eventsURL,{headers: {"x-auth-token": token}})/*NOTICE: this may not be correct.*/
             .then(
                 (response) => {

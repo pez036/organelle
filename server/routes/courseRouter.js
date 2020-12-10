@@ -6,22 +6,26 @@ router.post("/add",auth,async (req, res) => {
     try{
 
         let {courseName,professor} = req.body;
-        console.log(req.user);
         const userID = req.user;
         if (!courseName) {
             return res.status(400).json({ msg: "No courseName entered." });
         }
         const existingCourse = await Course.findOne({ courseName: courseName, userID: userID });
-        if (existingCourse)
+        console.log(existingCourse)
+        if (existingCourse) {
+            console.log("duplicate course");
             return res
                 .status(400)
                 .json({ msg: "This course already exists." });
+        }
 
         if (!professor) {
             professor = "professor";
         }
         const newCourse = new Course({courseName,professor,userID});
+        console.log(newCourse);
         const savedCourse = await newCourse.save();
+        console.log("added");
         res.json(savedCourse);
     }
     catch (err) {
