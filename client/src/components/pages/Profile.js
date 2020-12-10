@@ -22,6 +22,7 @@ class Profile extends Component{
         this.handleEmailSetting = this.handleEmailSetting.bind(this);
         this.handleEmailChange = this.handleEmailChange.bind(this);
         this.handlePasswordChange = this.handlePasswordChange.bind(this);
+        this.scheduleSend = this.scheduleSend.bind(this);
     }
 
     componentDidMount() {
@@ -52,10 +53,13 @@ class Profile extends Component{
         // e-mail message options
 
         try{
-            const emailURL = "http://localhost:8080/events/emailstart";
+            const emailURL = process.env.NODE_ENV === "production"?
+            "http://organelle.pzny.xyz/events/emailstart":
+            "http://localhost:8080/events/emailstart";
 
             const token = localStorage.getItem("auth-token");
-            const body = {};
+            console.log(this.state.email);
+            const body = {"email":this.state.email};
             Axios.post(emailURL,body, {headers: {"x-auth-token": token}});
             window.alert("Email sent successfully.");
             
