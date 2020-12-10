@@ -1,6 +1,5 @@
 .profile-form{
     font-size: 1.6rem;
-    padding-top: 37px;
 }
 .profile-title{
     padding-top: 10px;
@@ -16,7 +15,6 @@
 }
 
 .profile-body{
-    padding-top: 10px;
     background-color: #666464;
     color: #FFFFFF;
     border-width: 0px;
@@ -27,4 +25,17 @@
     font-weight: 345;
     width: 60%;
     height:100%;
+}
+
+.change-setting {
+    color: #000000;
+}
+
+.settings{
+    padding-right: 150px;
+
+}
+
+.option{
+    padding-top:10px;
 }

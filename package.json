@@ -1,5 +1,5 @@
 {
-  "name": "sourcecode",
+  "name": "organelle",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -11,13 +11,15 @@
     "frontend": "npm run start --prefix client",
     "dev": "concurrently \"npm run backend\" \"npm run start --prefix client\"",
     "clean": "rm -rf client/build/",
-    "build": "npm run build --prefix client"
+    "build": "npm run clean && npm run build --prefix client"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "concurrently": "^5.3.0",
+    "ics": "^2.26.2",
     "jquery": "^3.5.1",
-    "popper.js": "^1.16.1"
+    "popper.js": "^1.16.1",
+    "react-datetime": "^3.0.4"
   }
 }

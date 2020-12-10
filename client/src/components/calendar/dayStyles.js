@@ -1,11 +1,3 @@
-import React from 'react';
-import moment from 'moment';
-import 'bootstrap/dist/css/bootstrap.min.css';
-
-function isSelected(day,value){
-  return value.isSame(day,"day");
-}
-
 
 function beforeToday(day){
   return day.isBefore(new Date(),"day");
@@ -15,17 +7,14 @@ function isToday(day){
   return day.isSame(new Date(),"day");
 }
 
-export default function dayStyles(day,value){
+export default function dayStyles(day){
 
   if(beforeToday(day)){
-    return "before";
-  }
-  if(isSelected(day,value)){
-    return "selected";
+    return "text-left before";
   }
   if(isToday(day)){
-    return "today";
+    return "text-left today";
   }
 
-  return "";
+  return "text-left";
 }

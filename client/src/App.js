@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
-import Header from './components/layout/Header';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import Home from "./components/pages/Home";
 import Todo from "./components/pages/Todo";
 import Calendar from "./components/pages/Calendar";
@@ -34,7 +34,10 @@ export default function App() {
       const tokenRes = await Axios.post(tivURL, null, {header: {"x-auth-token": token}});
 
       if (tokenRes.data) {
-        const userRes = await Axios.get("http://localhost:8080/users",
+        const usersURL = process.env.NODE_ENV === "production" ?
+            "http://organelle.pzny.xyz/users/users":
+            "http://localhost:8080/users/users";
+        const userRes = await Axios.get(usersURL,
           {headers: {"x-auth-token": token}}
         );
         setUserData({
@@ -50,18 +53,14 @@ export default function App() {
     <>
       <BrowserRouter>
         <UserContext.Provider value={{userData, setUserData}}>
-          {/* <Header /> */}
-          {/* <div className="container"> */}
             <Switch>
               <Route exact path='/' component={Home} />
               <Route path='/login' component={Login} />
               <Route path='/register' component={Register} />
-              {/* below should be privateroute*/}
-              <Route path='/todo' component={Todo} />
-              <Route path='/calendar' component={Calendar} />
-              <Route path='/profile' component={Profile} />
+              <PrivateRoute path='/todo' component={Todo} />
+              <PrivateRoute path='/calendar' component={Calendar} />
+              <PrivateRoute path='/profile' component={Profile} />
             </Switch>
-          {/* </div> */}
         </ UserContext.Provider>
       </BrowserRouter>
     </>

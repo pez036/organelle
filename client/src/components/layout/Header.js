@@ -1,16 +1,16 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import AuthOptions from "../auth/AuthOptions";
-import Routes from "../pages/Routes";
+import "./Header.css"
+//import { Container } from "react-bootstrap";
 
 export default function Header() {
   return (
-    <header id="header">
+    <header className="bg-dark" id="header">
       <Link to="/">
-        <h1 className="title">Organelle</h1>
+        {/* <img src={logo} style={{width: 74, height: 74}} alt="Logo" />
+        <img src={organelle} style={{height: 37}} alt="Logo" /> */}
+        <h1>ORGANELLE</h1>
       </Link>
-      <Routes />
-      <AuthOptions />
     </header>
   );
 }
