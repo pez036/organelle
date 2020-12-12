@@ -18,10 +18,7 @@ export default function AddEventModal(props){
     let title = "";
     const [type] = useState("");
     let description = "";
-    // const [priority, setEventPriority] = useState(3);
     let priority = 3;
-    const [courseID] = useState("");
-    //const [user, setUser] = useState(null);
 
     const [startTime, setEventStartTime] = useState(moment(props.day).startOf("day").toISOString());
     const [endTime, setEventEndTime] = useState(moment(props.day));

@@ -130,7 +130,6 @@ router.post("/emailstart",auth, async (req, res) => {
             else{
                 message = message + "\nHorray! You have nothing due today!\n\n";
             }
-            console.log(message)
             if(event2.length != 0){
                 event2.forEach(e => message = message + e.title + "due at " + e.endTime + "\n");
                 console.log(message);
@@ -146,10 +145,9 @@ router.post("/emailstart",auth, async (req, res) => {
                 message = message + "\nHorray! You have nothing due two days from now!\n\n";
             }
             
-            
             transporter.sendMail({
             from: 'organelleplanner',
-                to: 'pez036@ucsd.edu',
+                to: req.body.email,
                 subject: 'Deadline Reminder',
                 text: message
             });

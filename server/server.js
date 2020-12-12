@@ -33,9 +33,8 @@ const courseRouter = require('./routes/courseRouter');
 app.use('/courses', courseRouter);
 
 const env = process.env.NODE_ENV;
-console.log(env);
 
-//if (process.env.NODE_ENV === "production") {
+if (process.env.NODE_ENV === "production") {
 
     // Set static folder
     // All the javascript and css files will be read and served from this folder
@@ -46,7 +45,7 @@ console.log(env);
     app.get("*", (req, res) => {
       res.sendFile(path.resolve(__dirname, "../client", "build", "index.html"));
     });
-//}
+}
 
 const port = process.env.PORT || 5000;
 app.listen(port, () => {

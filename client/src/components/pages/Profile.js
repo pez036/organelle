@@ -15,13 +15,15 @@ class Profile extends Component{
             inputEmail: "dummy@email.com",
             notificationSetting: false,
             autoSyncSetting: false,
-            inputPassword: ""
+            inputPassword: "",
+            canvasToken:""
         }
         this.handleImportCanvas = this.handleImportCanvas.bind(this);
         this.handleAutoSyncSetting = this.handleAutoSyncSetting.bind(this);
         this.handleEmailSetting = this.handleEmailSetting.bind(this);
         this.handleEmailChange = this.handleEmailChange.bind(this);
         this.handlePasswordChange = this.handlePasswordChange.bind(this);
+        this.scheduleSend = this.scheduleSend.bind(this);
     }
 
     componentDidMount() {
@@ -52,10 +54,13 @@ class Profile extends Component{
         // e-mail message options
 
         try{
-            const emailURL = "http://localhost:8080/events/emailstart";
+            const emailURL = process.env.NODE_ENV === "production"?
+            "http://organelle.pzny.xyz/events/emailstart":
+            "http://localhost:8080/events/emailstart";
 
             const token = localStorage.getItem("auth-token");
-            const body = {};
+            console.log(this.state.email);
+            const body = {"email":this.state.email};
             Axios.post(emailURL,body, {headers: {"x-auth-token": token}});
             window.alert("Email sent successfully.");
             
@@ -96,7 +101,7 @@ class Profile extends Component{
 
     handleImportCanvas() {
         //this token is valid until Dec.8th 12am, belonging to Pengyu Zhang's Canvas account
-        const token = "13171~cvR5q31Pa3SShRqoR0NXsXC8uSntxCaHARMQ2jleR9v3BJFEO9mGe1V8PARLg4CF";
+        const token = this.state.canvasToken;
         const config = {
             headers: { Authorization: `Bearer ${token}`}
         };
@@ -122,7 +127,11 @@ class Profile extends Component{
                     "http://localhost:8080/events/add";
                 Axios.post(addURL, eventTag, {headers: {"x-auth-token": token}});
             })
-        });
+        })
+        .catch((err)=>{
+            console.log(err);
+        })
+        window.alert("Imported from you Canvas calendar successfully!");
     }
 
     render(){
@@ -135,7 +144,7 @@ class Profile extends Component{
                         <div className = "profile-form">
                             <h4 className = "profile-title">Profile and Settings</h4>
                             <div className="profile-body">
-                                <p>Welcome, {email}</p>
+                                <h4>Welcome, {email}</h4>
                                 <p>Change your email</p>
                                 <input className="change-setting" type="email" onChange={(e)=>{
                                     this.setState({inputEmail: e.target.value})
@@ -162,6 +171,11 @@ class Profile extends Component{
                                     onChange={(checked) =>this.handleAutoSyncSetting(checked)}
                                 />
                                 <p>Get events from Canvas</p>
+                                <input className="change-setting" type="password" placeholder="Canvas token here"
+                                    onChange={(e)=>{
+                                    this.setState({canvasToken: e.target.value})}}
+                                />
+                                <p/>
                                 <Button onClick={this.handleImportCanvas}>Import</Button>
                             </div>
                         </div>
