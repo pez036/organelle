@@ -36,8 +36,10 @@ export default function AddCourseModal(props){
 
             const courseRes = await Axios.post(courseURL,courseTag,{headers: {"x-auth-token": token}});
             console.log("This is course res:", courseRes);
+            window.alert("added ", title);
 
           } catch (err){
+              if (err.response.status === 400) {window.alert(err.response.data.msg)}
             console.log("This is course res ERR:");
             console.log(err);
           }

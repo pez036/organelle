@@ -68,7 +68,7 @@
 
 .listgroupEvent {
     min-width: 850px;
-    width: 60%;
+    width: 100%;
     line-height: 2.5rem;
     height: 40px;
     font-size: 16px;
@@ -87,7 +87,7 @@ p{
     text-align: left;
     font-size:16pt;
     font-weight: 345;
-    width: 60%;
+    width: 100%;
     min-width: 850px;
     height: 65px;
 
