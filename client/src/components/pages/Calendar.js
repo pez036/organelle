@@ -1,4 +1,4 @@
-import React, { useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import MonthandYear from '../calendar/monthandyear';
 import NavBar from '../layout/NaviBar';
 import "../layout/calendar.css";
@@ -15,108 +15,107 @@ import EditEventModal from "../misc/EditEventModal_calendar"
 export default function Calendar() {
 
 
-const [value, setValue] = useState(moment());
-const [calendar,setCalendar] = useState(days(value));
-const [modalToggle, setModalToggle] = useState(false);
-const [editToggle, setEditToggle] = useState(false);
-const [dayPasser, setDayPasser] = useState(moment());
-const [eventId, setEventId] = useState("");
-const modalHandler = (day) => {
-  // e.preventDefault(); //i added this to prevent the default behavior
-  setDayPasser(day);
-  modalToggle ? setModalToggle(false) : setModalToggle(true);
+  const [value, setValue] = useState(moment());
+  const [calendar, setCalendar] = useState(days(value));
+  const [modalToggle, setModalToggle] = useState(false);
+  const [editToggle, setEditToggle] = useState(false);
+  const [dayPasser, setDayPasser] = useState(moment());
+  const [eventId, setEventId] = useState("");
+  const modalHandler = (day) => {
+    // e.preventDefault(); //i added this to prevent the default behavior
+    setDayPasser(day);
+    modalToggle ? setModalToggle(false) : setModalToggle(true);
 
-}
-const editHandler = (id) => {
-  setEventId(id);
-  // e.preventDefault(); //i added this to prevent the default behavior
-  editToggle ? setEditToggle(false) : setEditToggle(true);
+  }
+  const editHandler = (id) => {
+    setEventId(id);
+    // e.preventDefault(); //i added this to prevent the default behavior
+    editToggle ? setEditToggle(false) : setEditToggle(true);
 
-}
+  }
 
-const prevMonth = () => {
-  setValue(value.subtract(1,"month"));
-  setCalendar(days(value));
-  return value;
+  const prevMonth = () => {
+    setValue(value.subtract(1, "month"));
+    setCalendar(days(value));
+    return value;
 
-}
+  }
 
-const nextMonth = () => {
-  setValue(value.add(1,"month"));
-  setCalendar(days(value));
-  return value;
-}
+  const nextMonth = () => {
+    setValue(value.add(1, "month"));
+    setCalendar(days(value));
+    return value;
+  }
 
-useEffect(() => {
+  useEffect(() => {
 
-},[calendar,value,modalToggle])
+  }, [calendar, value, modalToggle])
 
 
-/*function currMonthName(){
-  return value.format("MMM");
-}
+  /*function currMonthName(){
+    return value.format("MMM");
+  }
+  
+  function currYear(){
+    return value.format("YYYY");
+  }*/
 
-function currYear(){
-  return value.format("YYYY");
-}*/
+  return (
+    <div>
+      {/* <Header/> */}
 
-return (
-  <div>
-        {/* <Header/> */}
+      <NavBar />
+      <AddEventModal action={modalHandler} show={modalToggle} day={dayPasser} />
+      <EditEventModal action={editHandler} show={editToggle} id={eventId} />
+      <div className="top-padding">
+        <MonthandYear value={value} nextMonth={nextMonth} prevMonth={prevMonth} />
+      </div>
 
-        <NavBar/>
-        <AddEventModal action={modalHandler} show={modalToggle} day={dayPasser}/>
-        <EditEventModal action={editHandler} show={editToggle} id={eventId}/>
-        <div className = "top-padding">
-          <MonthandYear value={value} nextMonth={nextMonth} prevMonth={prevMonth}/>
-        </div>
+      <div className="top-right">
+        <hr />
+        <div className="calendar">
+          <div className="header">
+            <div>
 
-        <div className = "top-right">
-        <hr/>
-          <div className ="calendar">
-            <div className = "header">
-              <div>
-
-              </div>
-              <div>
-
-              </div>
             </div>
+            <div>
 
-            <div className = "body">
-            <div className = "day-names">
-            {
-              ["Sun","Mon", "Tue","Wed","Thu","Fri","Sat"].map((d) => (
-                <div className="week" key={d}>
-                {d}
-                </div>
+            </div>
+          </div>
+
+          <div className="body">
+            <div className="day-names">
+              {
+                ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].map((d) => (
+                  <div className="week" key={d}>
+                    {d}
+                  </div>
+                ))}
+
+            </div>
+            {calendar.map((week) => (
+              <div key={week}>
+                {week.map((day) => (
+                  <div className="day" key={day}>
+                    <div className={`button-align ${dayStyles(day) === "text-left before" ? 'before' : ''}`}>
+                      <Button onClick={() => modalHandler(day)} variant="light" size="sm">+</Button>
+                    </div>
+
+                    <div className={dayStyles(day)}>
+                      {day.format("D")}
+                    </div>
+
+                    <div className="list-events list-overflow">
+                      <DayEvents action={editHandler} thisDay={day} render={modalToggle} />
+                    </div>
+                  </div>
+                ))}
+              </div>
             ))}
-
-            </div>
-              {calendar.map((week) =>(
-                <div key={week}>
-                  {week.map((day)=>(
-
-                      <div className="day" key={day}>
-                          <div className={`button-align ${dayStyles(day) === "text-left before" ? 'before' : ''}`}>
-                            <Button onClick={()=>modalHandler(day)} variant="light" size="sm">+</Button>
-                      </div>
-                      
-                      <div className={dayStyles(day)}>
-                          {day.format("D")}
-                      </div> 
-                          <div className="list-events list-overflow">
-                            <DayEvents action={editHandler} thisDay={day} render={modalToggle}/>
-                          </div>
-
-                      </div>
-                        ))}
-                      </div>
-                    ))}
-                </div>
-              </div>
-            </div>
+          </div>
+        </div>
+      </div>
     </div>
 
-);
+  );
 }
