@@ -144,6 +144,7 @@ router.put("/updatepassword", auth, async (req, res) => {
     const salt = await bcrypt.genSalt();
     const passwordHash = await bcrypt.hash(newpass, salt);
     await User.findByIdAndUpdate(req.user, {password: passwordHash});
+    res.status(200).json({msg:"password changed"});
 
   } catch (err) {
     res.status(500).json({ msg: err.message });
