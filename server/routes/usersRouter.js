@@ -126,6 +126,11 @@ router.put("/updatepassword", auth, async (req, res) => {
   try {
     const { currpass, newpass, confirmpass } = req.body;
     console.log(currpass);
+    if(!currpass || !newpass || !confirmpass){
+      return res
+      .status(400)
+      .json({ msg: "All fields must be filled before submitting." });
+    }
     if (newpass.length < 5)
       return res
         .status(400)
