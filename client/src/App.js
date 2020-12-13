@@ -7,6 +7,7 @@ import Calendar from "./components/pages/Calendar";
 import Profile from "./components/pages/Profile";
 import Login from "./components/auth/Login";
 import Register from "./components/auth/Register";
+import ResetPassword from "./components/auth/ResetPassword";
 import UserContext from  "./context/UserContext";
 import PrivateRoute from "./auth/PrivateRoute";
 import Axios from "axios";
@@ -57,6 +58,7 @@ export default function App() {
               <Route exact path='/' component={Home} />
               <Route path='/login' component={Login} />
               <Route path='/register' component={Register} />
+              <Route path='/reset/:id' component={ResetPassword} />
               <PrivateRoute path='/todo' component={Todo} />
               <PrivateRoute path='/calendar' component={Calendar} />
               <PrivateRoute path='/profile' component={Profile} />

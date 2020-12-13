@@ -18,11 +18,8 @@ export default function Login() {
   function handleShow() {
       return setShow(true);
   }
-  function newEventSubmit(){
-      /*Todo*/
-      return setShow(false);
-  }
-
+  
+  const [forgotEmail, setforgotEmail] = useState("");
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const [error, setError] = useState();
@@ -31,6 +28,15 @@ export default function Login() {
   const history = useHistory();
 
   const redirectBack = () => history.push('/');
+
+  function resetRequestSubmit(){
+    const forgotURL = process.env.NODE_ENV === "production"?
+    "http://organelle.pzny.xyz/users/forgot" :
+    "http://localhost:8080/users/forgot";
+    const body = {"email": forgotEmail};
+    Axios.post(forgotURL, body);
+    return setShow(false);
+}
 
   const submit = async (e) => {
     e.preventDefault();
@@ -89,13 +95,15 @@ export default function Login() {
           <Form>
             <Form.Group controlId="formGroupEmail">
               <Form.Label>Email</Form.Label>
-              <Form.Control type="Email" placeholder="What is your Email?" />
+              <Form.Control type="Email" placeholder="What is your Email?"
+                onChange={(e)=> {setforgotEmail(e.target.value)}} />
+                <span>Check your junk mail box if you can't find the email.</span>
             </Form.Group>
           </Form>
 
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="primary" onClick={newEventSubmit}>Send An Email</Button>
+          <Button variant="primary" onClick={resetRequestSubmit}>Send An Email</Button>
           <Button variant="primary" onClick={handleClose}>Cancel</Button>
         </Modal.Footer>
       </Modal>
