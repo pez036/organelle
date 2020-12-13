@@ -9,7 +9,7 @@ router.post("/add",auth,async (req, res) => {
         let {title, type, startTime, endTime, priority, description, courseName, canvasID} = req.body;
         const userID = req.user;
         if (!title || !priority) {
-            return res.status(400).json({ msg: "Not all fields have been entered." });
+            return res.status(400).json({ msg: "Please fill out all required fields indicated by an asterik (*)." });
         }
         if (!type) {
             type = "uncategorized";
