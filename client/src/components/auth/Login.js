@@ -19,7 +19,7 @@ export default function Login() {
       return setShow(true);
   }
   
-  const [forgotEmail, setforgotEmail] = useState("");
+  const [forgotEmail, setforgotEmail] = useState();
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const [error, setError] = useState();
