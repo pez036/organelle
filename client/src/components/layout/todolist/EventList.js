@@ -46,7 +46,7 @@ export default function EventList(){
   const [checkedOff, setCheckedOff] = useState(false);
 
   const eventsURL = process.env.NODE_ENV === "production"?
-        "http://organelle.pzny.xyz/events/":
+        "https://organelle.pzny.xyz/events/":
         "http://localhost:8080/events/";
 
     const Edit = () => {

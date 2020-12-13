@@ -30,7 +30,7 @@ export default function AddCourseModal(props){
             console.log(courseTag);
 
             const courseURL = process.env.NODE_ENV === "production"?
-                "http://organelle.pzny.xyz/courses/add":
+                "https://organelle.pzny.xyz/courses/add":
                 "http://localhost:8080/courses/add";
             let token = localStorage.getItem("auth-token");
 
