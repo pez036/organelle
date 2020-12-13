@@ -37,6 +37,7 @@ export default function Login() {
     Axios.post(forgotURL, body)
     .then(res => {
       window.alert(res.data.msg);
+      setforgotEmail(undefined);
       return setShow(false);
     })
     .catch(err => {
