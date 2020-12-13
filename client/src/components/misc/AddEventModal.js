@@ -6,6 +6,7 @@ import Form from "react-bootstrap/Form";
 import moment from 'moment';
 import Axios from "axios";
 import Datetime from 'react-datetime';
+import ErrorNotice from './ErrorNotice';
 import "react-datetime/css/react-datetime.css";
 
 
@@ -22,6 +23,8 @@ export default function AddEventModal(props){
 
     const [startTime, setEventStartTime] = useState(moment(props.day).startOf("day").toISOString());
     const [endTime, setEventEndTime] = useState(moment(props.day));
+    const [error, setError] = useState();
+
 
     useEffect(() => {
         setShowAddEvent(props.show);
@@ -55,14 +58,14 @@ export default function AddEventModal(props){
               "http://localhost:8080/events/add";
         let token = localStorage.getItem("auth-token");
         const eventRes = await Axios.post(eventURL,eventTag,{headers: {"x-auth-token": token}});
-
+        
+        return props.action();
 
       } catch (err){
-        console.log("This is event res ERR:");
-        console.log(err);
+        setError(err.response.data.msg);
+
       }
 
-      return props.action();
     }
 
 
@@ -92,8 +95,11 @@ export default function AddEventModal(props){
             <Modal.Body>
 
             <Form>
+                {error && (
+                    <ErrorNotice message={error} clearError={() => setError(undefined)} />
+                )}
                 <Form.Group controlId="formGroupName">
-                    <Form.Label>Event Name</Form.Label>
+                    <Form.Label>Event Name *</Form.Label>
                     <Form.Control type="name" placeholder="What is this event?"/>
                 </Form.Group>
                 <Form.Group controlId="formGroupCourse">
@@ -118,7 +124,7 @@ export default function AddEventModal(props){
                 </Form.Group>
                 <Form.Group controlId="formGroupPriority">
                     <Form.Label>Priority</Form.Label>
-                    <Form.Control as="select" defaultValue="How important is this event?">
+                    <Form.Control  as="select" defaultValue="Low">
                         <option>High</option>
                         <option>Medium</option>
                         <option>Low</option>

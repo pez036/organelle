@@ -5,7 +5,7 @@ import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
 import Axios from "axios";
 import moment from 'moment';
-
+import ErrorNotice from './ErrorNotice';
 import Datetime from 'react-datetime';
 import "react-datetime/css/react-datetime.css";
 
@@ -13,7 +13,7 @@ export default function AddEventModalTodo(props){
 
     const [title, setEventTitle] = useState("");
     const [description, setEventDescription] = useState("");
-    const [priority, setEventPriority] = useState(0);
+    const [priority, setEventPriority] = useState(1);
     const [type, setEventType] = useState("");
 
     const [startTime, setEventStartTime] = useState();
@@ -24,6 +24,8 @@ export default function AddEventModalTodo(props){
     const [courseName, setCourseName] = useState("");
 
     const [showAddEvent, setShowAddEvent] = useState(props.show);
+
+    const [error, setError] = useState();
 
     useEffect(() => {
         setShowAddEvent(props.show);
@@ -47,12 +49,14 @@ const newEventSubmit = async(e) => {
         let token = localStorage.getItem("auth-token");
 
         await Axios.post(eventURL,eventTag,{headers: {"x-auth-token": token}});
+        return props.action();
 
       } catch (err){
-        console.log(err);
+        setError(err.response.data.msg);
+
       }
 
-      return props.action();
+
     }
 
     function getCourseList() {
@@ -78,13 +82,17 @@ const newEventSubmit = async(e) => {
     return(
         <Modal show={showAddEvent} onHide={handleClose} backdrop="static" keyboard={false} animation={false}>
             <Modal.Header closeButton>
+
                 <Modal.Title>New Event</Modal.Title>
             </Modal.Header>
             <Modal.Body>
 
             <Form>
+                {error && (
+                    <ErrorNotice message={error} clearError={() => setError(undefined)} />
+                )}
                 <Form.Group controlId="formGroupName">
-                    <Form.Label>Event Name</Form.Label>
+                    <Form.Label>Event Name *</Form.Label>
                     <Form.Control type="name" placeholder="What is this event?" onChange={(e)=>setEventTitle(e.target.value)} />
                 </Form.Group>
 
@@ -112,8 +120,7 @@ const newEventSubmit = async(e) => {
                 </Form.Group>
                 <Form.Group controlId="formGroupPriority">
                     <Form.Label>Priority</Form.Label>
-                    <Form.Control as="select" onChange={(e)=>setEventPriority(e.target.value)} defaultValue="How important is this event?">
-                        <option>How important is this event?</option>
+                    <Form.Control defaultValue="1" as="select" onChange={(e)=>setEventPriority(e.target.value)} >
                         <option value = "3">High</option>
                         <option value = "2">Medium</option>
                         <option value = "1">Low</option>
