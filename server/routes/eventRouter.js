@@ -108,22 +108,15 @@ router.post("/emailstart",auth, async (req, res) => {
     try{
         console.log("HERE");
         // var emailTask = cron.schedule('* * * * *', () => {
-            //console.log(req.body);
-            //console.log(req.user);
-            console.log(moment().subtract(8, "hour").startOf("day"));
-            const mmt1 = process.env.NODE_ENV === "production"?
-            moment().add(16, "hour").startOf("day"):
-            moment().startOf("day");
-            const mmt2 = process.env.NODE_ENV === "production"?
-            moment().add(16, "hour").add(1,"day").startOf("day"):
-            moment().add(1,"day").startOf("day");
-            const mmt3 = process.env.NODE_ENV === "production"?
-            moment().add(16, "hour").add(2,"day").startOf("day"):
-            moment().add(2,"day").startOf("day");
-            const event1 = await Event.find({startTime: mmt1, userID: req.user});
-            const event2 = await Event.find({startTime: mmt2, userID: req.user});
-            const event3 = await Event.find({startTime: mmt3, userID: req.user});
-            //console.log(event1);
+            console.log(req.body);
+            console.log(req.user);
+            const events = await Event.find({startTime: {$gt:moment().startOf("day"), 
+                $lt:moment().add(3,"day").startOf("day")}
+            , userID: req.user});
+            //const event2 = await Event.find({startTime: moment().add(1, "day").startOf("day"), userID: req.user});
+            //const event3 = await Event.find({startTime: moment().add(2, "day").startOf("day"), userID: req.user});
+            console.log(s);
+
             var transporter = nodemailer.createTransport({
                 service: 'Gmail',
                 auth: {
@@ -133,14 +126,14 @@ router.post("/emailstart",auth, async (req, res) => {
             });
             //send email only if events exist
             let message = "Hope you're having a fantastic day! Here are your deadline reminders for the next three days: \n\n";
-            if(event1.length != 0){
-                event1.forEach(e => message = message + e.title + "due at " + e.endTime + "\n");
+            if(events.length != 0){
+                events.forEach(e => message = message + e.title + "due at " + e.endTime + "\n");
                 console.log(message);
             }
             else{
                 message = message + "\nHorray! You have nothing due today!\n\n";
             }
-            if(event2.length != 0){
+            /*if(event2.length != 0){
                 event2.forEach(e => message = message + e.title + "due at " + e.endTime + "\n");
                 console.log(message);
             }
@@ -153,7 +146,7 @@ router.post("/emailstart",auth, async (req, res) => {
             }
             else{
                 message = message + "\nHorray! You have nothing due two days from now!\n\n";
-            }
+            }*/
             
             transporter.sendMail({
             from: 'organelleplanner',
