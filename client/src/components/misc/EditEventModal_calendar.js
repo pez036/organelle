@@ -104,7 +104,7 @@ export default function EditEventModal_Calendar(props){
 
     function onDatePickerChange(e) {
         setEventStartTime(moment(e).startOf("day").toISOString());
-        setEventEndTime(moment(e).format('LLLL'));
+        setEventEndTime(moment(e));
     }
 
     function displayPriority() { 
@@ -156,7 +156,7 @@ export default function EditEventModal_Calendar(props){
                                 </Form.Group>
 
                                 <Form.Group controlId="formDatePicker">
-                                    <Form.Label>End Time: {endTime}</Form.Label>
+                                    <Form.Label>End Time: {moment(endTime).format('LLLL')}</Form.Label>
                                         <Datetime onChange={(e) =>onDatePickerChange(e)}/>
                                 </Form.Group>
 
@@ -175,7 +175,7 @@ export default function EditEventModal_Calendar(props){
                                 <Form.Label>{displayPriority()}</Form.Label>
                             <Form.Control value={priority} as="select" onChange={(e) => setEventPriority(e.target.value)}>
                                     <option value = "3">High</option>
-                                    <option value = "2">Median</option>
+                                    <option value = "2">Medium</option>
                                     <option value = "1">Low</option>
                                 </Form.Control>
                                 </Form.Group>
