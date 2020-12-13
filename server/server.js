@@ -32,6 +32,10 @@ const courseRouter = require('./routes/courseRouter');
 
 app.use('/courses', courseRouter);
 
+const icsRouter = require('./routes/icsIORouter');
+
+app.use('/calendar', icsRouter);
+
 const env = process.env.NODE_ENV;
 
 if (process.env.NODE_ENV === "production") {
