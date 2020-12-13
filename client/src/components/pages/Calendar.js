@@ -25,7 +25,6 @@ export default function Calendar() {
     // e.preventDefault(); //i added this to prevent the default behavior
     setDayPasser(day);
     modalToggle ? setModalToggle(false) : setModalToggle(true);
-
   }
   const editHandler = (id) => {
     setEventId(id);

@@ -3,6 +3,7 @@ const auth = require("../middleware/auth");
 const Event = require("../models/eventModel");
 const nodemailer = require("nodemailer");
 const moment = require("moment");
+
 router.post("/add",auth,async (req, res) => {
     try{
         let {title, type, startTime, endTime, priority, description, courseName, canvasID} = req.body;
@@ -14,7 +15,7 @@ router.post("/add",auth,async (req, res) => {
             type = "uncategorized";
         }
         if (!startTime||!endTime) {
-            startTime = Date.now();
+            startTime = moment(Date.now()).startOf("day").toISOString();
             endTime = Date.now();
         }
         if (!description) {
@@ -23,8 +24,6 @@ router.post("/add",auth,async (req, res) => {
         if (!courseName) {
             courseName = null;
         }
-
-        console.log(canvasID);
         if (canvasID) {
             const canvasEvent = await Event.findOne({canvasID: canvasID});
             if (canvasEvent) {

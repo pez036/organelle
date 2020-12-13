@@ -18,7 +18,7 @@ export default function AddEventModal(props){
     let title = "";
     const [type] = useState("");
     let description = "";
-    let priority = 3;
+    let priority = 0;
 
     const [startTime, setEventStartTime] = useState(moment(props.day).startOf("day").toISOString());
     const [endTime, setEventEndTime] = useState(moment(props.day));
@@ -71,7 +71,7 @@ export default function AddEventModal(props){
         const coursesURL = process.env.NODE_ENV === "production"?
         "http://organelle.pzny.xyz/courses/all" :
         'http://localhost:8080/courses/all'
-        Axios.get(coursesURL,{headers: {"x-auth-token": token}})/*NOTICE: this may not be correct.*/
+        Axios.get(coursesURL,{headers: {"x-auth-token": token}})
         .then(
             (response) => {
                 setCourseList(response.data);

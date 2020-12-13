@@ -10,7 +10,6 @@ const eventSchema = new mongoose.Schema({
     endTime: { type : Date, default: Date.now()},
     priority: {type: Number},
     description: {type: String},
-    //courseID: { type : mongoose.Schema.Types.ObjectId, ref: 'Course' },
     courseName:{type : String },
     userID: {
         type : mongoose.Schema.Types.ObjectId,
