@@ -97,6 +97,7 @@ export default function Login() {
               <Form.Label>Email</Form.Label>
               <Form.Control type="Email" placeholder="What is your Email?"
                 onChange={(e)=> {setforgotEmail(e.target.value)}} />
+                <span>Check your junk mail box if you can't find the email.</span>
             </Form.Group>
           </Form>
 
