@@ -193,7 +193,7 @@ export default function EventList(){
 
                             <ListGroup.Item variant={eventStyles(event.priority)} className="listgroupEvent">
                                 <Row>
-                                    <Col xs={9} >{event.title}</Col>
+                                    <Col xs={8} >{event.title}</Col>
                                     <Col xs={1}>
                                         <ButtonGroup className="mb-2">
                                             <Button onClick={() => Edit(setEventID(event._id))}>Edit</Button>
