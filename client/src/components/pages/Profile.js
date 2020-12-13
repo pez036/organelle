@@ -129,9 +129,9 @@ class Profile extends Component{
             })
         })
         .catch((err)=>{
+            if (err.response.status === 400) {window.alert(err.response.data.msg)}
             console.log(err);
         })
-        window.alert("Imported from you Canvas calendar successfully!");
     }
 
     render(){
