@@ -28,6 +28,12 @@ export default function AddEventModalTodo(props){
     const [error, setError] = useState();
 
     useEffect(() => {
+        setEventTitle("");
+        setEventDescription("");
+        setEventPriority(1);
+        setEventType("");
+        setEventStartTime();
+        setEventEndTime();
         setShowAddEvent(props.show);
         getCourseList();
     },[props.show])
@@ -55,7 +61,6 @@ const newEventSubmit = async(e) => {
         setError(err.response.data.msg);
 
       }
-
 
     }
 

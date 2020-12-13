@@ -124,18 +124,35 @@ router.put("/updateemail", auth, async (req, res) => {
 
 router.put("/updatepassword", auth, async (req, res) => {
   try {
-    const password = req.body.password;
-    if (password.length < 5)
+    const { currpass, newpass, confirmpass } = req.body;
+    console.log(currpass);
+    if(!currpass || !newpass || !confirmpass){
+      return res
+      .status(400)
+      .json({ msg: "All fields must be filled before submitting." });
+    }
+    if (newpass.length < 5)
       return res
         .status(400)
         .json({ msg: "The password needs to be at least 5 characters long." });
-    
+
+    const user = await User.findById(req.user);
+    const isMatch = await bcrypt.compare(currpass, user.password);
+    if (!isMatch) return res.status(400).json({ msg: "Current password is incorrect." });
+
+    if(newpass != confirmpass){
+      return res
+      .status(400)
+      .json({msg: "New password and confirm password do not match."});
+    }
+
     const salt = await bcrypt.genSalt();
-    const passwordHash = await bcrypt.hash(password, salt);
+    const passwordHash = await bcrypt.hash(newpass, salt);
     await User.findByIdAndUpdate(req.user, {password: passwordHash});
-    res.json("password updated to "+ password);
+    res.status(200).json({msg:"password changed"});
+
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    res.status(500).json({ msg: err.message });
   }
 })
 
