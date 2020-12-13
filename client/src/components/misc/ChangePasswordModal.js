@@ -18,13 +18,14 @@ export default function AddEventModal(props){
 
     useEffect(() => {
         setShowAddEvent(props.show);
-
+        setError(undefined);
+        
     },[props.show,props.day])
-
+    
     const handleVerifyPassword = async(e) => {
-
+        
         e.preventDefault();
-
+        
         try{
             const updateURL = process.env.NODE_ENV === "production"?
             "http://organelle.pzny.xyz/users/updatepassword":
@@ -37,18 +38,18 @@ export default function AddEventModal(props){
             const token = localStorage.getItem("auth-token");
             await Axios.put(updateURL,body, {headers: {"x-auth-token": token}})
             .then((res) => {
+                setcurPass(undefined);
+                setnewPass(undefined);
+                setnewPassConfirm(undefined);
                 window.alert(res.data.msg);
             });
             return props.action();
-        
-          } catch (err){
+            
+        } catch (err){
             setError(err.response.data.msg);
         }
-        setcurPass(undefined);
-        setnewPass(undefined);
-        setnewPassConfirm(undefined);
     }
-
+    
     function handleClose() {
         return props.action();
     }

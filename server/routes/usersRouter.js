@@ -124,9 +124,15 @@ router.put("/updateemail", auth, async (req, res) => {
 
 router.put("/updatepassword", auth, async (req, res) => {
   try {
-    const { currpass, newpass, confirmpass } = req.body;
+    let { currpass, newpass, confirmpass } = req.body;
     console.log(currpass);
-    if(!currpass || !newpass || !confirmpass){
+    console.log(newpass);
+    console.log(confirmpass);
+    console.log(currpass == undefined);
+    console.log(newpass==undefined);
+    console.log(confirmpass==undefined);
+    
+    if(currpass == undefined|| newpass==undefined || confirmpass==undefined){
       return res
       .status(400)
       .json({ msg: "All fields must be filled before submitting." });
