@@ -14,7 +14,7 @@ export default function ResetPassword(props) {
     };
     console.log(body);
     const resetURL = process.env.NODE_ENV === "production"?
-    "http://organelle.pzny.xyz/users/reset" :
+    "https://organelle.pzny.xyz/users/reset" :
     "http://localhost:8080/users/reset";
     Axios.post(resetURL, body)
     .then(() => {

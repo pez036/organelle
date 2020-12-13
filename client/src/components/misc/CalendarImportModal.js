@@ -26,7 +26,7 @@ export default function CalendarImportModal(props) {
         const formData = new FormData();
         formData.append("file", file);
         const URL = process.env.NODE_ENV === "production" ?
-        "http://organelle.pzny.xyz/calendar/load" :
+        "https://organelle.pzny.xyz/calendar/load" :
         "http://localhost:8080/calendar/load";
         try {
             var res = await Axios.post(URL, formData, { headers: { "x-auth-token": token } });

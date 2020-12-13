@@ -17,7 +17,7 @@ export default function DayEvents(props){
     const eventDayImports = async() => {
           try{
             const eventURL = process.env.NODE_ENV === "production"?
-                "http://organelle.pzny.xyz/events/time/"+day:
+                "https://organelle.pzny.xyz/events/time/"+day:
                 "http://localhost:8080/events/time/"+day;
             let token = localStorage.getItem("auth-token");
             const dayRes = await Axios.get(eventURL,{headers: {"x-auth-token": token}});

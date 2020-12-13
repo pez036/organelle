@@ -49,7 +49,7 @@ export default function MonthandYear(props) {
   const exportIcs = async (e) => {
 
     const eventURL = process.env.NODE_ENV === "production" ?
-      "http://organelle.pzny.xyz/calendar/get" :
+      "https://organelle.pzny.xyz/calendar/get" :
       "http://localhost:8080/calendar/get";
     let token = localStorage.getItem("auth-token");
     let res = await Axios.get(eventURL, { headers: { "x-auth-token": token } });

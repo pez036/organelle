@@ -28,7 +28,7 @@ export default function AddEventModal(props){
         
         try{
             const updateURL = process.env.NODE_ENV === "production"?
-            "http://organelle.pzny.xyz/users/updatepassword":
+            "https://organelle.pzny.xyz/users/updatepassword":
             "http://localhost:8080/users/updatepassword";
             const body = {
                 currpass: curPass,

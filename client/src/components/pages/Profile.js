@@ -32,7 +32,7 @@ class Profile extends Component{
     componentDidMount() {
         let token = localStorage.getItem("auth-token");
         const settingURL = process.env.NODE_ENV === "production"?
-            "http://organelle.pzny.xyz/users/setting":
+            "https://organelle.pzny.xyz/users/setting":
             "http://localhost:8080/users/setting";
         Axios.get(settingURL,{headers: {"x-auth-token": token}})
         .then(res => {
@@ -46,7 +46,7 @@ class Profile extends Component{
     handleAutoSyncSetting(checked) {
         this.setState({ autoSyncSetting: checked });
         const updateURL = process.env.NODE_ENV === "production"?
-            "http://organelle.pzny.xyz/users/updatesyncsetting":
+            "https://organelle.pzny.xyz/users/updatesyncsetting":
             "http://localhost:8080/users/updatesyncsetting";
 
         const body = {autoSyncSetting: checked};
@@ -61,7 +61,7 @@ class Profile extends Component{
 
         try{
             const emailURL = process.env.NODE_ENV === "production"?
-            "http://organelle.pzny.xyz/events/emailstart":
+            "https://organelle.pzny.xyz/events/emailstart":
             "http://localhost:8080/events/emailstart";
 
             const token = localStorage.getItem("auth-token");
@@ -79,7 +79,7 @@ class Profile extends Component{
     handleEmailSetting(checked) {
         this.setState({ notificationSetting: checked });
         const updateURL = process.env.NODE_ENV === "production"?
-            "http://organelle.pzny.xyz/users/updateemailsetting":
+            "https://organelle.pzny.xyz/users/updateemailsetting":
             "http://localhost:8080/users/updateemailsetting";
         const body = {emailSetting: checked};
         const token = localStorage.getItem("auth-token");
@@ -89,22 +89,12 @@ class Profile extends Component{
     handleEmailChange(e) {
         this.setState({email: this.state.inputEmail});
         const updateURL = process.env.NODE_ENV === "production"?
-            "http://organelle.pzny.xyz/users/updateemail":
+            "https://organelle.pzny.xyz/users/updateemail":
             "http://localhost:8080/users/updateemail";
         const body = {email: this.state.inputEmail};
         const token = localStorage.getItem("auth-token");
         Axios.put(updateURL,body, {headers: {"x-auth-token": token}});
     }
-
-    // handlePasswordChange() {
-    //     const updateURL = process.env.NODE_ENV === "production"?
-    //         "http://organelle.pzny.xyz/users/updatepassword":
-    //         "http://localhost:8080/users/updatepassword";
-    //     const body = {password: this.state.inputPassword};
-    //     const token = localStorage.getItem("auth-token");
-    //     Axios.put(updateURL,body, {headers: {"x-auth-token": token}});
-    // }
-
 
     handleImportCanvas() {
         //this token is valid until Dec.8th 12am, belonging to Pengyu Zhang's Canvas account
@@ -130,7 +120,7 @@ class Profile extends Component{
                     priority:priority, description: description, canvasID: canvasID};
                 console.log(eventTag);
                 const addURL = process.env.NODE_ENV === "production"?
-                    "http://organelle.pzny.xyz/events/add":
+                    "https://organelle.pzny.xyz/events/add":
                     "http://localhost:8080/events/add";
                 Axios.post(addURL, eventTag, {headers: {"x-auth-token": token}});
             })

@@ -50,7 +50,7 @@ const newEventSubmit = async(e) => {
         const eventTag = {title: title, type: type, startTime: startTime, endTime: endTime,
                         priority:priority, description: description, courseName: courseName};
         const eventURL = process.env.NODE_ENV === "production"?
-              "http://organelle.pzny.xyz/events/add":
+              "https://organelle.pzny.xyz/events/add":
               "http://localhost:8080/events/add";
         let token = localStorage.getItem("auth-token");
 
@@ -67,7 +67,7 @@ const newEventSubmit = async(e) => {
     function getCourseList() {
         let token = localStorage.getItem("auth-token");
         const coursesURL = process.env.NODE_ENV === "production"?
-            "http://organelle.pzny.xyz/courses/all":
+            "https://organelle.pzny.xyz/courses/all":
             "http://localhost:8080/courses/all";
         Axios.get(coursesURL,{headers: {"x-auth-token": token}})/*NOTICE: this may not be correct.*/
         .then(
