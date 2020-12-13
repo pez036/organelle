@@ -110,12 +110,12 @@ router.post("/emailstart",auth, async (req, res) => {
         // var emailTask = cron.schedule('* * * * *', () => {
             console.log(req.body);
             console.log(req.user);
-            const events = await Event.find({endTime: {$gt:moment().startOf("day"), 
-                $lt:moment().add(3,"day").startOf("day")}
-            , userID: req.user});
-            //const event2 = await Event.find({startTime: moment().add(1, "day").startOf("day"), userID: req.user});
+            const events = await Event.find(
+                {endTime: {$gt:moment().startOf("day"), $lt:moment().add(3,"day").endOf("day")}
+                , userID: req.user});
+            //const events = await Event.find({startTime: moment().add(1, "day").startOf("day"), userID: req.user});
             //const event3 = await Event.find({startTime: moment().add(2, "day").startOf("day"), userID: req.user});
-            console.log(s);
+            console.log(events);
 
             var transporter = nodemailer.createTransport({
                 service: 'Gmail',
