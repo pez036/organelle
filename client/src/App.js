@@ -29,14 +29,14 @@ export default function App() {
       }
 
       const tivURL = process.env.NODE_ENV === "production" ?
-        "http://organelle.pzny.xyz/users/tokenIsValid":
+        "https://organelle.pzny.xyz/users/tokenIsValid":
         "http://localhost:8080/users/tokenIsValid";
 
       const tokenRes = await Axios.post(tivURL, null, {header: {"x-auth-token": token}});
 
       if (tokenRes.data) {
         const usersURL = process.env.NODE_ENV === "production" ?
-            "http://organelle.pzny.xyz/users/users":
+            "https://organelle.pzny.xyz/users/users":
             "http://localhost:8080/users/users";
         const userRes = await Axios.get(usersURL,
           {headers: {"x-auth-token": token}}
