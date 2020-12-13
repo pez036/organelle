@@ -188,8 +188,10 @@ router.post('/forgot', async (req, res) => {
     const savedRequest = await newRequest.save();
     //send the reset email
     sendResetEmail(req.body.email, id);
+    res.status(200).json({msg:"reset link sent!"});
+  } else {
+    res.status(404).json({msg:"reset request not found"});
   }
-  res.status(200).json({msg:"reset link sent!"});
 });
 
 router.post("/reset", async (req, res) => {
