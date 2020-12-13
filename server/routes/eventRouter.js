@@ -152,6 +152,7 @@ router.post("/emailstart",auth, async (req, res) => {
             });
         // });
         // emailTask.start();
+        res.status(200).json({msg:"notification sent successfully!"});
     }
     catch (err) {
         res.status(500).json({ error: err.message });
