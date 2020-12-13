@@ -3,6 +3,7 @@ const auth = require("../middleware/auth");
 const Event = require("../models/eventModel");
 const nodemailer = require("nodemailer");
 const moment = require("moment");
+
 router.post("/add",auth,async (req, res) => {
     try{
         let {title, type, startTime, endTime, priority, description, courseName, canvasID} = req.body;
