@@ -27,8 +27,11 @@ export default function AddEventModal(props){
 
 
     useEffect(() => {
+
         setShowAddEvent(props.show);
         getCourseList();
+        onDatePickerChange(props.day);
+
     },[props.show,props.day])
 
     function onDatePickerChange(e) {
@@ -80,7 +83,7 @@ export default function AddEventModal(props){
                 setCourseList(response.data);
             }
         )
-        .catch( (error) => {console.log(error); })
+        .catch((error) => {console.log(error);})
     }
     
     return(

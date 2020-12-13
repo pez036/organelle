@@ -1,3 +1,8 @@
+/**
+ * Name: PrivateRoute.js
+ * Function: Creates private route to access for a logged-in user
+ */
+
 import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
 
