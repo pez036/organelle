@@ -20,6 +20,7 @@
     "ics": "^2.26.2",
     "jquery": "^3.5.1",
     "popper.js": "^1.16.1",
-    "react-datetime": "^3.0.4"
+    "react-datetime": "^3.0.4",
+    "uuidv1": "^1.6.14"
   }
 }

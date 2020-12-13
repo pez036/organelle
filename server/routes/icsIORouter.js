@@ -51,14 +51,13 @@ router.post("/load", upload.single('file'), auth, async (req, res) => {
 
     ical.parseFile(req.file.path, function(err, data) {
         if(err) {
-            console.log(err);
             return res.status(500).json({msg: err});
         }
         var evCount = 0;
         // --
         var userID = req.user;
-        console.log(userID);
         try{
+
             for(let k in data) {
                 if (data.hasOwnProperty(k)) {
                     const ev = data[k];
@@ -67,7 +66,9 @@ router.post("/load", upload.single('file'), auth, async (req, res) => {
                         var endTime = Date.parse(ev.end);
                         var title = ev.summary;
                         var description = ev.description;
-                        var type = ev.categories[0];
+                        if(ev.categories) {
+                            var type = ev.categories[0];
+                        }
                         var priority = 2;
                         var courseName = null;
                         var canvasID = null;
@@ -80,7 +81,8 @@ router.post("/load", upload.single('file'), auth, async (req, res) => {
             }
         }
         catch (err) {
-            res.status(500).json({msg: err});
+            console.log(err);
+            return res.status(500).json({msg: err});
         }
         res.status(200).json({msg: evCount + " event(s) loaded"});
     });

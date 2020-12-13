@@ -23,7 +23,7 @@ export default function EditEventModal_Calendar(props){
     const [showEdit, setShowEdit] = useState(props.show);
 
     const eventsURL = process.env.NODE_ENV === "production"?
-    "http://organelle.pzny.xyz/events/":
+    "https://organelle.pzny.xyz/events/":
     "http://localhost:8080/events/";
 
 
@@ -57,7 +57,7 @@ export default function EditEventModal_Calendar(props){
 
 
             const eventURL = process.env.NODE_ENV === "production"?
-                "http://organelle.pzny.xyz/events/"+ props.id:
+                "https://organelle.pzny.xyz/events/"+ props.id:
                 "http://localhost:8080/events/"+ props.id;
             let token = localStorage.getItem("auth-token");
             const eventRes = await Axios.put(eventURL,eventTag,{headers: {"x-auth-token": token}});
@@ -72,7 +72,7 @@ export default function EditEventModal_Calendar(props){
       function getCourseList() {
         let token = localStorage.getItem("auth-token");
         const coursesURL = process.env.NODE_ENV === "production"?
-        "http://organelle.pzny.xyz/courses/all" :
+        "https://organelle.pzny.xyz/courses/all" :
         'http://localhost:8080/courses/all'
         Axios.get(coursesURL,{headers: {"x-auth-token": token}})/*NOTICE: this may not be correct.*/
         .then(

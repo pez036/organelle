@@ -36,7 +36,7 @@ export default function Login() {
 
   function resetRequestSubmit(){
     const forgotURL = process.env.NODE_ENV === "production"?
-    "http://organelle.pzny.xyz/users/forgot" :
+    "https://organelle.pzny.xyz/users/forgot" :
     "http://localhost:8080/users/forgot";
     const body = {"email": forgotEmail};
     Axios.post(forgotURL, body)
@@ -55,7 +55,7 @@ export default function Login() {
     try {
       const loginUser = { email, password };
       const loginURL = process.env.NODE_ENV === "production"?
-        "http://organelle.pzny.xyz/users/login":
+        "https://organelle.pzny.xyz/users/login":
         "http://localhost:8080/users/login";
       const loginRes = await Axios.post(loginURL
           , loginUser);

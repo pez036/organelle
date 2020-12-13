@@ -10,7 +10,7 @@ function sendResetEmail(email, id) {
             }
         });
         const url = process.env.NODE_ENV === "production"?
-        "http://organelle.pzny.xyz" : "http://localhost:3000"
+        "https://organelle.pzny.xyz" : "http://localhost:3000"
         let message = `Click this link to reset your password: ${url}/reset/${id}`;
         transporter.sendMail({
             from: 'organelleplanner',
