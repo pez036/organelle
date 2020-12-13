@@ -112,13 +112,13 @@ router.post("/emailstart",auth, async (req, res) => {
             //console.log(req.user);
             console.log(moment().subtract(8, "hour").startOf("day"));
             const mmt1 = process.env.NODE_ENV === "production"?
-            moment().add(8, "hour").startOf("day"):
+            moment().add(16, "hour").startOf("day"):
             moment().startOf("day");
             const mmt2 = process.env.NODE_ENV === "production"?
-            moment().add(8, "hour").add(1,"day").startOf("day"):
+            moment().add(16, "hour").add(1,"day").startOf("day"):
             moment().add(1,"day").startOf("day");
             const mmt3 = process.env.NODE_ENV === "production"?
-            moment().add(8, "hour").add(2,"day").startOf("day"):
+            moment().add(16, "hour").add(2,"day").startOf("day"):
             moment().add(2,"day").startOf("day");
             const event1 = await Event.find({startTime: mmt1, userID: req.user});
             const event2 = await Event.find({startTime: mmt2, userID: req.user});
