@@ -2,7 +2,11 @@ const router = require("express").Router();
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const auth = require("../middleware/auth");
+const uuidv1 = require("uuidv1")
 const User = require("../models/userModel");
+const Request = require("../models/resetRequestModel");
+const nodemailer = require("nodemailer");
+const sendResetEmail = require("../utils/sendResetEmail");
 
 router.post("/register", async (req, res) => {
   try {
@@ -122,6 +126,11 @@ router.put("/updateemail", auth, async (req, res) => {
 router.put("/updatepassword", auth, async (req, res) => {
   try {
     const password = req.body.password;
+    if (password.length < 5)
+      return res
+        .status(400)
+        .json({ msg: "The password needs to be at least 5 characters long." });
+    
     const salt = await bcrypt.genSalt();
     const passwordHash = await bcrypt.hash(password, salt);
     await User.findByIdAndUpdate(req.user, {password: passwordHash});
@@ -164,6 +173,52 @@ router.get("/setting", auth, async (req, res) => {
     emailSetting: user.emailSetting,
     autoSyncSetting: user.autoSyncSetting
   });
+});
+
+router.post('/forgot', async (req, res) => {
+  const user = await User.findOne({"email": req.body.email});
+  if (user) {
+    const id = uuidv1();
+    const request = {
+      uuid: id,
+      email: user.email
+    }
+    //create a request ticket
+    const newRequest = new Request(request);
+    const savedRequest = await newRequest.save();
+    //send the reset email
+    sendResetEmail(req.body.email, id);
+  }
+  res.status(200).json({msg:"reset link sent!"});
+});
+
+router.post("/reset", async (req, res) => {
+  try {
+    const {password, passwordCheck, id} = req.body;
+    if (password !== passwordCheck) {
+      return res
+        .status(400)
+        .json({ msg: "Enter the same password twice for verification." });
+    }
+    if (password.length < 5) {
+      return res
+        .status(400)
+        .json({ msg: "The password needs to be at least 5 characters long." })
+    }
+    const request = await Request.findOne({"uuid":id});
+    if (request) {
+      const user = await User.findOne({"email": request.email});
+      const salt = await bcrypt.genSalt();
+      const passwordHash = await bcrypt.hash(password, salt);
+      await User.findByIdAndUpdate(user._id, {password: passwordHash});
+      res.status(204).json("reset password successfully");
+      await Request.findOneAndDelete({"uuid":id});
+    } else {
+      res.status(404).json("invalid request");
+    }
+  } catch (err) {
+    res.status(404).json(err);
+  }
 });
 
 module.exports = router;
