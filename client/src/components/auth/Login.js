@@ -34,8 +34,14 @@ export default function Login() {
     "http://organelle.pzny.xyz/users/forgot" :
     "http://localhost:8080/users/forgot";
     const body = {"email": forgotEmail};
-    Axios.post(forgotURL, body);
-    return setShow(false);
+    Axios.post(forgotURL, body)
+    .then(res => {
+      window.alert(res.data.msg);
+      return setShow(false);
+    })
+    .catch(err => {
+      setError(err.response.data.msg);
+    });
 }
 
   const submit = async (e) => {
@@ -82,8 +88,8 @@ export default function Login() {
 
           <input type="submit" value="Log in" />
           <button onClick={redirectBack}>Go Back</button>
-          <button onClick={handleShow}>Reset Password</button>
         </form>
+        <button onClick={handleShow}>Reset Password</button>
       </div>
       <Modal show={show} onHide={handleClose} backdrop="static" keyboard={false} animation={false}>
         <Modal.Header closeButton>
@@ -98,6 +104,9 @@ export default function Login() {
               <Form.Control type="Email" placeholder="What is your Email?"
                 onChange={(e)=> {setforgotEmail(e.target.value)}} />
                 <span>Check your junk mail box if you can't find the email.</span>
+                {error && (
+                  <ErrorNotice message={error} clearError={() => setError(undefined)} />
+                )}
             </Form.Group>
           </Form>
 

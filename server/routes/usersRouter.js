@@ -5,7 +5,6 @@ const auth = require("../middleware/auth");
 const uuidv1 = require("uuidv1")
 const User = require("../models/userModel");
 const Request = require("../models/resetRequestModel");
-const nodemailer = require("nodemailer");
 const sendResetEmail = require("../utils/sendResetEmail");
 
 router.post("/register", async (req, res) => {
@@ -190,7 +189,7 @@ router.post('/forgot', async (req, res) => {
     sendResetEmail(req.body.email, id);
     res.status(200).json({msg:"reset link sent!"});
   } else {
-    res.status(404).json({msg:"reset request not found"});
+    res.status(404).json({msg:"user with this email not found"});
   }
 });
 
