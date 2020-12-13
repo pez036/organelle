@@ -127,7 +127,7 @@ router.post("/emailstart",auth, async (req, res) => {
             //send email only if events exist
             let message = "Hope you're having a fantastic day! Here are your deadline reminders for the next three days: \n\n";
             if(events.length != 0){
-                events.forEach(e => message = message + e.title + "due at " + e.endTime + "\n");
+                events.forEach(e => message = message + e.title + " due at " + e.endTime + "\n");
                 console.log(message);
             }
             else{
