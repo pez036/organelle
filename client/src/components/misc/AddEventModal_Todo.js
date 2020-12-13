@@ -120,7 +120,7 @@ const newEventSubmit = async(e) => {
                 </Form.Group>
                 <Form.Group controlId="formGroupPriority">
                     <Form.Label>Priority</Form.Label>
-                    <Form.Control value="1" as="select" onChange={(e)=>setEventPriority(e.target.value)} defaultValue="How important is this event?">
+                    <Form.Control defaultValue="1" as="select" onChange={(e)=>setEventPriority(e.target.value)} >
                         <option value = "3">High</option>
                         <option value = "2">Medium</option>
                         <option value = "1">Low</option>

@@ -124,7 +124,7 @@ export default function AddEventModal(props){
                 </Form.Group>
                 <Form.Group controlId="formGroupPriority">
                     <Form.Label>Priority</Form.Label>
-                    <Form.Control value="Low" as="select" defaultValue="How important is this event?">
+                    <Form.Control  as="select" defaultValue="Low">
                         <option>High</option>
                         <option>Medium</option>
                         <option>Low</option>
