@@ -110,7 +110,7 @@ router.post("/emailstart",auth, async (req, res) => {
         // var emailTask = cron.schedule('* * * * *', () => {
             console.log(req.body);
             console.log(req.user);
-            const events = await Event.find({startTime: {$gt:moment().startOf("day"), 
+            const events = await Event.find({endTime: {$gt:moment().startOf("day"), 
                 $lt:moment().add(3,"day").startOf("day")}
             , userID: req.user});
             //const event2 = await Event.find({startTime: moment().add(1, "day").startOf("day"), userID: req.user});
